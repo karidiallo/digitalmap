@@ -1,4 +1,4 @@
-  :root {
+:root {
     --bg: #0A0708;
     --bg-2: #130E10;
     --surface: #180F12;
@@ -23,12 +23,12 @@
   .logo-word { font-family:'Unbounded', sans-serif; font-weight:700; font-size:1.15rem; color: var(--text); letter-spacing:-0.01em; }
   .logo-word span { color: var(--wine-bright); }
 
-  header { position:sticky; top:0; z-index:100; padding:24px 0; }
-  .nav { display:flex; align-items:center; justify-content:space-between; }
-  .nav-links { display:flex; gap:34px; }
+  header { position:sticky; top:0; z-index:100; padding:18px 0; background: rgba(10,7,8,0.88); backdrop-filter: blur(12px); border-bottom:1px solid var(--border); }
+  .nav { display:flex; align-items:center; justify-content:flex-start; }
+  .nav-links { display:flex; gap:34px; margin-left:48px; }
   .nav-links a { color: var(--text-dim); text-decoration:none; font-size:0.92rem; transition: color 0.2s ease; }
   .nav-links a:hover { color: var(--text); }
-  .nav-cta { border:1px solid var(--wine-bright); color: var(--text); text-decoration:none; padding:10px 22px; border-radius:999px; font-size:0.88rem; transition: background 0.2s ease; }
+  .nav-cta { border:1px solid var(--wine-bright); color: var(--text); text-decoration:none; padding:10px 22px; border-radius:999px; font-size:0.88rem; transition: background 0.2s ease; margin-left:auto; }
   .nav-cta:hover { background: var(--wine); }
 
   /* ---------- HERO with 3D crystal ---------- */
@@ -67,7 +67,8 @@
   .deliverable-card h2 { font-family:'Unbounded', sans-serif; font-size:1.4rem; font-weight:700; max-width:20ch; }
   .deliverable-sub { color: var(--text-dim); font-size:0.92rem; max-width:36ch; margin-top:10px; }
   .deliverable-grid { display:flex; flex-direction:column; gap:10px; }
-  .deliverable-grid span { font-size:0.92rem; color: var(--text-dim); }
+  .deliverable-item { font-size:0.92rem; color: var(--text-dim); display:flex; align-items:center; gap:12px; }
+  .deliverable-item::before { content:""; width:7px; height:7px; background: var(--gold-bright); transform: rotate(45deg); flex-shrink:0; }
   .sample-link { display:inline-block; margin-top:6px; color: var(--gold-bright); font-size:0.9rem; font-weight:600; text-decoration:none; border-bottom:1px solid var(--gold-bright); padding-bottom:2px; }
   .sample-link:hover { color: var(--wine-bright); border-color: var(--wine-bright); }
   .statement { padding:90px 0; text-align:center; }
@@ -204,6 +205,9 @@
   }
 
   @media (max-width:860px) {
+    .wrap { padding:0 22px; }
+    header { padding:14px 0; }
+    .footer-row .footer-row { flex-direction:column; align-items:flex-start; gap:14px; }
     .nav-links { display:none; }
     .service-grid { grid-template-columns:1fr; }
     .deliverable-card { flex-direction:column; align-items:flex-start; }
@@ -211,9 +215,19 @@
     .testimonial-grid { grid-template-columns:1fr; }
     #crystalCanvas { position:relative; width:100%; height:280px; top:0; right:0; margin-bottom:20px; }
     .hero-content { max-width:100%; }
-    h1.title { font-size:2.4rem; }
+    h1.title { font-size:2.1rem; }
+    .hero-actions { flex-direction:column; align-items:stretch; gap:12px; }
+    .hero-actions .btn-primary, .hero-actions .btn-ghost { text-align:center; }
     .row, .tiers, .steps, .contact-card { grid-template-columns:1fr; }
-    .statement p { font-size:1.7rem; }
+    .statement p { font-size:1.5rem; }
+    .market-row { font-size:0.78rem; }
+  }
+
+  @media (max-width:480px) {
+    .wrap { padding:0 16px; }
+    h1.title { font-size:1.8rem; }
+    .logo-word { font-size:1rem; }
+    .nav-cta { padding:9px 16px; font-size:0.82rem; }
   }
 
 /* ---------- SERVICE SUBPAGES ---------- */
@@ -260,4 +274,12 @@
 @media (max-width:860px) {
   .service-hero h1 { font-size:2rem; }
   .related-grid { grid-template-columns:1fr; }
+}
+
+/* subpage crystal hero */
+.service-hero { position:relative; overflow:hidden; }
+.service-hero-inner { position:relative; z-index:2; }
+#subCrystal { position:absolute; top:-30px; right:-6%; width:44%; height:340px; z-index:0; opacity:0.85; }
+@media (max-width:860px) {
+  #subCrystal { position:relative; width:100%; height:200px; top:0; right:0; margin-bottom:16px; }
 }
