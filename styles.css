@@ -24,11 +24,12 @@
   .logo-word span { color: var(--wine-bright); }
 
   header { position:sticky; top:0; z-index:100; padding:18px 0; background: rgba(10,7,8,0.88); backdrop-filter: blur(12px); border-bottom:1px solid var(--border); }
-  .nav { display:flex; align-items:center; justify-content:flex-start; }
-  .nav-links { display:flex; gap:34px; margin-left:48px; }
+  .nav { display:grid; grid-template-columns:auto 1fr auto; align-items:center; width:100%; padding:0 40px; box-sizing:border-box; column-gap:24px; }
+  .logo { justify-self:start; }
+  .nav-links { display:flex; gap:34px; justify-self:center; margin-left:0; }
   .nav-links a { color: var(--text-dim); text-decoration:none; font-size:0.92rem; transition: color 0.2s ease; }
   .nav-links a:hover { color: var(--text); }
-  .nav-cta { border:1px solid var(--wine-bright); color: var(--text); text-decoration:none; padding:10px 22px; border-radius:999px; font-size:0.88rem; transition: background 0.2s ease; margin-left:auto; }
+  .nav-cta { border:1px solid var(--wine-bright); color: var(--text); text-decoration:none; padding:10px 22px; border-radius:999px; font-size:0.88rem; transition: background 0.2s ease; justify-self:end; margin-left:0; }
   .nav-cta:hover { background: var(--wine); }
 
   /* ---------- HERO with 3D crystal ---------- */
@@ -42,7 +43,8 @@
   .hero-sub { color: var(--text-dim); font-size:1.12rem; max-width:46ch; margin-bottom:36px; }
   .hero-actions { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
   .hero-checklist { display:flex; gap:22px; flex-wrap:wrap; margin-top:22px; }
-  .hero-checklist span { font-size:0.85rem; color: var(--text-dim); }
+  .hero-checklist span { font-size:0.85rem; color: var(--text-dim); display:flex; align-items:center; gap:9px; }
+  .hero-checklist span::before { content:""; width:6px; height:6px; background: var(--gold-bright); transform: rotate(45deg); flex-shrink:0; }
   .hero-microcopy { font-size:0.85rem; color: var(--gold-bright); margin-top:16px; margin-bottom:8px; }
   .hero-stars { color: var(--gold-bright); font-size:0.95rem; margin-bottom:14px; letter-spacing:0.1em; }
   .hero-stars span { font-family:'Inter',sans-serif; letter-spacing:normal; font-size:0.82rem; color: var(--text-dim); margin-left:6px; }
@@ -206,6 +208,7 @@
 
   @media (max-width:860px) {
     .wrap { padding:0 22px; }
+    .nav { padding:0 22px; }
     header { padding:14px 0; }
     .footer-row .footer-row { flex-direction:column; align-items:flex-start; gap:14px; }
     .nav-links { display:none; }
@@ -225,6 +228,7 @@
 
   @media (max-width:480px) {
     .wrap { padding:0 16px; }
+    .nav { padding:0 16px; }
     h1.title { font-size:1.8rem; }
     .logo-word { font-size:1rem; }
     .nav-cta { padding:9px 16px; font-size:0.82rem; }
