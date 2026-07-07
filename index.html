@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DigitalMap — Audyt Google Moja Firma i Google Maps dla lokalnych firm</title>
 <meta name="description" content="Darmowy audyt Google Moja Firma, Google Maps i lokalnego SEO. Sprawdzimy, gdzie Twoja firma traci klientów, i przygotujemy plan naprawy w 24h.">
+<meta property="og:title" content="DigitalMap — Więcej klientów. Mniej pieniędzy przepalonych na marketing.">
+<meta property="og:description" content="Darmowy audyt Twojej obecności online — Google, strona, reklamy i AI. Plan naprawy w 24h.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3 L35 11 L20 19 L5 11 Z' fill='%23E5A85C'/%3E%3Cpath d='M5 11 L20 19 L20 36 L5 28 Z' fill='%239B2242'/%3E%3Cpath d='M35 11 L20 19 L20 36 L35 28 Z' fill='%23C4335A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -163,7 +167,46 @@
   footer p, footer a { font-size:0.85rem; color: var(--text-dim); text-decoration:none; }
   .footer-links { display:flex; gap:22px; }
 
+  .chat-widget { position:fixed; bottom:24px; right:24px; z-index:200; }
+  .chat-toggle {
+    width:56px; height:56px; border-radius:50%; background: linear-gradient(120deg, var(--wine), var(--wine-bright));
+    border:none; color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;
+    box-shadow: 0 16px 36px -12px rgba(155,34,66,0.6); transition: transform 0.15s ease;
+  }
+  .chat-toggle:hover { transform: scale(1.05); }
+  .chat-toggle svg { width:24px; height:24px; }
+  .chat-panel {
+    display:none; position:absolute; bottom:70px; right:0; width:340px; max-width:calc(100vw - 40px);
+    background: var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6); flex-direction:column;
+  }
+  .chat-panel.open { display:flex; }
+  .chat-header { display:flex; align-items:center; gap:10px; padding:16px; border-bottom:1px solid var(--border); background: var(--bg-2); }
+  .chat-avatar { width:34px; height:34px; border-radius:50%; background: var(--wine); color:#fff; font-family:'Unbounded',sans-serif; font-size:0.7rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .chat-title { font-size:0.92rem; font-weight:600; }
+  .chat-status { font-size:0.72rem; color: var(--text-dim); }
+  .chat-body { padding:16px; max-height:260px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
+  .chat-bubble { font-size:0.88rem; padding:10px 13px; border-radius:12px; max-width:88%; line-height:1.4; }
+  .chat-bubble.bot { background: var(--bg-2); color: var(--text); align-self:flex-start; border-bottom-left-radius:2px; }
+  .chat-bubble.user { background: var(--wine); color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
+  .chat-quick { display:flex; flex-direction:column; gap:6px; padding:0 16px 12px; max-height:150px; overflow-y:auto; }
+  .chat-q {
+    text-align:left; background: transparent; border:1px solid var(--border); color: var(--text);
+    padding:9px 12px; border-radius:10px; font-size:0.82rem; cursor:pointer; font-family:'Inter',sans-serif;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .chat-q:hover { border-color: var(--wine-bright); background: rgba(155,34,66,0.08); }
+  .chat-fallback {
+    display:block; text-align:center; padding:13px; border-top:1px solid var(--border); color: var(--gold-bright);
+    text-decoration:none; font-size:0.85rem; font-weight:600;
+  }
+  .chat-fallback:hover { color: var(--wine-bright); }
+  @media (max-width:480px) {
+    .chat-panel { width:calc(100vw - 32px); right:-8px; }
+  }
+
   @media (max-width:860px) {
+    .nav-links { display:none; }
     .deliverable-card { flex-direction:column; align-items:flex-start; }
     .faq-list { grid-template-columns:1fr; }
     .testimonial-grid { grid-template-columns:1fr; }
@@ -400,7 +443,7 @@
         <h3>Stały Wzrost Ruchu i Klientów</h3>
         <div class="tier-price">Wycena indywidualna</div>
         <ul><li>Lokalne SEO, strona, reklamy i automatyzacja leadów w jednym abonamencie</li><li>Budżet reklamowy ustalasz samodzielnie, płacisz bezpośrednio do Google/Meta</li><li>Comiesięczny raport wzrostu i jasna lista działań</li></ul>
-        <a class="tier-cta" href="#kontakt">Porozmawiajmy o współpracy</a>
+        <a class="tier-cta" href="https://calendly.com/digitalmap/rozmowa" target="_blank" rel="noopener">Umów rozmowę w kalendarzu</a>
       </div>
     </div>
   </div>
@@ -450,11 +493,13 @@
         <div class="contact-detail"><span class="mono">Mail</span> kontakt@digitalmap.pl</div>
         <div class="contact-detail"><span class="mono">Czas odp.</span> do 24h</div>
       </div>
-      <form>
-        <div class="field"><label for="name">Imię i nazwisko</label><input id="name" type="text" placeholder="Jak się do Ciebie zwracać?"></div>
-        <div class="field"><label for="website">Strona internetowa</label><input id="website" type="text" placeholder="np. twojafirma.pl"></div>
-        <div class="field"><label for="contact">Telefon lub e-mail</label><input id="contact" type="text" placeholder="Gdzie się odezwać?"></div>
-        <button class="submit-btn" type="button" onclick="alert('Dziękujemy! Odezwiemy się w ciągu 24h.')">Wyślij</button>
+      <form name="kontakt" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="kontakt">
+        <p style="display:none;"><label>Nie wypełniaj tego pola: <input name="bot-field"></label></p>
+        <div class="field"><label for="name">Imię i nazwisko</label><input id="name" name="imie" type="text" placeholder="Jak się do Ciebie zwracać?"></div>
+        <div class="field"><label for="website">Strona internetowa</label><input id="website" name="strona" type="text" placeholder="np. twojafirma.pl"></div>
+        <div class="field"><label for="contact">Telefon lub e-mail</label><input id="contact" name="kontakt" type="text" placeholder="Gdzie się odezwać?"></div>
+        <button class="submit-btn" type="submit">Wyślij</button>
         <p class="form-note">Zero spamu. Jedna wiadomość z Twoją mapą.</p>
       </form>
     </div>
@@ -478,6 +523,30 @@
     </div>
   </div>
 </footer>
+
+<div class="chat-widget">
+  <button class="chat-toggle" id="chatToggle" aria-label="Otwórz czat">
+    <svg id="chatIconOpen" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H7l-3 3V4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    <svg id="chatIconClose" viewBox="0 0 24 24" fill="none" style="display:none;"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </button>
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <span class="chat-avatar">DM</span>
+      <div><div class="chat-title">DigitalMap</div><div class="chat-status">Zwykle odpowiadamy w 24h</div></div>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-bubble bot">Cześć! Wybierz pytanie poniżej albo napisz do nas bezpośrednio, jeśli Twoja sprawa jest bardziej złożona.</div>
+    </div>
+    <div class="chat-quick" id="chatQuick">
+      <button class="chat-q" data-q="Ile trwa audyt?" data-a="Darmowy audyt dostajesz w 24 godziny. Wdrożenia umawiamy po ustaleniu zakresu.">Ile trwa audyt?</button>
+      <button class="chat-q" data-q="Czy muszę podpisywać umowę?" data-a="Nie przy darmowym audycie ani przy jednorazowym pakiecie. Przy stałej współpracy ustalamy warunki indywidualnie.">Czy muszę podpisywać umowę?</button>
+      <button class="chat-q" data-q="Czy audyt naprawdę jest darmowy?" data-a="Tak. Podstawowy audyt z najważniejszymi błędami nic nie kosztuje i do niczego nie zobowiązuje.">Czy audyt jest darmowy?</button>
+      <button class="chat-q" data-q="Czy mogę wdrożyć poprawki sama?" data-a="Jasne. Dostajesz jasną listę z priorytetami — możesz wdrożyć samodzielnie albo zlecić to nam.">Czy mogę wdrożyć sama?</button>
+      <button class="chat-q" data-q="Czy robicie reklamy i strony?" data-a="Tak — to część naszej oferty, jeśli audyt pokaże, że tam tracisz najwięcej klientów.">Czy robicie reklamy i strony?</button>
+    </div>
+    <a class="chat-fallback" href="#kontakt" id="chatFallback">Nie znalazłaś odpowiedzi? Napisz do nas →</a>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -567,6 +636,37 @@
   initCrystal('crystalCanvas', { mainSize: 2.1, withShards: true, camZ: 7.5 });
   initCrystal('crystalSide1', { mainSize: 1.3, withShards: false, camZ: 6 });
   initCrystal('crystalSide2', { mainSize: 1.3, withShards: false, camZ: 6 });
+
+  // ---- chat widget ----
+  const chatToggle = document.getElementById('chatToggle');
+  const chatPanel = document.getElementById('chatPanel');
+  const chatBody = document.getElementById('chatBody');
+  const iconOpen = document.getElementById('chatIconOpen');
+  const iconClose = document.getElementById('chatIconClose');
+
+  chatToggle.addEventListener('click', () => {
+    const isOpen = chatPanel.classList.toggle('open');
+    iconOpen.style.display = isOpen ? 'none' : 'block';
+    iconClose.style.display = isOpen ? 'block' : 'none';
+  });
+
+  document.querySelectorAll('.chat-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const q = btn.getAttribute('data-q');
+      const a = btn.getAttribute('data-a');
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble user';
+      userBubble.textContent = q;
+      chatBody.appendChild(userBubble);
+      const botBubble = document.createElement('div');
+      botBubble.className = 'chat-bubble bot';
+      botBubble.textContent = a;
+      chatBody.appendChild(botBubble);
+      chatBody.scrollTop = chatBody.scrollHeight;
+      btn.disabled = true;
+      btn.style.opacity = '0.4';
+    });
+  });
 </script>
 
 </body>
