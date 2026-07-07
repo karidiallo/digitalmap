@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Przykładowy Audyt Strategiczny — DigitalMap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF8F2;
+    --paper-2:#F2EBDC;
+    --ink:#1E1A16;
+    --ink-dim:#6E6459;
+    --wine:#8F1E3B;
+    --wine-bright:#B62E52;
+    --gold:#A8701F;
+    --gold-bright:#C98A3D;
+    --line:rgba(30,26,22,0.13);
+    --line-soft:rgba(30,26,22,0.07);
+    --danger-bg:#F7E7E1;
+    --warn-bg:#F8ECD6;
+    --good-bg:#EFE8D6;
+    --radius:16px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.65; font-size:16px; position:relative;}
+  ::selection{background:var(--wine-bright); color:#fff;}
+  .display{font-family:'Unbounded', sans-serif; letter-spacing:-0.02em;}
+  .mono{font-family:'JetBrains Mono', monospace; letter-spacing:0.06em;}
+  .eyebrow{font-family:'JetBrains Mono',monospace; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--wine-bright); display:block; margin-bottom:10px;}
+  .wrap{max-width:960px; margin:0 auto; padding:0 28px;}
+  a{color:var(--wine-bright);}
+
+  .skip-link{position:absolute; left:-999px; top:0; background:var(--wine); color:#fff; padding:10px 16px; z-index:200;}
+  .skip-link:focus{left:12px; top:12px;}
+  a:focus-visible, button:focus-visible, summary:focus-visible{outline:2px solid var(--wine); outline-offset:3px;}
+
+  /* ---------- WATERMARK LOGO (transparent, fixed) ---------- */
+  .watermark{
+    position:fixed; top:6%; right:-6%; width:560px; height:560px;
+    opacity:0.045; pointer-events:none; z-index:0; transform:rotate(8deg);
+  }
+  @media (max-width:760px){ .watermark{width:340px; height:340px;} }
+
+  /* ---------- TOP NAV ---------- */
+  .topnav{position:sticky; top:0; z-index:50; background:rgba(251,248,242,0.9); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); overflow-x:auto; white-space:nowrap;}
+  .topnav-track{display:flex; align-items:center; gap:4px; padding:12px 28px; max-width:960px; margin:0 auto;}
+  .topnav-logo{display:flex; align-items:center; gap:8px; margin-right:14px; flex-shrink:0;}
+  .topnav-logo svg{width:20px; height:20px;}
+  .topnav-logo span{font-family:'Unbounded',sans-serif; font-weight:700; font-size:0.82rem;}
+  .topnav-logo span b{color:var(--wine-bright);}
+  .topnav a{font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.03em; color:var(--ink-dim); text-decoration:none; padding:6px 11px; border-radius:999px; transition:all 0.15s ease;}
+  .topnav a:hover, .topnav a:focus-visible{background:var(--paper-2); color:var(--ink);}
+
+  /* ---------- COVER ---------- */
+  .cover{padding:78px 0 56px; position:relative; border-bottom:1px solid var(--line); z-index:1;}
+  .cover h1{font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(2rem,4.6vw,3rem); line-height:1.1; max-width:18ch; margin-bottom:20px;}
+  .cover h1 span{color:var(--wine-bright);}
+  .cover p.lead{color:var(--ink-dim); font-size:1.06rem; max-width:58ch; margin-bottom:34px;}
+  .cover-row{display:flex; gap:36px; align-items:center; flex-wrap:wrap;}
+  .gauge{position:relative; width:132px; height:132px; flex-shrink:0;}
+  .gauge svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .gauge-track{fill:none; stroke:var(--paper-2); stroke-width:10;}
+  .gauge-fill{fill:none; stroke:url(#gaugeGrad); stroke-width:10; stroke-linecap:round; transition:stroke-dashoffset 1s ease;}
+  .gauge-label{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .gauge-label .num{font-family:'Unbounded',sans-serif; font-weight:700; font-size:1.9rem; color:var(--wine-bright); line-height:1;}
+  .gauge-label .den{font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--ink-dim); margin-top:2px;}
+  .cover-meta-list{display:flex; flex-direction:column; gap:9px;}
+  .cover-meta-list div{display:flex; gap:10px; font-size:0.92rem;}
+  .cover-meta-list .k{font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-dim); min-width:118px;}
+
+  /* ---------- SECTIONS ---------- */
+  section.block{padding:60px 0; border-bottom:1px solid var(--line); position:relative; z-index:1;}
+  section.block:last-of-type{border-bottom:none;}
+  .block-head{max-width:660px; margin-bottom:32px;}
+  .block-head h2{font-family:'Unbounded',sans-serif; font-weight:700; font-size:1.78rem; margin-bottom:10px; letter-spacing:-0.01em;}
+  .block-head p{color:var(--ink-dim); font-size:1.01rem;}
+  h3{font-family:'Unbounded',sans-serif; font-weight:600; font-size:1.1rem; margin:24px 0 12px;}
+  p{margin-bottom:14px;}
+  ul, ol{margin:0 0 16px 22px;}
+  li{margin-bottom:7px;}
+  code{background:var(--paper-2); padding:2px 6px; border-radius:4px; font-family:'JetBrains Mono',monospace; font-size:0.85em;}
+
+  /* ---------- TIMELINE FINDINGS (varied layout #1) ---------- */
+  .timeline{position:relative; margin:30px 0 8px; padding-left:26px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding-bottom:30px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{content:""; position:absolute; left:-32px; top:4px; width:12px; height:12px; border-radius:50%; background:var(--wine-bright); box-shadow:0 0 0 4px var(--paper), 0 0 0 5px var(--line);}
+  .tl-item .tag{font-family:'JetBrains Mono',monospace; font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--wine-bright); display:block; margin-bottom:6px;}
+  .tl-item p{font-size:0.95rem; color:var(--ink-dim); margin-bottom:0;}
+  .tl-item strong{color:var(--ink);}
+
+  /* ---------- SCORE BARS ---------- */
+  .score-row{display:flex; align-items:center; gap:16px; padding:11px 0; border-bottom:1px dashed var(--line);}
+  .score-row:last-child{border-bottom:none;}
+  .score-label{font-size:0.92rem; width:190px; flex-shrink:0;}
+  .facet{flex-grow:1; height:9px; background:var(--paper-2); border-radius:999px; position:relative; overflow:visible;}
+  .facet-fill{height:100%; border-radius:999px; background:linear-gradient(90deg, var(--wine) 0%, var(--wine-bright) 55%, var(--gold-bright) 100%); position:relative;}
+  .facet-fill::after{content:""; position:absolute; right:-4px; top:50%; width:14px; height:14px; border-radius:3px; transform:translateY(-50%) rotate(45deg); background:var(--gold-bright); box-shadow:0 0 0 3px var(--paper);}
+  .score-num{font-family:'JetBrains Mono',monospace; font-size:0.86rem; width:44px; text-align:right; flex-shrink:0; color:var(--ink-dim);}
+
+  /* ---------- ACCORDION (varied layout #2, for CRO) ---------- */
+  .acc-list{border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; margin:8px 0;}
+  details.acc-item{border-bottom:1px solid var(--line);}
+  details.acc-item:last-child{border-bottom:none;}
+  details.acc-item summary{
+    list-style:none; cursor:pointer; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    font-weight:600; font-size:0.96rem; background:var(--paper); transition:background 0.15s ease;
+  }
+  details.acc-item summary::-webkit-details-marker{display:none;}
+  details.acc-item summary:hover{background:var(--paper-2);}
+  details.acc-item summary::after{
+    content:"+"; font-family:'JetBrains Mono',monospace; font-size:1.1rem; color:var(--wine-bright); flex-shrink:0;
+    transition:transform 0.2s ease;
+  }
+  details.acc-item[open] summary::after{content:"–";}
+  details.acc-item .acc-body{padding:0 22px 20px; font-size:0.92rem; color:var(--ink-dim);}
+  details.acc-item .acc-body .impact-line{margin-top:10px; font-size:0.86rem;}
+  .badge{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:0.64rem; letter-spacing:0.05em; text-transform:uppercase; padding:3px 10px; border-radius:999px; font-weight:600; flex-shrink:0;}
+  .badge.critical{background:var(--danger-bg); color:var(--wine);}
+  .badge.high{background:var(--warn-bg); color:var(--gold);}
+  .badge.medium{background:var(--good-bg); color:var(--gold);}
+
+  /* ---------- TABLES (kept for genuinely tabular data) ---------- */
+  .tbl-wrap{overflow-x:auto; margin:18px 0 8px; border:1px solid var(--line); border-radius:var(--radius);}
+  table{width:100%; border-collapse:collapse; font-size:0.9rem; min-width:600px;}
+  thead th{text-align:left; font-family:'JetBrains Mono',monospace; font-size:0.64rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-dim); background:var(--paper-2); padding:12px 16px; border-bottom:1px solid var(--line);}
+  tbody td{padding:13px 16px; border-bottom:1px solid var(--line-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:rgba(143,30,59,0.04);}
+
+  /* ---------- TABS (varied layout #3, CSS-only, for Quick Wins) ---------- */
+  .tabs{margin:20px 0 8px;}
+  .tabs input[type=radio]{position:absolute; opacity:0; pointer-events:none;}
+  .tab-labels{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;}
+  .tab-labels label{
+    font-family:'JetBrains Mono',monospace; font-size:0.76rem; letter-spacing:0.03em; padding:9px 18px; border-radius:999px;
+    border:1px solid var(--line); cursor:pointer; color:var(--ink-dim); transition:all 0.15s ease;
+  }
+  .tab-panels{position:relative;}
+  .tab-panel{display:none;}
+  #tab1:checked ~ .tab-labels label[for="tab1"],
+  #tab2:checked ~ .tab-labels label[for="tab2"],
+  #tab3:checked ~ .tab-labels label[for="tab3"]{
+    background:var(--wine); border-color:var(--wine); color:#fff;
+  }
+  #tab1:checked ~ .tab-panels #panel1,
+  #tab2:checked ~ .tab-panels #panel2,
+  #tab3:checked ~ .tab-panels #panel3{display:block;}
+  .tab-panel ul{margin-left:22px;}
+
+  /* ---------- REWRITE / QUOTE BLOCK ---------- */
+  .rewrite{background:var(--paper-2); border:1px solid var(--line); border-left:4px solid var(--wine-bright); border-radius:var(--radius); padding:24px 28px; margin:16px 0;}
+  .rewrite .eyebrow{color:var(--gold);}
+  .rewrite h4{font-family:'Unbounded',sans-serif; font-size:1.24rem; font-weight:700; margin-bottom:10px;}
+  .rewrite p{color:var(--ink-dim); margin-bottom:10px;}
+  .rewrite .cta-preview{display:inline-block; margin-top:6px; background:linear-gradient(120deg, var(--wine), var(--wine-bright)); color:#fff; font-weight:600; padding:11px 22px; border-radius:999px; font-size:0.9rem;}
+
+  .before-after{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0;}
+  @media (max-width:700px){ .before-after{grid-template-columns:1fr;} }
+  .ba-card{border-radius:var(--radius); padding:18px 20px; font-size:0.9rem; border:1px solid var(--line);}
+  .ba-card.before{background:var(--danger-bg);}
+  .ba-card.after{background:var(--good-bg);}
+  .ba-card .eyebrow{margin-bottom:8px;}
+  .ba-card.before .eyebrow{color:var(--wine);}
+  .ba-card.after .eyebrow{color:var(--gold);}
+
+  /* ---------- MINI CARDS (used sparingly) ---------- */
+  .card-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:8px 0;}
+  @media (max-width:760px){ .card-grid{grid-template-columns:1fr;} }
+  .mini-card{background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:20px;}
+  .mini-card h4{font-size:0.96rem; font-weight:600; margin-bottom:8px; font-family:'Unbounded',sans-serif;}
+  .mini-card p{font-size:0.87rem; color:var(--ink-dim); margin-bottom:0;}
+
+  /* ---------- ROADMAP ---------- */
+  .roadmap{position:relative; margin:22px 0 8px; padding-left:0;}
+  .rm-item{display:grid; grid-template-columns:96px 1fr; gap:20px; padding:20px 0; border-bottom:1px solid var(--line-soft);}
+  .rm-item:last-child{border-bottom:none;}
+  .rm-day{font-family:'JetBrains Mono',monospace; font-size:0.72rem; letter-spacing:0.06em; color:var(--wine-bright); padding-top:4px;}
+  .rm-item h4{font-size:1.02rem; font-weight:700; font-family:'Unbounded',sans-serif; margin-bottom:8px;}
+  .impact{font-size:0.85rem; color:var(--ink-dim); margin-top:8px;}
+  .impact b{color:var(--ink);}
+  @media (max-width:600px){ .rm-item{grid-template-columns:1fr;} }
+
+  /* ---------- TOP 20 CHECKLIST (interactive) ---------- */
+  .checklist{list-style:none; margin:0; display:flex; flex-direction:column; gap:2px;}
+  .checklist li{display:flex; align-items:flex-start; gap:14px; padding:12px 14px; border-radius:10px; transition:background 0.15s ease;}
+  .checklist li:hover{background:var(--paper-2);}
+  .checklist input[type=checkbox]{
+    appearance:none; width:20px; height:20px; border:2px solid var(--line); border-radius:6px; flex-shrink:0; margin-top:1px;
+    cursor:pointer; position:relative; transition:all 0.15s ease;
+  }
+  .checklist input[type=checkbox]:checked{background:var(--wine); border-color:var(--wine);}
+  .checklist input[type=checkbox]:checked::after{
+    content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.78rem;
+  }
+  .checklist label{font-size:0.94rem; cursor:pointer;}
+
+  footer.report-footer{background:var(--paper-2); border-top:1px solid var(--line); padding:40px 0; text-align:center; font-size:0.86rem; color:var(--ink-dim); position:relative; z-index:1;}
+  footer.report-footer strong{color:var(--ink);}
+  footer.report-footer .f-mark{display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:14px;}
+  footer.report-footer .f-mark svg{width:26px; height:26px;}
+  footer.report-footer .f-mark span{font-family:'Unbounded',sans-serif; font-weight:700; font-size:1.02rem; color:var(--ink);}
+  footer.report-footer .f-mark span b{color:var(--wine-bright);}
+
+  @media (max-width:700px){
+    .cover{padding:48px 0 36px;}
+    section.block{padding:40px 0;}
+    .score-label{width:130px; font-size:0.84rem;}
+    .cover-row{gap:22px;}
+  }
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<a href="#tresc" class="skip-link">Przejdź do treści</a>
+
+<svg class="watermark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+  <path d="M20 3 L35 11 L20 19 L5 11 Z" fill="#8F1E3B"/>
+  <path d="M5 11 L20 19 L20 36 L5 28 Z" fill="#8F1E3B"/>
+  <path d="M35 11 L20 19 L20 36 L35 28 Z" fill="#8F1E3B"/>
+</svg>
+
+<nav class="topnav" aria-label="Nawigacja po sekcjach raportu">
+  <div class="topnav-track">
+    <div class="topnav-logo">
+      <svg viewBox="0 0 40 40" fill="none">
+        <defs>
+          <linearGradient id="topFaceN" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C98A3D"/><stop offset="1" stop-color="#B62E52"/></linearGradient>
+          <linearGradient id="leftFaceN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8F1E3B"/><stop offset="1" stop-color="#5F1526"/></linearGradient>
+          <linearGradient id="rightFaceN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B62E52"/><stop offset="1" stop-color="#7A1D34"/></linearGradient>
+        </defs>
+        <path d="M20 3 L35 11 L20 19 L5 11 Z" fill="url(#topFaceN)"/>
+        <path d="M5 11 L20 19 L20 36 L5 28 Z" fill="url(#leftFaceN)"/>
+        <path d="M35 11 L20 19 L20 36 L35 28 Z" fill="url(#rightFaceN)"/>
+      </svg>
+      <span>digital<b>map</b></span>
+    </div>
+    <a href="#streszczenie">Streszczenie</a>
+    <a href="#s1">01</a>
+    <a href="#s2">02</a>
+    <a href="#s3">03</a>
+    <a href="#s4">04</a>
+    <a href="#s5">05</a>
+    <a href="#s6">06</a>
+    <a href="#s7">07</a>
+    <a href="#s8">08</a>
+    <a href="#s9">09</a>
+    <a href="#s10">10</a>
+    <a href="#s11">11</a>
+    <a href="#s12">12</a>
+    <a href="#s13">13</a>
+    <a href="#s14">14</a>
+    <a href="#s15">15</a>
+    <a href="#s16">16</a>
+    <a href="#s17">17</a>
+    <a href="#top20">Top 20</a>
+  </div>
+</nav>
+
+<header class="cover">
+  <div class="wrap">
+    <span class="eyebrow">Audyt strategiczny strony internetowej · przygotowane przez DigitalMap</span>
+    <h1 class="display">Przykładowy audyt — pełna diagnoza sprzedaży, SEO i konwersji</h1>
+    <p class="lead">Przykładowy raport ilustrujący format i głębokość naszego audytu — dane firmy zanonimizowane. Obejmuje pozycjonowanie marki, doświadczenie użytkownika, SEO techniczne, psychologię sprzedaży oraz gotowość do skalowania.</p>
+    <div class="cover-row">
+      <div class="gauge">
+        <svg viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#8F1E3B"/><stop offset="100%" stop-color="#C98A3D"/>
+            </linearGradient>
+          </defs>
+          <circle class="gauge-track" cx="60" cy="60" r="52"/>
+          <circle class="gauge-fill" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="196"/>
+        </svg>
+        <div class="gauge-label"><span class="num">4,0</span><span class="den">/ 10</span></div>
+      </div>
+      <div class="cover-meta-list">
+        <div><span class="k">Klient</span><span>Firma X</span></div>
+        <div><span class="k">Przedmiot audytu</span><span>przykladowafirma.pl</span></div>
+        <div><span class="k">Przygotował</span><span>DigitalMap</span></div>
+        <div><span class="k">Data</span><span>7 lipca 2026</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="tresc">
+<div class="wrap">
+
+  <section class="block" id="streszczenie">
+    <div class="block-head">
+      <span class="eyebrow">Streszczenie zarządcze</span>
+      <h2>Silna oferta, zablokowana przez zaniedbaną stronę</h2>
+      <p>Firma X dysponuje realną przewagą rynkową — wieloletnim doświadczeniem, pełnym cyklem realizacji (projekt w programie do projektowania oświetlenia, dobór produktu, montaż, pomiar oświetleniowy) oraz wyłączną dystrybucją marki partnerskiej w regionie. Strona internetowa tej przewagi jednak nie odzwierciedla — a w kilku miejscach jej wręcz przeczy.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tag">Krytyczne · Kontakt</span>
+        <p><strong>Numer telefonu i adres e-mail na stronie Kontakt są niedziałającymi odnośnikami</strong> (atrybut href wskazuje pusty placeholder zamiast <code>tel:</code> / <code>mailto:</code>). Kliknięcie w numer nie inicjuje połączenia, kliknięcie w adres e-mail nie otwiera klienta poczty.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tag">Krytyczne · Oferta</span>
+        <p><strong>Cztery z pięciu kategorii produktowych w menu prowadzą do strony „wkrótce”.</strong> Odwiedzający, który chce zapoznać się z ofertą taśm, sterowników, opraw lub lamp artystycznych, trafia na pustą podstronę.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tag">Wysokie · SEO</span>
+        <p><strong>Opis meta na podstronie „O Nas” jest domyślnym opisem szablonu strony</strong> w języku angielskim, niezwiązanym z branżą oświetleniową — nigdy nie został zastąpiony treścią firmową.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tag">Wysokie · Zaufanie</span>
+        <p><strong>Jedyny wpis w sekcji Aktualności pochodzi z czerwca 2017 roku</strong>, a stopka strony wskazuje rok 2021 — co sugeruje odwiedzającym brak bieżącej aktywności firmy.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="kontekst">
+    <div class="block-head">
+      <span class="eyebrow">Kontekst wyjściowy</span>
+      <h2>Czym zajmuje się klient i kto jest jego odbiorcą</h2>
+    </div>
+    <div class="card-grid">
+      <div class="mini-card"><h4>Firma</h4><p>Firma X — producent i dystrybutor profesjonalnego oświetlenia LED z pełną obsługą projektową od symulacji w programie projektowym po pomiar końcowy.</p></div>
+      <div class="mini-card"><h4>Klient docelowy</h4><p>Architekci, biura projektowe, zarządcy obiektów — kina, teatry, obiekty sportowe, szkoły, hotele, biura. Sprzedaż projektowa, nie e-commerce.</p></div>
+      <div class="mini-card"><h4>Model biznesowy</h4><p>Pełny cykl realizacji oraz wyłączna dystrybucja lamp dezynfekcyjnych UV-care marki partnerskiej w regionie.</p></div>
+    </div>
+    <p style="margin-top:16px;"><strong>Założenia przyjęte przez zespół DigitalMap:</strong> strona nie podaje cennika (typowe dla sprzedaży projektowej), a obecność w rejestrze targów branżowych (CineEurope) sugeruje, że istotną rolę odgrywają relacje i targi — strona pełni funkcję wspierającą wiarygodność, nie główny silnik sprzedaży. Nawet w tej roli, w obecnym stanie, tej funkcji nie spełnia.</p>
+  </section>
+
+  <section class="block" id="s1">
+    <div class="block-head">
+      <span class="eyebrow">01 · Pierwsze wrażenie</span>
+      <h2>Co wiadomo po pierwszych pięciu sekundach</h2>
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Pytanie</th><th>Odpowiedź</th></tr></thead>
+      <tbody>
+        <tr><td>Czym zajmuje się firma?</td><td>Tak — komunikat jest zrozumiały.</td></tr>
+        <tr><td>Dla kogo jest oferta?</td><td>Częściowo — slider prezentuje segmenty rynku bez wskazania priorytetu.</td></tr>
+        <tr><td>Dlaczego warto skorzystać?</td><td>Nie — brak dowodu w pierwszym ekranie.</td></tr>
+        <tr><td>Co zrobić dalej?</td><td>Nie — brak jednoznacznego wezwania do działania.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="score-row" style="margin-top:18px;"><span class="score-label">Ocena sekcji</span><div class="facet"><div class="facet-fill" style="width:40%"></div></div><span class="score-num">4/10</span></div>
+  </section>
+
+  <section class="block" id="s2">
+    <div class="block-head">
+      <span class="eyebrow">02 · Hero Section</span>
+      <h2>Nagłówek opisuje firmę, nie obiecuje rezultatu klientowi</h2>
+    </div>
+    <p>Nagłówek główny ma charakter informacyjno-korporacyjny. Podnagłówek wymienia etapy procesu w formie listy funkcji, nie korzyści. Wezwanie do działania praktycznie nie istnieje jako świadomy element strategii — są wyłącznie linki nawigacyjne „Zobacz”, z których większość prowadzi do niedokończonych podstron.</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Element</th><th>Ocena</th></tr></thead>
+      <tbody>
+        <tr><td>Headline</td><td>Opisowy, brak obietnicy rezultatu.</td></tr>
+        <tr><td>Subheadline</td><td>Lista etapów procesu, nie korzyści.</td></tr>
+        <tr><td>CTA</td><td>Nieobecne jako spójny element.</td></tr>
+        <tr><td>Above the fold</td><td>Zero dowodu, liczb, certyfikatów.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="rewrite">
+      <span class="eyebrow">Rekomendacja DigitalMap — rewrite sekcji Hero</span>
+      <h4>Oświetlenie LED zaprojektowane pod Państwa obiekt — od projektu w programie projektowym po montaż i pomiar.</h4>
+      <p>Wieloletnie doświadczenie w projektowaniu oświetlenia LED dla kin, teatrów, szkół, obiektów sportowych, hoteli i biur. Dobieramy, produkujemy na wymiar, montujemy i mierzymy efekt końcowy.</p>
+      <span class="cta-preview">Zamów bezpłatną konsultację projektową</span>
+    </div>
+  </section>
+
+  <section class="block" id="s3">
+    <div class="block-head">
+      <span class="eyebrow">03 · Propozycja wartości</span>
+      <h2>Realny wyróżnik istnieje, lecz nie jest wyeksponowany</h2>
+    </div>
+    <p>Pełny cykl obsługi — projekt w programie do projektowania oświetlenia, dobór i produkcja na wymiar, montaż oraz pomiar oświetleniowy — jest rzadkością w branży. Wyróżnik ten pojawia się jednak w środku akapitu opisowego, zamiast pełnić rolę głównego argumentu sprzedażowego.</p>
+    <div class="score-row"><span class="score-label">Ocena propozycji wartości</span><div class="facet"><div class="facet-fill" style="width:50%"></div></div><span class="score-num">5/10</span></div>
+    <div class="rewrite">
+      <span class="eyebrow">Proponowana propozycja wartości</span>
+      <p style="font-size:1.03rem;">„Jedyna firma w regionie, która prowadzi projekt oświetleniowy od symulacji w programie projektowym, przez dobór i produkcję profili na wymiar, aż po pomiar końcowy — bez konieczności angażowania osobno projektanta, dostawcy i ekipy montażowej.”</p>
+    </div>
+  </section>
+
+  <section class="block" id="s4">
+    <div class="block-head">
+      <span class="eyebrow">04 · Równanie wartości (Hormozi)</span>
+      <h2>Największą słabością jest wiarygodność obietnicy</h2>
+    </div>
+    <div class="score-row"><span class="score-label">Dream Outcome</span><div class="facet"><div class="facet-fill" style="width:50%"></div></div><span class="score-num">5/10</span></div>
+    <div class="score-row"><span class="score-label">Perceived Likelihood</span><div class="facet"><div class="facet-fill" style="width:30%"></div></div><span class="score-num">3/10</span></div>
+    <div class="score-row"><span class="score-label">Time Delay</span><div class="facet"><div class="facet-fill" style="width:40%"></div></div><span class="score-num">4/10</span></div>
+    <div class="score-row"><span class="score-label">Effort &amp; Sacrifice</span><div class="facet"><div class="facet-fill" style="width:30%"></div></div><span class="score-num">3/10</span></div>
+    <p style="margin-top:20px;"><strong>Co najbardziej obniża wartość oferty:</strong> wiarygodność oraz łatwość podjęcia kontaktu. Firma dysponuje realnym dowodem — Wieloletnie doświadczenie, status wyłącznego partnera handlowego, certyfikat bezpiecznej instytucji — lecz nic z tego nie jest pokazane, a kontakt jest technicznie niesprawny.</p>
+    <h3>Jak zwiększyć wartość oferty</h3>
+    <ul>
+      <li>Publikacja zdjęć i opisów zrealizowanych projektów wraz z parametrami.</li>
+      <li>Naprawa odnośników kontaktowych.</li>
+      <li>Prezentacja liczb: liczba projektów, czas realizacji, okres gwarancji.</li>
+      <li>Wizualna prezentacja certyfikatu dystrybutora marki partnerskiej.</li>
+      <li>Dokończenie brakujących podstron produktowych.</li>
+    </ul>
+  </section>
+
+  <section class="block" id="s5">
+    <div class="block-head">
+      <span class="eyebrow">05 · Copywriting</span>
+      <h2>Treść informuje o firmie, zamiast sprzedawać rozwiązanie</h2>
+    </div>
+    <p>Najmocniejszym fragmentem treści jest podstrona „O Nas” — zawiera konkretne fakty, zapisane jednak w formie jednolitego bloku tekstu. W treści dominuje narracja skoncentrowana na firmie, nie na kliencie. Nie zaadresowano typowych obiekcji sprzedaży projektowej.</p>
+    <div class="score-row"><span class="score-label">Czy treść sprzedaje?</span><div class="facet"><div class="facet-fill" style="width:35%"></div></div><span class="score-num">3,5/10</span></div>
+    <div class="before-after">
+      <div class="ba-card before"><span class="eyebrow">Stan obecny</span><p>„Firma X to dostawca rozwiązań technicznych i wysokiej jakości produktów LED. Zapewniamy profesjonalne doradztwo, począwszy od projektu technicznego...”</p></div>
+      <div class="ba-card after"><span class="eyebrow">Wersja rekomendowana</span><p>„Wiele lat temu zaczęliśmy od jednego pytania: dlaczego oświetlenie LED w polskich kinach i teatrach musi ustępować standardom stosowanym za granicą? Dziś projektujemy w programie projektowym, produkujemy profile na wymiar, montujemy i mierzymy efekt końcowy.”</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="s6">
+    <div class="block-head">
+      <span class="eyebrow">06 · Psychologia sprzedaży</span>
+      <h2>Braki techniczne niszczą zaufanie skuteczniej niż brak technik perswazji</h2>
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Dźwignia</th><th>Stan</th><th>Rekomendacja</th></tr></thead>
+      <tbody>
+        <tr><td>Social Proof</td><td><span class="badge critical">Brak</span></td><td>Logotypy klientów, liczba projektów, opinie.</td></tr>
+        <tr><td>Authority</td><td><span class="badge high">Słaba</span></td><td>Wieloletnie doświadczenie niewyeksponowane jako wyróżnik.</td></tr>
+        <tr><td>Trust</td><td><span class="badge critical">Bardzo słaby</span></td><td>Martwe linki, nieaktualne meta i stopka.</td></tr>
+        <tr><td>Scarcity</td><td><span class="badge critical">Brak</span></td><td>Wyłączność dystrybucji regionalnej — niewykorzystany argument.</td></tr>
+        <tr><td>Urgency</td><td><span class="badge critical">Brak</span></td><td>Brak elementu pilności.</td></tr>
+        <tr><td>Reciprocity</td><td><span class="badge critical">Brak</span></td><td>Brak lead magnetu.</td></tr>
+        <tr><td>Loss Aversion</td><td><span class="badge critical">Brak</span></td><td>Brak narracji o koszcie źle dobranego oświetlenia.</td></tr>
+        <tr><td>Anchoring</td><td><span class="badge critical">Brak</span></td><td>Brak liczb referencyjnych.</td></tr>
+        <tr><td>Risk Reversal</td><td><span class="badge critical">Brak</span></td><td>Brak gwarancji lub bezpłatnej oceny wstępnej.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="block" id="s7">
+    <div class="block-head">
+      <span class="eyebrow">07 · Doświadczenie użytkownika (UX)</span>
+      <h2>Techniczne usterki blokują ścieżkę kontaktu</h2>
+    </div>
+    <ul>
+      <li><strong>Kontakt:</strong> telefon i e-mail wskazują pusty placeholder zamiast <code>tel:</code>/<code>mailto:</code>.</li>
+      <li><strong>Formularz:</strong> pola nie zostały wykryte w analizowanej treści — wymaga ręcznej weryfikacji.</li>
+      <li><strong>Wersje językowe:</strong> niespójne adresy w zależności od podstrony.</li>
+      <li><strong>Social media:</strong> ikony to nieaktywne placeholdery, w tym nieistniejący od 2019 roku Google+.</li>
+      <li><strong>Menu produktowe:</strong> większość kategorii prowadzi do ślepego zaułka.</li>
+    </ul>
+    <div class="score-row"><span class="score-label">Ocena UX</span><div class="facet"><div class="facet-fill" style="width:40%"></div></div><span class="score-num">4/10</span></div>
+  </section>
+
+  <section class="block" id="s8">
+    <div class="block-head">
+      <span class="eyebrow">08 · CRO — miejsca utraty konwersji</span>
+      <h2>Dziesięć punktów wymagających naprawy</h2>
+      <p>Rozwiń każdą pozycję, aby zobaczyć uzasadnienie, wpływ i rekomendację.</p>
+    </div>
+    <div class="acc-list">
+      <details class="acc-item" open>
+        <summary><span>Menu produktowe — 4 z 5 kategorii prowadzi do strony „wkrótce”</span><span class="badge critical">Krytyczny</span></summary>
+        <div class="acc-body">Klient klika w produkt, który realnie jest w ofercie, i trafia na pustą podstronę „wkrótce”. To wygląda jak niedokończony biznes.<div class="impact-line"><b>Poprawka:</b> dokończyć podstrony produktowe albo usunąć je z menu do czasu gotowości.</div></div>
+      </details>
+      <details class="acc-item">
+        <summary><span>Strona Kontakt — telefon i e-mail to martwe linki</span><span class="badge critical">Krytyczny</span></summary>
+        <div class="acc-body">Odnośniki wskazują pusty placeholder zamiast <code>tel:</code>/<code>mailto:</code> — kontakt jednym kliknięciem nie działa.<div class="impact-line"><b>Poprawka:</b> <code>tel:+48 000 000 000</code> oraz <code>mailto:info@przykladowafirma.pl</code>.</div></div>
+      </details>
+      <details class="acc-item">
+        <summary><span>Formularz kontaktowy wymaga weryfikacji działania</span><span class="badge critical">Krytyczny</span></summary>
+        <div class="acc-body">Pola formularza nie zostały wykryte w pobranej treści strony — ryzyko, że jedyny formularz na stronie nie generuje leadów.<div class="impact-line"><b>Poprawka:</b> zweryfikować i naprawić działanie end-to-end, dodać tracking wysyłek.</div></div>
+      </details>
+      <details class="acc-item">
+        <summary><span>Puste meta title/description na kluczowych podstronach</span><span class="badge critical">Krytyczny</span></summary>
+        <div class="acc-body">Google nie ma czego wyświetlić w wynikach wyszukiwania, co obniża współczynnik klikalności.<div class="impact-line"><b>Poprawka:</b> uzupełnić unikalne title/description na każdej podstronie.</div></div>
+      </details>
+      <details class="acc-item">
+        <summary><span>Meta na podstronie O Nas to treść demonstracyjna szablonu</span><span class="badge critical">Krytyczny</span></summary>
+        <div class="acc-body">Opis meta to angielski opis demo motywu strony, nigdy niezastąpiony treścią firmową.<div class="impact-line"><b>Poprawka:</b> podmienić na realny opis firmy z frazami branżowymi.</div></div>
+      </details>
+      <details class="acc-item">
+        <summary><span>Stopka pokazuje rok 2021</span><span class="badge high">Wysoki</span></summary>
+        <div class="acc-body">Sugeruje brak aktualizacji strony od kilku lat.<div class="impact-line"><b>Poprawka:</b> automatyczny rok w stopce.</div></div>
+      </details>
+      <details class="acc-item">
+        <summary><span>Jeden wpis na blogu, z 2017 roku</span><span class="badge high">Wysoki</span></summary>
+        <div class="acc-body">Sekcja Aktualności istnieje w menu, sugerując aktywność, której od blisko dekady nie ma.<div class="impact-line"><b>Poprawka:</b> uruchomić regularną publikację albo usunąć zakładkę.</div></div>
+      </details>
+      <details class="acc-item">
+        <summary><span>Ikony social media to martwe linki</span><span class="badge medium">Średni</span></summary>
+        <div class="acc-body">W tym nieistniejący od 2019 roku Google+ — zdradza nieaktualny szablon.<div class="impact-line"><b>Poprawka:</b> usunąć nieaktualne ikony, zostawić realne kanały.</div></div>
+      </details>
+      <details class="acc-item">
+        <summary><span>Niespójny przełącznik języka</span><span class="badge medium">Średni</span></summary>
+        <div class="acc-body">Link „English” prowadzi do różnych adresów w zależności od podstrony.<div class="impact-line"><b>Poprawka:</b> ujednolicić strukturę URL wersji językowych.</div></div>
+      </details>
+      <details class="acc-item">
+        <summary><span>Brak jednego, jasnego wezwania do działania</span><span class="badge high">Wysoki</span></summary>
+        <div class="acc-body">Użytkownik nie wie, jaki jest oczekiwany następny krok poza przeglądaniem.<div class="impact-line"><b>Poprawka:</b> dodać stały, widoczny CTA w nagłówku i hero.</div></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="block" id="s9">
+    <div class="block-head">
+      <span class="eyebrow">09 · SEO</span>
+      <h2>Fundament techniczny wymaga pilnej naprawy</h2>
+    </div>
+    <p>Tytuł strony głównej jest zbyt krótki i pozbawiony fraz kluczowych. Opisy meta są puste lub pochodzą z domyślnej treści szablonu. Linkowanie wewnętrzne prowadzi w czterech miejscach do niedokończonych podstron. Brak jakichkolwiek danych strukturalnych (schema.org).</p>
+    <h3>Rekomendowana strategia SEO</h3>
+    <ol>
+      <li>Uzupełnienie unikalnych tytułów i opisów meta na każdej podstronie.</li>
+      <li>Dokończenie brakujących podstron produktowych.</li>
+      <li>Wdrożenie danych strukturalnych: Organization, LocalBusiness, Product, Article.</li>
+      <li>Regularna publikacja w sekcji Aktualności.</li>
+      <li>Dedykowane podstrony pod poszczególne segmenty rynku.</li>
+      <li>Naprawa linkowania wewnętrznego.</li>
+    </ol>
+    <div class="score-row"><span class="score-label">Ocena SEO</span><div class="facet"><div class="facet-fill" style="width:20%"></div></div><span class="score-num">2/10</span></div>
+  </section>
+
+  <section class="block" id="s10">
+    <div class="block-head">
+      <span class="eyebrow">10 · Treść</span>
+      <h2>Brakuje dowodów, które firma faktycznie posiada</h2>
+    </div>
+    <div class="card-grid">
+      <div class="mini-card"><h4>Brakujące sekcje</h4><p>Case studies i jasny przebieg współpracy krok po kroku.</p></div>
+      <div class="mini-card"><h4>Rekomendowane FAQ</h4><p>Czas realizacji, zakres gwarancji, obszar działania, koszt projektu technicznego.</p></div>
+      <div class="mini-card"><h4>Rekomendowane dowody</h4><p>Liczba projektów, certyfikat dystrybutora, referencje klientów instytucjonalnych.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="s11">
+    <div class="block-head">
+      <span class="eyebrow">11 · Biznes</span>
+      <h2>Model ma sens, komunikacja go nie wspiera</h2>
+    </div>
+    <p>Wieloletnia obecność na rynku potwierdza dopasowanie modelu do potrzeb rynku. Status wyłącznego dystrybutora marki partnerskiej to naturalna okazja do cross-sellu wśród klientów instytucjonalnych, obecnie wspomniana jednym zdaniem. Przy tak silnym doświadczeniu zasadne wydaje się rozważenie pozycjonowania premium — pod warunkiem lepszej komunikacji wartości.</p>
+  </section>
+
+  <section class="block" id="s12">
+    <div class="block-head">
+      <span class="eyebrow">12 · Growth</span>
+      <h2>Największym blokerem skalowania jest wiarygodność cyfrowa</h2>
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Kanał</th><th>Gotowość</th><th>Komentarz</th></tr></thead>
+      <tbody>
+        <tr><td>SEO</td><td>2/10</td><td>Puste meta, martwe linki, brak aktywnej treści.</td></tr>
+        <tr><td>LinkedIn</td><td>6/10</td><td>Najlepiej dopasowany kanał do klienta instytucjonalnego.</td></tr>
+        <tr><td>Targi branżowe</td><td>8/10</td><td>Prawdopodobnie już aktywny, niewykorzystany w treści.</td></tr>
+        <tr><td>Przetargi publiczne</td><td>7/10</td><td>Naturalny kanał dla szkół i obiektów sportowych.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="block" id="s13">
+    <div class="block-head">
+      <span class="eyebrow">13 · Konkurencja</span>
+      <h2>Przewaga merytoryczna, zaległość komunikacyjna</h2>
+    </div>
+    <p>Wiodące firmy w segmencie oświetlenia technicznego prezentują portfolio realizacji, karty katalogowe i aktywny blog ekspercki. Firma X dysponuje unikalną przewagą — pełnym cyklem realizacji od projektu po pomiar — którą konkurenci rzadko oferują w jednym miejscu. Ta przewaga pozostaje niewykorzystana komunikacyjnie.</p>
+  </section>
+
+  <section class="block" id="s14">
+    <div class="block-head">
+      <span class="eyebrow">14 · Działania priorytetowe</span>
+      <h2>Zmiany uszeregowane według czasu wdrożenia</h2>
+    </div>
+    <div class="tabs">
+      <input type="radio" name="tabs" id="tab1" checked>
+      <input type="radio" name="tabs" id="tab2">
+      <input type="radio" name="tabs" id="tab3">
+      <div class="tab-labels">
+        <label for="tab1">W ciągu godziny</label>
+        <label for="tab2">W ciągu dnia</label>
+        <label for="tab3">W ciągu tygodnia</label>
+      </div>
+      <div class="tab-panels">
+        <div class="tab-panel" id="panel1">
+          <ul>
+            <li>Naprawa odnośników telefonu i adresu e-mail.</li>
+            <li>Aktualizacja roku w stopce.</li>
+            <li>Usunięcie nieaktywnych ikon social media.</li>
+            <li>Uzupełnienie podstawowych opisów meta.</li>
+            <li>Zastąpienie domyślnego opisu meta na O Nas.</li>
+          </ul>
+        </div>
+        <div class="tab-panel" id="panel2">
+          <ul>
+            <li>Weryfikacja i naprawa formularza kontaktowego.</li>
+            <li>Dodanie trzech fotografii zrealizowanych projektów.</li>
+            <li>Wizualna prezentacja certyfikatu marki partnerskiej.</li>
+            <li>Rozbicie treści O Nas na czytelne punkty.</li>
+            <li>Dodanie sekcji FAQ.</li>
+          </ul>
+        </div>
+        <div class="tab-panel" id="panel3">
+          <ul>
+            <li>Dokończenie brakujących podstron produktowych.</li>
+            <li>Publikacja minimum trzech case studies.</li>
+            <li>Uruchomienie regularnej sekcji Aktualności.</li>
+            <li>Wdrożenie danych strukturalnych.</li>
+            <li>Ujednolicenie wersji językowych.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="s15">
+    <div class="block-head">
+      <span class="eyebrow">15 · Rewrite kluczowych elementów</span>
+      <h2>Rekomendowane brzmienie głównych sekcji</h2>
+    </div>
+    <div class="rewrite">
+      <span class="eyebrow">FAQ — przykładowa nowa pozycja</span>
+      <h4>Czy projekt w programie do projektowania oświetlenia jest wliczony w cenę realizacji?</h4>
+      <p>Tak — przy realizacji zamówienia projekt techniczny przygotowywany jest w ramach współpracy, bez dodatkowej opłaty.</p>
+    </div>
+    <div class="rewrite">
+      <span class="eyebrow">Case study — proponowany format</span>
+      <h4>Kino [nazwa], [miasto]</h4>
+      <p>Modernizacja oświetlenia sali projekcyjnej i foyer profilami LED na wymiar wraz z systemem sterowania scenami świetlnymi. Projekt w programie projektowym, montaż w [X] dni, pomiar potwierdził [wynik].</p>
+    </div>
+  </section>
+
+  <section class="block" id="s16">
+    <div class="block-head">
+      <span class="eyebrow">16 · Ocena łączna</span>
+      <h2>Dwanaście kryteriów, jedna liczba</h2>
+    </div>
+    <div class="score-row"><span class="score-label">SEO</span><div class="facet"><div class="facet-fill" style="width:20%"></div></div><span class="score-num">2/10</span></div>
+    <div class="score-row"><span class="score-label">UX</span><div class="facet"><div class="facet-fill" style="width:40%"></div></div><span class="score-num">4/10</span></div>
+    <div class="score-row"><span class="score-label">Copywriting</span><div class="facet"><div class="facet-fill" style="width:40%"></div></div><span class="score-num">4/10</span></div>
+    <div class="score-row"><span class="score-label">Sprzedaż</span><div class="facet"><div class="facet-fill" style="width:30%"></div></div><span class="score-num">3/10</span></div>
+    <div class="score-row"><span class="score-label">Oferta</span><div class="facet"><div class="facet-fill" style="width:70%"></div></div><span class="score-num">7/10</span></div>
+    <div class="score-row"><span class="score-label">Hormozi Score</span><div class="facet"><div class="facet-fill" style="width:30%"></div></div><span class="score-num">3/10</span></div>
+    <div class="score-row"><span class="score-label">Business</span><div class="facet"><div class="facet-fill" style="width:60%"></div></div><span class="score-num">6/10</span></div>
+    <div class="score-row"><span class="score-label">Scalability</span><div class="facet"><div class="facet-fill" style="width:30%"></div></div><span class="score-num">3/10</span></div>
+    <div class="score-row"><span class="score-label">Trust</span><div class="facet"><div class="facet-fill" style="width:30%"></div></div><span class="score-num">3/10</span></div>
+    <div class="score-row"><span class="score-label">Brand</span><div class="facet"><div class="facet-fill" style="width:50%"></div></div><span class="score-num">5/10</span></div>
+    <div class="score-row"><span class="score-label">Design</span><div class="facet"><div class="facet-fill" style="width:40%"></div></div><span class="score-num">4/10</span></div>
+    <div class="score-row"><span class="score-label">Content</span><div class="facet"><div class="facet-fill" style="width:20%"></div></div><span class="score-num">2/10</span></div>
+  </section>
+
+  <section class="block" id="s17">
+    <div class="block-head">
+      <span class="eyebrow">17 · Plan działania</span>
+      <h2>Roadmapa wdrożenia</h2>
+    </div>
+    <div class="roadmap">
+      <div class="rm-item">
+        <span class="rm-day">30 DNI</span>
+        <div><h4>Naprawa fundamentu technicznego i zaufania</h4><p>Naprawa odnośników kontaktowych, weryfikacja formularza, uzupełnienie meta title/description, dokończenie minimum dwóch podstron produktowych.</p><div class="impact">Przewidywany wpływ: <b>+20–40%</b> skuteczności kontaktu oraz wyższy CTR w wynikach wyszukiwania.</div></div>
+      </div>
+      <div class="rm-item">
+        <span class="rm-day">60 DNI</span>
+        <div><h4>Dowód i pozycjonowanie</h4><p>Publikacja trzech case studies, wizualna prezentacja certyfikatów, przeredagowanie O Nas i Hero pod korzyści klienta.</p><div class="impact">Przewidywany wpływ: wyższa wiarygodność, przekładająca się na skuteczność rozmów z architektami i inwestorami.</div></div>
+      </div>
+      <div class="rm-item">
+        <span class="rm-day">90 DNI</span>
+        <div><h4>SEO i treść</h4><p>Wdrożenie danych strukturalnych, regularna publikacja Aktualności, budowa podstron segmentowych.</p><div class="impact">Przewidywany wpływ: początek wzrostu ruchu organicznego w perspektywie 3–6 miesięcy.</div></div>
+      </div>
+      <div class="rm-item">
+        <span class="rm-day">180 DNI</span>
+        <div><h4>Skalowanie</h4><p>Konfigurator doboru oświetlenia, spójna struktura wersji językowych, program poleceń dla architektów i biur projektowych.</p><div class="impact">Przewidywany wpływ: dywersyfikacja kanałów pozyskania klientów oraz wzrost LTV.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="top20" style="border-bottom:none;">
+    <div class="block-head">
+      <span class="eyebrow">Zmiany o najwyższym zwrocie z inwestycji</span>
+      <h2>Dwadzieścia priorytetowych działań</h2>
+      <p>Lista kontrolna — do wykorzystania przy śledzeniu postępów wdrożenia.</p>
+    </div>
+    <ul class="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1">Naprawa odnośników telefonu i adresu e-mail.</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">Weryfikacja i naprawa formularza kontaktowego.</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">Dokończenie czterech brakujących podstron produktowych.</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">Uzupełnienie unikalnych opisów meta na każdej podstronie.</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">Zastąpienie domyślnej treści szablonu w meta O Nas.</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6">Publikacja trzech case studies z liczbami.</label></li>
+      <li><input type="checkbox" id="c7"><label for="c7">Wizualna prezentacja certyfikatu dystrybutora marki partnerskiej.</label></li>
+      <li><input type="checkbox" id="c8"><label for="c8">Przeredagowanie sekcji Hero pod korzyść klienta.</label></li>
+      <li><input type="checkbox" id="c9"><label for="c9">Wprowadzenie jednego spójnego wezwania do działania.</label></li>
+      <li><input type="checkbox" id="c10"><label for="c10">Usunięcie nieaktywnych ikon social media.</label></li>
+      <li><input type="checkbox" id="c11"><label for="c11">Aktualizacja roku i śladów przestarzałego szablonu w stopce.</label></li>
+      <li><input type="checkbox" id="c12"><label for="c12">Uruchomienie regularnej sekcji Aktualności.</label></li>
+      <li><input type="checkbox" id="c13"><label for="c13">Wdrożenie danych strukturalnych schema.org.</label></li>
+      <li><input type="checkbox" id="c14"><label for="c14">Ujednolicenie struktury wersji językowych.</label></li>
+      <li><input type="checkbox" id="c15"><label for="c15">Dodanie FAQ adresującego obiekcje klienta B2B.</label></li>
+      <li><input type="checkbox" id="c16"><label for="c16">Rozbicie treści O Nas na czytelne punkty.</label></li>
+      <li><input type="checkbox" id="c17"><label for="c17">Budowa podstron segmentowych (kina, obiekty sportowe, szkoły).</label></li>
+      <li><input type="checkbox" id="c18"><label for="c18">Dodanie kart katalogowych produktów do pobrania.</label></li>
+      <li><input type="checkbox" id="c19"><label for="c19">Wypromowanie linii produktowej UV-care jako osobnej oferty.</label></li>
+      <li><input type="checkbox" id="c20"><label for="c20">Pomiar i optymalizacja Core Web Vitals.</label></li>
+    </ul>
+    <p style="margin-top:20px; color:var(--ink-dim);"><strong>Szacowany łączny wpływ:</strong> wzrost konwersji zapytań o 50–80% dzięki naprawie kontaktu i dokończeniu oferty produktowej, wzrost ruchu organicznego o 150–300% w perspektywie 6–9 miesięcy, oraz istotny wzrost wiarygodności w rozmowach z klientami instytucjonalnymi.</p>
+  </section>
+
+</div>
+</main>
+
+<footer class="report-footer">
+  <div class="wrap">
+    <div class="f-mark">
+      <svg viewBox="0 0 40 40" fill="none">
+        <path d="M20 3 L35 11 L20 19 L5 11 Z" fill="#8F1E3B" opacity="0.85"/>
+        <path d="M5 11 L20 19 L20 36 L5 28 Z" fill="#8F1E3B" opacity="0.55"/>
+        <path d="M35 11 L20 19 L20 36 L35 28 Z" fill="#8F1E3B" opacity="0.7"/>
+      </svg>
+      <span>digital<b>map</b></span>
+    </div>
+    <p><strong>Przykładowy audyt strategiczny — przygotowany przez DigitalMap</strong><br>Raport ilustracyjny na bazie realnego formatu audytu. Dane firmy zanonimizowane na potrzeby prezentacji przykładu.</p>
+  </div>
+</footer>
+
+</body>
+</html>
