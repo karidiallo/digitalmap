@@ -46,6 +46,7 @@
       <span class="logo-word">digital<span>map</span></span>
     </a>
     <nav class="nav-links">
+      <a href="/#uslugi">Usługi</a>
       <a href="/#oferta">Oferta</a>
       <a href="/#faq">FAQ</a>
       <a href="/#jak-to-dziala">Proces</a>
@@ -58,8 +59,9 @@
 
 <main>
 <section class="service-hero">
-  <div class="wrap">
-    <div class="breadcrumb"><a href="/">Strona główna</a> / <a href="/#oferta">Usługi</a> / Twoja strona ma ruch. Pytanie, czy zamienia go w klientów.</div>
+  <canvas id="subCrystal" aria-hidden="true"></canvas>
+  <div class="wrap service-hero-inner">
+    <div class="breadcrumb"><a href="/">Strona główna</a> / <a href="/#uslugi">Usługi</a> / Twoja strona ma ruch. Pytanie, czy zamienia go w klientów.</div>
     <span class="eyebrow-mono mono">Warstwa 1 · Strona internetowa</span>
     <h1>Twoja strona ma ruch. Pytanie, czy zamienia go w klientów.</h1>
     <p class="lead">Sprawdzamy stronę internetową Twojej firmy pod kątem tego, co realnie wpływa na kontakt — nie estetykę dla samej estetyki.</p>
@@ -148,7 +150,11 @@
 </footer>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="/crystal.js"></script>
 <script>
+  initCrystal('subCrystal', { mainSize: 1.15, withShards: false, camZ: 5.5 });
+
   // interaktywna checklista
   const items = document.querySelectorAll('#checkList li');
   const summary = document.getElementById('checkSummary');
