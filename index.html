@@ -349,12 +349,11 @@
         <div class="contact-detail"><span class="mono">Mail</span> kontakt@digitalmap.pl</div>
         <div class="contact-detail"><span class="mono">Czas odp.</span> do 24h</div>
       </div>
-      <form name="kontakt" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="kontakt">
-        <p style="display:none;"><label>Nie wypełniaj tego pola: <input name="bot-field"></label></p>
+      <form action="https://formspree.io/f/mnjkyvnn" method="POST">
         <div class="field"><label for="name">Imię i nazwisko</label><input id="name" name="imie" type="text" placeholder="Jak się do Ciebie zwracać?" required></div>
         <div class="field"><label for="website">Strona internetowa</label><input id="website" name="strona" type="text" placeholder="np. twojafirma.pl" required></div>
         <div class="field"><label for="contact">Telefon lub e-mail</label><input id="contact" name="kontakt" type="text" placeholder="np. 600 000 000 lub jan@firma.pl" required></div>
+        <input type="hidden" name="_subject" value="Nowe zgłoszenie z digitalmap.pl">
         <button class="submit-btn" type="submit">Wyślij</button>
         <p class="form-note">Zero spamu. Jedna wiadomość z Twoją mapą.</p>
       </form>
