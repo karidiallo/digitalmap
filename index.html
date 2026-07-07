@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DigitalMap — Audyt Google Moja Firma i Google Maps dla lokalnych firm</title>
-<meta name="description" content="Darmowy audyt Google Moja Firma, Google Maps i lokalnego SEO. Sprawdzimy, gdzie Twoja firma traci klientów, i przygotujemy plan naprawy w 24h.">
-<meta property="og:title" content="DigitalMap — Więcej klientów. Mniej pieniędzy przepalonych na marketing.">
-<meta property="og:description" content="Darmowy audyt Twojej obecności online — Google, strona, reklamy i AI. Plan naprawy w 24h.">
+<title>DigitalMap — Audyt Marketingowy i Strategia Wzrostu dla Firm Usługowych</title>
+<meta name="description" content="Darmowy audyt marketingowy dla firm usługowych w całej Polsce — strona, SEO, widoczność w AI, Google Moja Firma, social media i reklamy. Plan naprawy w 24h.">
+<meta property="og:title" content="DigitalMap — Odkryj, dlaczego Twoja firma traci klientów każdego dnia.">
+<meta property="og:description" content="Darmowy audyt marketingowy — 6 warstw Twojej obecności online w jednym raporcie. Plan naprawy w 24h.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3 L35 11 L20 19 L5 11 Z' fill='%23E5A85C'/%3E%3Cpath d='M5 11 L20 19 L20 36 L5 28 Z' fill='%239B2242'/%3E%3Cpath d='M35 11 L20 19 L20 36 L35 28 Z' fill='%23C4335A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
     --surface: #180F12;
     --border: rgba(242,236,233,0.09);
     --text: #F2ECE9;
-    --text-dim: #948A8C;
+    --text-dim: #ADA6A8;
     --wine: #9B2242;
     --wine-bright: #C4335A;
     --gold: #C98A3D;
@@ -57,6 +57,9 @@
   .hero-actions { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
   .hero-checklist { display:flex; gap:22px; flex-wrap:wrap; margin-top:22px; }
   .hero-checklist span { font-size:0.85rem; color: var(--text-dim); }
+  .hero-microcopy { font-size:0.85rem; color: var(--gold-bright); margin-top:16px; margin-bottom:8px; }
+  .hero-stars { color: var(--gold-bright); font-size:0.95rem; margin-bottom:14px; letter-spacing:0.1em; }
+  .hero-stars span { font-family:'Inter',sans-serif; letter-spacing:normal; font-size:0.82rem; color: var(--text-dim); margin-left:6px; }
   .fail-list { border-top:1px solid var(--border); }
   .fail-row { display:flex; gap:18px; align-items:flex-start; padding:22px 0; border-bottom:1px solid var(--border); }
   .fail-x { color: var(--wine-bright); font-weight:700; font-family:'Unbounded',sans-serif; flex-shrink:0; }
@@ -78,13 +81,15 @@
   .deliverable-sub { color: var(--text-dim); font-size:0.92rem; max-width:36ch; margin-top:10px; }
   .deliverable-grid { display:flex; flex-direction:column; gap:10px; }
   .deliverable-grid span { font-size:0.92rem; color: var(--text-dim); }
+  .sample-link { display:inline-block; margin-top:6px; color: var(--gold-bright); font-size:0.9rem; font-weight:600; text-decoration:none; border-bottom:1px solid var(--gold-bright); padding-bottom:2px; }
+  .sample-link:hover { color: var(--wine-bright); border-color: var(--wine-bright); }
   .statement { padding:90px 0; text-align:center; }
   .statement p { font-family:'Unbounded', sans-serif; font-weight:600; font-size:2.3rem; line-height:1.3; max-width:16ch; margin:0 auto; }
   .statement p span { color: var(--wine-bright); }
 
   .problem { padding:0 0 90px; }
   .services { padding:0 0 120px; }
-  .service-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:20px; }
+  .service-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
   .service-card { background: var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; }
   .service-card .tag { color: var(--gold-bright); margin-bottom:14px; display:block; }
   .service-card h3 { font-family:'Unbounded', sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:10px; }
@@ -134,6 +139,7 @@
   .market-row { display:flex; justify-content:space-between; font-size:0.82rem; color: var(--text-dim); padding:4px 0; }
   .market-row.total { color: var(--gold-bright); font-weight:600; border-top:1px solid var(--border); margin-top:6px; padding-top:10px; }
   .guarantee { font-size:0.85rem; color: var(--gold-bright); margin-bottom:16px; }
+  .value-note { font-size:0.8rem; color: var(--text-dim); margin-bottom:16px; font-style:italic; }
   .tier.featured .tier-cta { background: var(--wine); border-color: var(--wine); }
 
   .faq { padding:0 0 110px; }
@@ -205,8 +211,13 @@
     .chat-panel { width:calc(100vw - 32px); right:-8px; }
   }
 
+  @media (max-width:1024px) and (min-width:861px) {
+    .service-grid { grid-template-columns:repeat(2, 1fr); }
+  }
+
   @media (max-width:860px) {
     .nav-links { display:none; }
+    .service-grid { grid-template-columns:1fr; }
     .deliverable-card { flex-direction:column; align-items:flex-start; }
     .faq-list { grid-template-columns:1fr; }
     .testimonial-grid { grid-template-columns:1fr; }
@@ -217,6 +228,38 @@
     .statement p { font-size:1.7rem; }
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "DigitalMap",
+  "url": "https://digitalmap.pl",
+  "email": "kontakt@digitalmap.pl",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Polska"
+  },
+  "description": "Audyt Google Moja Firma, Google Maps, lokalnego SEO i widoczności w wyszukiwarkach AI dla lokalnych firm w całej Polsce."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Ile trwa audyt?", "acceptedAnswer": {"@type": "Answer", "text": "Darmowy audyt dostajesz w 24 godziny. Wdrożenia umawiamy po ustaleniu zakresu."}},
+    {"@type": "Question", "name": "Czy muszę podpisywać umowę?", "acceptedAnswer": {"@type": "Answer", "text": "Nie przy darmowym audycie ani przy jednorazowym pakiecie. Przy stałej współpracy ustalamy warunki indywidualnie."}},
+    {"@type": "Question", "name": "Czy audyt naprawdę jest darmowy?", "acceptedAnswer": {"@type": "Answer", "text": "Tak. Podstawowy audyt z 10 najważniejszymi błędami nic nie kosztuje i do niczego nie zobowiązuje."}},
+    {"@type": "Question", "name": "Czy mogę wdrożyć poprawki sama?", "acceptedAnswer": {"@type": "Answer", "text": "Jasne. Dostajesz jasną listę z priorytetami — możesz wdrożyć samodzielnie albo zlecić to nam."}},
+    {"@type": "Question", "name": "Czy działacie tylko w jednym mieście?", "acceptedAnswer": {"@type": "Answer", "text": "Nie — działamy w całej Polsce, zdalnie. Lokalizacja Twojej firmy nie ma znaczenia."}},
+    {"@type": "Question", "name": "Czy to działa dla mojej branży?", "acceptedAnswer": {"@type": "Answer", "text": "Pracujemy z firmami usługowymi różnych branż — od gabinetów po warsztaty i kancelarie."}},
+    {"@type": "Question", "name": "Czy robicie reklamy Google i Meta?", "acceptedAnswer": {"@type": "Answer", "text": "Tak, to jedna z warstw, którymi się zajmujemy — w audycie i w stałej współpracy."}},
+    {"@type": "Question", "name": "Czy robicie też strony internetowe?", "acceptedAnswer": {"@type": "Answer", "text": "Tak — poprawki i przebudowa strony to część oferty, jeśli audyt pokaże, że tam tracisz najwięcej klientów."}},
+    {"@type": "Question", "name": "Dlaczego audyt kosztuje tylko 299 zł?", "acceptedAnswer": {"@type": "Answer", "text": "Bo audyt to dla nas otwarcie rozmowy, nie produkt sam w sobie. Zarabiamy, gdy zostajesz z nami na dłużej i widzisz efekty."}},
+    {"@type": "Question", "name": "Co jeśli już współpracuję z inną agencją?", "acceptedAnswer": {"@type": "Answer", "text": "Audyt i tak pokaże Ci realny stan rzeczy — niezależnie od tego, czy wdrożysz to z nami, sam, czy z obecnym wykonawcą."}}
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -241,30 +284,33 @@
       </svg>
       <span class="logo-word">digital<span>map</span></span>
     </a>
-    <div class="nav-links">
+    <nav class="nav-links">
       <a href="#oferta">Oferta</a>
       <a href="#faq">FAQ</a>
       <a href="#jak-to-dziala">Proces</a>
       <a href="#kontakt">Kontakt</a>
-    </div>
+    </nav>
     <a class="nav-cta" href="#kontakt">Odbierz darmowy audyt</a>
   </div>
 </header>
 
+<main>
 <section class="hero">
-  <canvas id="crystalCanvas"></canvas>
+  <canvas id="crystalCanvas" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="hero-content">
       <span class="eyebrow-mono mono">Darmowy audyt w 24h</span>
       <h1 class="title">Odkryj, dlaczego Twoja firma<br><span>traci klientów każdego dnia.</span></h1>
-      <p class="hero-sub">Sprawdzamy Twoją stronę, reklamy, widoczność w Google i wyszukiwarkach AI (ChatGPT, Gemini, Claude) oraz to, jak wygląda Twoja wizytówka i opinie — i przygotujemy konkretny plan naprawy. Bez zobowiązań.</p>
+      <p class="hero-sub">Sprawdzamy stronę, SEO, widoczność w AI, wizytówkę Google i reklamy — i dajemy gotowy plan naprawy w 24h. Dla firm usługowych w całej Polsce.</p>
       <div class="hero-actions">
         <a class="btn-primary" href="#kontakt">Odbierz darmowy audyt</a>
         <a class="btn-ghost" href="#oferta">Zobacz ofertę</a>
       </div>
+      <p class="hero-microcopy">Zajmie Ci to 60 sekund. Zero karty, zero telefonu handlowca. Jako mały zespół przyjmujemy maks. 10 audytów tygodniowo.</p>
+      <div class="hero-stars">★★★★★ <span>oceny naszych klientów</span></div>
       <div class="hero-checklist">
         <span>✅ odpowiedź w 24h</span>
-        <span>✅ Google + AI + strona + reklamy</span>
+        <span>✅ 6 warstw w jednym raporcie</span>
         <span>✅ plan działań krok po kroku</span>
         <span>✅ bez sprzedażowej gadki</span>
       </div>
@@ -273,8 +319,8 @@
   <div class="marquee-section">
     <div class="wrap" style="padding:0;">
       <div class="marquee-track">
-        <span class="on">Strona internetowa</span><span>Reklamy Google/Meta</span><span class="on">ChatGPT</span><span>Claude</span><span class="on">Gemini</span><span>Lokalne SEO</span><span class="on">Google Moja Firma</span><span>Opinie</span>
-        <span class="on">Strona internetowa</span><span>Reklamy Google/Meta</span><span class="on">ChatGPT</span><span>Claude</span><span class="on">Gemini</span><span>Lokalne SEO</span><span class="on">Google Moja Firma</span><span>Opinie</span>
+        <span class="on">Strona internetowa</span><span>SEO</span><span class="on">ChatGPT</span><span>Claude</span><span class="on">Gemini</span><span>Social media</span><span class="on">Google Moja Firma</span><span>Reklamy</span>
+        <span class="on">Strona internetowa</span><span>SEO</span><span class="on">ChatGPT</span><span>Claude</span><span class="on">Gemini</span><span>Social media</span><span class="on">Google Moja Firma</span><span>Reklamy</span>
       </div>
     </div>
   </div>
@@ -285,15 +331,16 @@
     <div class="deliverable-card">
       <div>
         <span class="mono">Co dostajesz</span>
-        <h2>To nie tylko raport — to plan i pomoc, żeby go wdrożyć</h2>
-        <p class="deliverable-sub">Audyt to dopiero mapa. Pokazujemy dokładnie, którędy iść dalej — a jeśli chcesz, przechodzimy tę drogę razem z Tobą.</p>
+        <h2>To nie zwykły PDF. To marketingowa mapa Twojego biznesu.</h2>
+        <p class="deliverable-sub">Raport z audytu to tylko punkt na mapie. Prawdziwa wartość jest w trasie — dokładnie wiesz, dokąd iść najpierw, żeby telefon zaczął dzwonić w tym tygodniu, a nie za kwartał.</p>
       </div>
       <div class="deliverable-grid">
-        <span>✅ PDF z pełnym audytem</span>
+        <span>✅ Twoja mapa w PDF — pełny audyt 6 warstw</span>
         <span>✅ lista błędów i priorytety</span>
         <span>✅ konkretne wytyczne, jak je naprawić</span>
         <span>✅ pomoc we wdrożeniu, jeśli tego potrzebujesz</span>
         <span>✅ plan działań na kolejne tygodnie</span>
+        <a class="sample-link" href="przykladowy-audyt.html" target="_blank" rel="noopener">Zobacz przykładowy audyt →</a>
       </div>
     </div>
   </div>
@@ -301,7 +348,7 @@
 
 <section class="statement">
   <div class="wrap">
-    <p>Ilu klientów wybiera dziś konkurencję, <span>zanim w ogóle zdążysz odebrać telefon?</span></p>
+    <p>Nie zgaduj, gdzie tracisz klientów. <span>Sprawdź to.</span></p>
   </div>
 </section>
 
@@ -314,10 +361,11 @@
     </div>
     <div class="fail-list">
       <div class="fail-row"><span class="fail-x">✕</span><p><b>Strona nie zamienia ruchu w klientów</b> — ludzie wchodzą, ale nikt nie dzwoni, nie wypełnia formularza ani nie robi rezerwacji.</p></div>
+      <div class="fail-row"><span class="fail-x">✕</span><p><b>Nie wiesz, czy jesteś widoczny w Google</b> — a konkurencja zajmuje miejsca, które mogłyby być Twoje.</p></div>
+      <div class="fail-row"><span class="fail-x">✕</span><p><b>Sztuczna inteligencja nie pokazuje Twojej firmy</b> — ChatGPT, Gemini, Claude i inne wyszukiwarki AI polecają kogoś innego, bo Twojego SEO tam po prostu nie ma.</p></div>
+      <div class="fail-row"><span class="fail-x">✕</span><p><b>Social media istnieje, ale nikt tam nie wchodzi</b> — profile stoją puste albo prowadzone bez planu, więc nie budują zaufania.</p></div>
+      <div class="fail-row"><span class="fail-x">✕</span><p><b>Wizytówka Google Moja Firma jest źle zoptymalizowana</b> — brakuje zdjęć, godzin i słów kluczowych, a nieodpowiedziane opinie zostają bez reakcji.</p></div>
       <div class="fail-row"><span class="fail-x">✕</span><p><b>Reklamy przepalają budżet</b> — płacisz za kliknięcia, które nigdy nie zamieniają się w klienta.</p></div>
-      <div class="fail-row"><span class="fail-x">✕</span><p><b>Sztuczna inteligencja nie pokazuje Twojej firmy</b> — ChatGPT, Gemini, Claude i inne wyszukiwarki AI polecają kogoś innego, bo Twojego lokalnego SEO tam po prostu nie ma.</p></div>
-      <div class="fail-row"><span class="fail-x">✕</span><p><b>Wizytówka Google Moja Firma jest źle zoptymalizowana</b> — brakuje zdjęć, godzin i słów kluczowych, więc klient trafia na konkurencję obok.</p></div>
-      <div class="fail-row"><span class="fail-x">✕</span><p><b>Konkurencja ma więcej i lepsze opinie</b> — a Twoje ostatnie pytanie klienta w Google Maps zostaje bez odpowiedzi.</p></div>
     </div>
   </div>
 </section>
@@ -326,36 +374,46 @@
   <div class="wrap">
     <div class="section-head">
       <span class="mono">Jak pomagamy</span>
-      <h2>To naprawiamy — i tak to robimy</h2>
-      <p>Każdy błąd z listy wyżej ma swoje rozwiązanie. Oto jak realnie zwiększamy liczbę telefonów i zapytań.</p>
+      <h2>Sześć warstw. Jedna mapa.</h2>
+      <p>Każdy błąd z listy wyżej ma swoje rozwiązanie. Analizujemy wszystkie 6 warstw naraz, nie jeden kanał na raz.</p>
     </div>
     <div class="service-grid">
       <div class="service-card">
-        <span class="tag mono">Strona</span>
+        <span class="tag mono">Warstwa 1 · Strona</span>
         <h3>Strona, która sprzedaje</h3>
         <p>Poprawiamy stronę tak, żeby prowadziła do jednego celu: kontaktu z Tobą — jaśniejsze CTA, prostszy formularz, mniej miejsc, w których odwiedzający się gubi.</p>
       </div>
       <div class="service-card">
-        <span class="tag mono">Reklamy</span>
+        <span class="tag mono">Warstwa 2 · SEO</span>
+        <h3>Pozycjonowanie</h3>
+        <p>Sprawdzamy, czy Google w ogóle Cię widzi i na jakie frazy masz szansę wygrać z konkurencją — bez przepłacania za puste rankingi.</p>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Warstwa 3 · AI</span>
+        <h3>Widoczność w AI</h3>
+        <p>Optymalizacja pod ChatGPT, Gemini, Claude i inne wyszukiwarki AI — coraz więcej klientów pyta o to najpierw AI, nie Google.</p>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Warstwa 4 · Wizytówka</span>
+        <h3>Google Moja Firma i opinie</h3>
+        <p>Uzupełniamy zdjęcia, godziny i słowa kluczowe, pomagamy zbierać opinie i na nie odpowiadać — żeby budowały zaufanie, nie wątpliwości.</p>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Warstwa 5 · Social media</span>
+        <h3>Profile, które pracują na Ciebie</h3>
+        <p>Sprawdzamy, czy Twoje profile budują zaufanie, czy stoją puste i szkodzą wizerunkowi zamiast pomagać.</p>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Warstwa 6 · Reklamy</span>
         <h3>Reklamy bez przepalania budżetu</h3>
         <p>Google Ads i Meta Ads kalibrowane pod jakość zapytań, nie same kliknięcia — mniej zmarnowanych złotówek, więcej realnych zapytań.</p>
-      </div>
-      <div class="service-card">
-        <span class="tag mono">SEO + AI</span>
-        <h3>Widoczność w Google i AI</h3>
-        <p>Lokalne SEO plus optymalizacja pod ChatGPT, Gemini, Claude i inne wyszukiwarki AI — żeby sztuczna inteligencja też Cię polecała, nie tylko wyszukiwarka.</p>
-      </div>
-      <div class="service-card">
-        <span class="tag mono">Wizytówka i opinie</span>
-        <h3>Wizytówka Google Moja Firma i opinie</h3>
-        <p>Uzupełniamy zdjęcia, godziny i słowa kluczowe, a przy okazji pomagamy zbierać opinie i na nie odpowiadać — żeby budowały zaufanie, a klient trafiał od razu do Ciebie, nie na konkurencję obok.</p>
       </div>
     </div>
   </div>
 </section>
 
 <section class="why">
-  <canvas class="side-crystal left" id="crystalSide1"></canvas>
+  <canvas class="side-crystal left" id="crystalSide1" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="section-head">
       <span class="mono">Dlaczego my</span>
@@ -363,7 +421,7 @@
       <p>Większość agencji patrzy na jeden kanał naraz — SEO, reklamy albo social media osobno. My mapujemy wszystko razem, więc wiesz dokładnie, gdzie inwestować najpierw. Dlatego nazywamy się DigitalMap.</p>
     </div>
     <div class="why-grid">
-      <div class="why-item">✔ Analizujemy Google i AI jednocześnie, nie tylko jedno albo drugie</div>
+      <div class="why-item">✔ Analizujemy wszystkie 6 warstw Twojej obecności naraz, nie jeden kanał na raz</div>
       <div class="why-item">✔ Dostajesz priorytety, nie listę 50 zadań na raz</div>
       <div class="why-item">✔ Nie sprzedajemy abonamentu na siłę — możesz skończyć na jednorazowym audycie</div>
       <div class="why-item">✔ Wdrażamy tylko to, co realnie wpływa na liczbę telefonów i zapytań</div>
@@ -372,7 +430,7 @@
   </div>
 </section>
 
-<section class="testimonials">
+<section class="testimonials" style="display:none;"><!-- Odkomentuj/ustaw display, gdy będą gotowe prawdziwe opinie -->
   <div class="wrap">
     <div class="section-head center">
       <span class="mono">Opinie</span>
@@ -383,7 +441,6 @@
         <div class="stars">★★★★★</div>
         <p class="quote">"[Wpisz tu prawdziwą opinię klienta]"</p>
         <div class="testimonial-author">
-          <div class="avatar">[Zdjęcie]</div>
           <div><div class="author-name">[Imię Nazwisko]</div><div class="author-company">[Nazwa firmy]</div></div>
         </div>
       </div>
@@ -391,7 +448,6 @@
         <div class="stars">★★★★★</div>
         <p class="quote">"[Wpisz tu prawdziwą opinię klienta]"</p>
         <div class="testimonial-author">
-          <div class="avatar">[Zdjęcie]</div>
           <div><div class="author-name">[Imię Nazwisko]</div><div class="author-company">[Nazwa firmy]</div></div>
         </div>
       </div>
@@ -399,7 +455,6 @@
         <div class="stars">★★★★★</div>
         <p class="quote">"[Wpisz tu prawdziwą opinię klienta]"</p>
         <div class="testimonial-author">
-          <div class="avatar">[Zdjęcie]</div>
           <div><div class="author-name">[Imię Nazwisko]</div><div class="author-company">[Nazwa firmy]</div></div>
         </div>
       </div>
@@ -428,22 +483,32 @@
         <div class="tier-price-note">3 wdrożenia w cenie, łącznie do 500 zł (ok. 80 zł/h)</div>
         <div class="market-value">
           <div class="market-row"><span>Audyt strony</span><span>~300 zł</span></div>
-          <div class="market-row"><span>Audyt Google Maps / wizytówki</span><span>~200 zł</span></div>
           <div class="market-row"><span>Audyt SEO</span><span>~400 zł</span></div>
           <div class="market-row"><span>Audyt widoczności w AI</span><span>~250 zł</span></div>
+          <div class="market-row"><span>Audyt Google Moja Firma i opinii</span><span>~200 zł</span></div>
+          <div class="market-row"><span>Audyt social media</span><span>~200 zł</span></div>
+          <div class="market-row"><span>Audyt reklam</span><span>~200 zł</span></div>
           <div class="market-row"><span>Priorytetowy plan działań</span><span>~200 zł</span></div>
           <div class="market-row"><span>3 wdrożenia (ok. 80 zł/h)</span><span>~500 zł</span></div>
-          <div class="market-row total"><span>Osobno na rynku</span><span>~1850 zł</span></div>
+          <div class="market-row total"><span>Osobno na rynku</span><span>~2250 zł</span></div>
         </div>
         <ul><li>Pełny audyt: strona internetowa, Google, SEO, wyszukiwarki AI, social media, reklamy</li><li>Lista błędów podzielona według priorytetu — najpierw to, co da największy efekt, nie 50 zadań naraz</li><li>3 wdrożenia w Twoim imieniu w cenie</li></ul>
         <p class="guarantee">🛡️ Jeśli nie znajdziemy minimum 10 konkretnych błędów, nie płacisz.</p>
+        <p class="value-note">Wolimy zbudować z Tobą długoterminową relację niż zarobić jednorazowo na audycie — dlatego cena jest tak niska.</p>
         <a class="tier-cta" href="#kontakt">Zamów audyt i plan</a>
       </div>
       <div class="tier">
-        <h3>Stały Wzrost Ruchu i Klientów</h3>
+        <h3>Nawigacja na Żywo i Skalowanie</h3>
         <div class="tier-price">Wycena indywidualna</div>
-        <ul><li>Lokalne SEO, strona, reklamy i automatyzacja leadów w jednym abonamencie</li><li>Budżet reklamowy ustalasz samodzielnie, płacisz bezpośrednio do Google/Meta</li><li>Comiesięczny raport wzrostu i jasna lista działań</li></ul>
-        <a class="tier-cta" href="https://calendly.com/digitalmap/rozmowa" target="_blank" rel="noopener">Umów rozmowę w kalendarzu</a>
+        <p class="value-note">Dedykowany partner wzrostu dla Twojego biznesu.</p>
+        <ul>
+          <li><b>Ty decydujesz o kierunku</b> — wspólnie ustalamy plan, a Ty co miesiąc wskazujesz, którą z 6 warstw wdrażamy w pierwszej kolejności</li>
+          <li><b>6 warstw w ciągłym ruchu</b> — elastycznie pracujemy nad SEO, konwersją strony, social media, reklamami i AI, zależnie od tego, czego Twój biznes aktualnie potrzebuje</li>
+          <li><b>Budżet reklamowy bez pośredników</b> — środki na kampanie Google/Meta kontrolujesz sam i płacisz bezpośrednio do platform</li>
+          <li><b>Szybki, bezpośredni kontakt z zespołem</b> — bez czekania tygodniami na odpowiedź</li>
+          <li><b>Comiesięczna Mapa Wyników</b> — jasny raport zrealizowanych działań i plan na kolejny miesiąc</li>
+        </ul>
+        <a class="tier-cta" href="https://calendly.com/digitalmap/rozmowa" target="_blank" rel="noopener">Zgłoś chęć dołączenia</a>
       </div>
     </div>
   </div>
@@ -460,9 +525,12 @@
       <div class="faq-item"><h3>Czy muszę podpisywać umowę?</h3><p>Nie przy darmowym audycie ani przy jednorazowym pakiecie. Przy stałej współpracy ustalamy warunki indywidualnie.</p></div>
       <div class="faq-item"><h3>Czy audyt naprawdę jest darmowy?</h3><p>Tak. Podstawowy audyt z 10 najważniejszymi błędami nic nie kosztuje i ni do czego nie zobowiązuje.</p></div>
       <div class="faq-item"><h3>Czy mogę wdrożyć poprawki sama?</h3><p>Jasne. Dostajesz jasną listę z priorytetami — możesz wdrożyć samodzielnie albo zlecić to nam.</p></div>
-      <div class="faq-item"><h3>Czy obsługujecie tylko lokalne firmy?</h3><p>Skupiamy się na lokalnych firmach usługowych, ale napisz do nas — sprawdzimy, czy pasujemy.</p></div>
+      <div class="faq-item"><h3>Czy działacie tylko w jednym mieście?</h3><p>Nie — działamy w całej Polsce, zdalnie. Lokalizacja Twojej firmy nie ma znaczenia.</p></div>
+      <div class="faq-item"><h3>Czy to działa dla mojej branży?</h3><p>Pracujemy z firmami usługowymi różnych branż — od gabinetów po warsztaty i kancelarie. Napisz do nas, sprawdzimy, czy pasujemy.</p></div>
       <div class="faq-item"><h3>Czy robicie reklamy Google i Meta?</h3><p>Tak, to jedna z warstw, którymi się zajmujemy — w audycie i w stałej współpracy.</p></div>
       <div class="faq-item"><h3>Czy robicie też strony internetowe?</h3><p>Tak — poprawki i przebudowa strony to część oferty, jeśli audyt pokaże, że tam tracisz najwięcej klientów.</p></div>
+      <div class="faq-item"><h3>Dlaczego audyt kosztuje tylko 299 zł?</h3><p>Bo audyt to dla nas otwarcie rozmowy, nie produkt sam w sobie. Zarabiamy, gdy zostajesz z nami na dłużej i widzisz efekty — nie na samym audycie.</p></div>
+      <div class="faq-item"><h3>Co jeśli już współpracuję z inną agencją?</h3><p>Audyt i tak pokaże Ci realny stan rzeczy — niezależnie od tego, czy wdrożysz to z nami, sam, czy z obecnym wykonawcą.</p></div>
     </div>
   </div>
 </section>
@@ -484,7 +552,7 @@
 </section>
 
 <section class="contact" id="kontakt">
-  <canvas class="side-crystal right" id="crystalSide2"></canvas>
+  <canvas class="side-crystal right" id="crystalSide2" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="contact-card">
       <div>
@@ -496,15 +564,17 @@
       <form name="kontakt" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="kontakt">
         <p style="display:none;"><label>Nie wypełniaj tego pola: <input name="bot-field"></label></p>
-        <div class="field"><label for="name">Imię i nazwisko</label><input id="name" name="imie" type="text" placeholder="Jak się do Ciebie zwracać?"></div>
-        <div class="field"><label for="website">Strona internetowa</label><input id="website" name="strona" type="text" placeholder="np. twojafirma.pl"></div>
-        <div class="field"><label for="contact">Telefon lub e-mail</label><input id="contact" name="kontakt" type="text" placeholder="Gdzie się odezwać?"></div>
+        <div class="field"><label for="name">Imię i nazwisko</label><input id="name" name="imie" type="text" placeholder="Jak się do Ciebie zwracać?" required></div>
+        <div class="field"><label for="website">Strona internetowa</label><input id="website" name="strona" type="text" placeholder="np. twojafirma.pl" required></div>
+        <div class="field"><label for="contact">Telefon lub e-mail</label><input id="contact" name="kontakt" type="text" placeholder="np. 600 000 000 lub jan@firma.pl" required></div>
         <button class="submit-btn" type="submit">Wyślij</button>
         <p class="form-note">Zero spamu. Jedna wiadomość z Twoją mapą.</p>
       </form>
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="wrap footer-row">
@@ -613,8 +683,12 @@
     group.rotation.x = 0.4;
     group.rotation.y = 0.6;
 
+    let isVisible = true;
+    let rafId = null;
+
     function animate() {
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
+      if (!isVisible) return;
       group.rotation.y += 0.0032;
       group.rotation.x += 0.0008;
       if (shard1) shard1.rotation.y -= 0.006;
@@ -622,6 +696,13 @@
       renderer.render(scene, camera);
     }
     animate();
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { isVisible = entry.isIntersecting; });
+      }, { threshold: 0.01 });
+      observer.observe(canvas);
+    }
 
     function resize() {
       W = canvas.clientWidth; H = canvas.clientHeight;
