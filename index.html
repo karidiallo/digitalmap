@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigitalMap — Audyt Google Moja Firma i Google Maps dla lokalnych firm</title>
+<meta name="description" content="Darmowy audyt Google Moja Firma, Google Maps i lokalnego SEO. Sprawdzimy, gdzie Twoja firma traci klientów, i przygotujemy plan naprawy w 24h.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0708;
+    --bg-2: #130E10;
+    --surface: #180F12;
+    --border: rgba(242,236,233,0.09);
+    --text: #F2ECE9;
+    --text-dim: #948A8C;
+    --wine: #9B2242;
+    --wine-bright: #C4335A;
+    --gold: #C98A3D;
+    --gold-bright: #E5A85C;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background: var(--bg); color: var(--text); font-family:'Inter', sans-serif; line-height:1.6; overflow-x:hidden; }
+  .display { font-family:'Unbounded', sans-serif; letter-spacing:-0.02em; }
+  .mono { font-family:'JetBrains Mono', monospace; letter-spacing:0.08em; text-transform:uppercase; font-size:0.7rem; }
+  .wrap { max-width:1180px; margin:0 auto; padding:0 32px; position:relative; z-index:2; }
+
+  /* ---------- LOGO ---------- */
+  .logo { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
+  .logo-mark { width:30px; height:30px; flex-shrink:0; }
+  .logo-word { font-family:'Unbounded', sans-serif; font-weight:700; font-size:1.15rem; color: var(--text); letter-spacing:-0.01em; }
+  .logo-word span { color: var(--wine-bright); }
+
+  header { position:sticky; top:0; z-index:100; padding:24px 0; }
+  .nav { display:flex; align-items:center; justify-content:space-between; }
+  .nav-links { display:flex; gap:34px; }
+  .nav-links a { color: var(--text-dim); text-decoration:none; font-size:0.92rem; transition: color 0.2s ease; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { border:1px solid var(--wine-bright); color: var(--text); text-decoration:none; padding:10px 22px; border-radius:999px; font-size:0.88rem; transition: background 0.2s ease; }
+  .nav-cta:hover { background: var(--wine); }
+
+  /* ---------- HERO with 3D crystal ---------- */
+  .hero { position:relative; padding:70px 0 40px; min-height:600px; }
+  #crystalCanvas { position:absolute; top:-40px; right:-4%; width:56%; height:640px; z-index:0; }
+  .hero-content { position:relative; z-index:2; max-width:640px; }
+  .eyebrow-mono { color: var(--gold-bright); display:block; margin-bottom:20px; }
+  .tier-price-note { font-size:0.8rem; color: var(--text-dim); margin-top:-14px; margin-bottom:20px; }
+  h1.title { font-size:3.6rem; line-height:1.03; font-weight:700; margin-bottom:26px; }
+  h1.title span { color: var(--wine-bright); }
+  .hero-sub { color: var(--text-dim); font-size:1.12rem; max-width:46ch; margin-bottom:36px; }
+  .hero-actions { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+  .hero-checklist { display:flex; gap:22px; flex-wrap:wrap; margin-top:22px; }
+  .hero-checklist span { font-size:0.85rem; color: var(--text-dim); }
+  .fail-list { border-top:1px solid var(--border); }
+  .fail-row { display:flex; gap:18px; align-items:flex-start; padding:22px 0; border-bottom:1px solid var(--border); }
+  .fail-x { color: var(--wine-bright); font-weight:700; font-family:'Unbounded',sans-serif; flex-shrink:0; }
+  .fail-row p { font-size:1.02rem; color: var(--text); }
+  .fail-row p b { font-weight:600; }
+  .btn-primary { background: linear-gradient(120deg, var(--wine), var(--wine-bright)); color: var(--text); font-weight:600; padding:16px 30px; border-radius:999px; text-decoration:none; font-size:0.98rem; display:inline-block; box-shadow: 0 20px 45px -18px rgba(155,34,66,0.5); }
+  .btn-ghost { color: var(--text-dim); text-decoration:none; font-size:0.98rem; border-bottom:1px solid var(--border); padding-bottom:2px; }
+
+  .marquee-section { border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:24px 0; overflow:hidden; margin-top:56px; position:relative; z-index:2; }
+  .marquee-track { display:flex; gap:56px; white-space:nowrap; animation: scroll-left 24s linear infinite; width:max-content; }
+  .marquee-track span { font-family:'Unbounded', sans-serif; font-weight:600; font-size:1.05rem; color: var(--text-dim); }
+  .marquee-track span.on { color: var(--gold-bright); }
+  @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .deliverable { padding:60px 0; }
+  .deliverable-card { background: var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px 40px; display:flex; flex-wrap:wrap; gap:32px; align-items:center; justify-content:space-between; }
+  .deliverable-card .mono { color: var(--gold-bright); display:block; margin-bottom:10px; }
+  .deliverable-card h2 { font-family:'Unbounded', sans-serif; font-size:1.4rem; font-weight:700; max-width:20ch; }
+  .deliverable-sub { color: var(--text-dim); font-size:0.92rem; max-width:36ch; margin-top:10px; }
+  .deliverable-grid { display:flex; flex-direction:column; gap:10px; }
+  .deliverable-grid span { font-size:0.92rem; color: var(--text-dim); }
+  .statement { padding:90px 0; text-align:center; }
+  .statement p { font-family:'Unbounded', sans-serif; font-weight:600; font-size:2.3rem; line-height:1.3; max-width:16ch; margin:0 auto; }
+  .statement p span { color: var(--wine-bright); }
+
+  .problem { padding:0 0 90px; }
+  .services { padding:0 0 120px; }
+  .service-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:20px; }
+  .service-card { background: var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; }
+  .service-card .tag { color: var(--gold-bright); margin-bottom:14px; display:block; }
+  .service-card h3 { font-family:'Unbounded', sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:10px; }
+  .service-card p { color: var(--text-dim); font-size:0.92rem; }
+  .section-head { max-width:640px; margin-bottom:56px; }
+  .section-head.center { margin:0 auto 56px; text-align:center; }
+  .section-head .mono { color: var(--gold-bright); display:block; margin-bottom:16px; }
+  .section-head h2 { font-family:'Unbounded', sans-serif; font-size:2.1rem; font-weight:700; margin-bottom:14px; }
+  .section-head p { color:var(--text-dim); font-size:1.05rem; }
+  .rows { border-top:1px solid var(--border); }
+  .row { display:grid; grid-template-columns:2fr 3fr; gap:40px; padding:34px 0; border-bottom:1px solid var(--border); align-items:baseline; }
+  .row .mono { color: var(--wine-bright); }
+  .row h3 { font-family:'Inter',sans-serif; font-size:1.15rem; font-weight:600; margin-bottom:8px; }
+  .row p { color: var(--text-dim); font-size:0.95rem; max-width:56ch; }
+
+  .why { padding:0 0 110px; position:relative; overflow:visible; }
+  .contact { padding:0 0 90px; position:relative; overflow:visible; }
+  .side-crystal { position:absolute; width:280px; height:280px; z-index:0; opacity:0.55; pointer-events:none; }
+  .side-crystal.left { left:-90px; top:10%; }
+  .side-crystal.right { right:-90px; top:5%; }
+  @media (max-width:860px) { .side-crystal { display:none; } }
+  .why-grid { display:flex; flex-direction:column; gap:2px; background: var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .why-item { background: var(--surface); padding:18px 24px; font-size:0.98rem; color: var(--text); }
+
+  .testimonials { padding:0 0 110px; }
+  .testimonial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .testimonial-card { background: var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px; }
+  .stars { color: var(--gold-bright); letter-spacing:0.15em; margin-bottom:14px; }
+  .quote { font-size:0.95rem; color: var(--text); margin-bottom:20px; line-height:1.5; }
+  .testimonial-author { display:flex; align-items:center; gap:12px; }
+  .avatar { width:38px; height:38px; border-radius:50%; background: var(--bg-2); border:1px dashed var(--border); display:flex; align-items:center; justify-content:center; font-size:0.6rem; color: var(--text-dim); flex-shrink:0; }
+  .author-name { font-size:0.9rem; font-weight:600; }
+  .author-company { font-size:0.8rem; color: var(--text-dim); }
+
+  .offer { padding:0 0 120px; }
+  .tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background: var(--border); border:1px solid var(--border); }
+  .tier { background: var(--bg); padding:38px 30px; display:flex; flex-direction:column; }
+  .tier.featured { background: linear-gradient(180deg, rgba(155,34,66,0.14), transparent); }
+  .tier-label { font-size:0.7rem; color: var(--text-dim); margin-bottom:16px; }
+  .tier.featured .tier-label { color: var(--gold-bright); }
+  .tier h3 { font-family:'Unbounded', sans-serif; font-size:1.25rem; margin-bottom:10px; font-weight:700; }
+  .tier-price { font-family:'Unbounded', sans-serif; font-size:2rem; font-weight:700; color: var(--wine-bright); margin-bottom:22px; }
+  .tier ul { list-style:none; flex-grow:1; margin-bottom:24px; }
+  .tier li { font-size:0.9rem; color: var(--text-dim); padding:9px 0; border-bottom:1px dashed var(--border); }
+  .tier-cta { text-align:center; padding:13px; text-decoration:none; font-size:0.9rem; font-weight:600; border:1px solid var(--border); color: var(--text); border-radius:999px; }
+  .market-value { margin-bottom:20px; border-top:1px dashed var(--border); padding-top:14px; }
+  .market-row { display:flex; justify-content:space-between; font-size:0.82rem; color: var(--text-dim); padding:4px 0; }
+  .market-row.total { color: var(--gold-bright); font-weight:600; border-top:1px solid var(--border); margin-top:6px; padding-top:10px; }
+  .guarantee { font-size:0.85rem; color: var(--gold-bright); margin-bottom:16px; }
+  .tier.featured .tier-cta { background: var(--wine); border-color: var(--wine); }
+
+  .faq { padding:0 0 110px; }
+  .faq-list { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background: var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .faq-item { background: var(--surface); padding:24px; }
+  .faq-item h3 { font-family:'Unbounded', sans-serif; font-size:1rem; font-weight:600; margin-bottom:8px; }
+  .faq-item p { font-size:0.9rem; color: var(--text-dim); }
+
+  .process { padding:0 0 120px; }
+  .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
+  .step-num { font-family:'Unbounded', sans-serif; font-weight:700; color: var(--gold-bright); font-size:1.4rem; margin-bottom:16px; }
+  .step h3 { font-size:1.05rem; margin-bottom:8px; font-weight:600; }
+  .step p { font-size:0.9rem; color: var(--text-dim); }
+
+  .contact { padding:0 0 90px; }
+  .contact-card { border-top:1px solid var(--border); padding-top:70px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; }
+  .contact-card h2 { font-family:'Unbounded', sans-serif; font-size:2.2rem; font-weight:700; margin-bottom:20px; max-width:12ch; }
+  .contact-card p.lead { color: var(--text-dim); max-width:42ch; margin-bottom:28px; font-size:1.05rem; }
+  .contact-detail { display:flex; gap:12px; margin-bottom:12px; font-size:0.95rem; }
+  .contact-detail .mono { color: var(--wine-bright); min-width:110px; }
+  .field { margin-bottom:18px; }
+  label { display:block; font-size:0.72rem; color: var(--text-dim); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em; }
+  input { width:100%; padding:0 0 12px; border:none; border-bottom:1px solid var(--border); background: transparent; color: var(--text); font-family:'Inter',sans-serif; font-size:1rem; }
+  input:focus { outline:none; border-bottom-color: var(--wine-bright); }
+  .submit-btn { padding:15px 32px; background: var(--wine); color: var(--text); border:none; border-radius:999px; font-weight:600; font-size:0.98rem; cursor:pointer; margin-top:22px; }
+  .submit-btn:hover { background: var(--wine-bright); }
+  .form-note { font-size:0.8rem; color: var(--text-dim); margin-top:14px; }
+
+  footer { padding:40px 0; border-top:1px solid var(--border); }
+  .footer-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  footer p, footer a { font-size:0.85rem; color: var(--text-dim); text-decoration:none; }
+  .footer-links { display:flex; gap:22px; }
+
+  @media (max-width:860px) {
+    .deliverable-card { flex-direction:column; align-items:flex-start; }
+    .faq-list { grid-template-columns:1fr; }
+    .testimonial-grid { grid-template-columns:1fr; }
+    #crystalCanvas { position:relative; width:100%; height:280px; top:0; right:0; margin-bottom:20px; }
+    .hero-content { max-width:100%; }
+    h1.title { font-size:2.4rem; }
+    .row, .tiers, .steps, .contact-card { grid-template-columns:1fr; }
+    .statement p { font-size:1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+        <defs>
+          <linearGradient id="topFace" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#E5A85C"/><stop offset="1" stop-color="#C4335A"/>
+          </linearGradient>
+          <linearGradient id="leftFace" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9B2242"/><stop offset="1" stop-color="#6B1730"/>
+          </linearGradient>
+          <linearGradient id="rightFace" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#C4335A"/><stop offset="1" stop-color="#8A1F3B"/>
+          </linearGradient>
+        </defs>
+        <path d="M20 3 L35 11 L20 19 L5 11 Z" fill="url(#topFace)"/>
+        <path d="M5 11 L20 19 L20 36 L5 28 Z" fill="url(#leftFace)"/>
+        <path d="M35 11 L20 19 L20 36 L35 28 Z" fill="url(#rightFace)"/>
+      </svg>
+      <span class="logo-word">digital<span>map</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#oferta">Oferta</a>
+      <a href="#faq">FAQ</a>
+      <a href="#jak-to-dziala">Proces</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+    <a class="nav-cta" href="#kontakt">Odbierz darmowy audyt</a>
+  </div>
+</header>
+
+<section class="hero">
+  <canvas id="crystalCanvas"></canvas>
+  <div class="wrap">
+    <div class="hero-content">
+      <span class="eyebrow-mono mono">Darmowy audyt w 24h</span>
+      <h1 class="title">Odkryj, dlaczego Twoja firma<br><span>traci klientów każdego dnia.</span></h1>
+      <p class="hero-sub">Sprawdzamy Twoją stronę, reklamy, widoczność w Google i wyszukiwarkach AI (ChatGPT, Gemini, Claude) oraz to, jak wygląda Twoja wizytówka i opinie — i przygotujemy konkretny plan naprawy. Bez zobowiązań.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#kontakt">Odbierz darmowy audyt</a>
+        <a class="btn-ghost" href="#oferta">Zobacz ofertę</a>
+      </div>
+      <div class="hero-checklist">
+        <span>✅ odpowiedź w 24h</span>
+        <span>✅ Google + AI + strona + reklamy</span>
+        <span>✅ plan działań krok po kroku</span>
+        <span>✅ bez sprzedażowej gadki</span>
+      </div>
+    </div>
+  </div>
+  <div class="marquee-section">
+    <div class="wrap" style="padding:0;">
+      <div class="marquee-track">
+        <span class="on">Strona internetowa</span><span>Reklamy Google/Meta</span><span class="on">ChatGPT</span><span>Claude</span><span class="on">Gemini</span><span>Lokalne SEO</span><span class="on">Google Moja Firma</span><span>Opinie</span>
+        <span class="on">Strona internetowa</span><span>Reklamy Google/Meta</span><span class="on">ChatGPT</span><span>Claude</span><span class="on">Gemini</span><span>Lokalne SEO</span><span class="on">Google Moja Firma</span><span>Opinie</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="deliverable">
+  <div class="wrap">
+    <div class="deliverable-card">
+      <div>
+        <span class="mono">Co dostajesz</span>
+        <h2>To nie tylko raport — to plan i pomoc, żeby go wdrożyć</h2>
+        <p class="deliverable-sub">Audyt to dopiero mapa. Pokazujemy dokładnie, którędy iść dalej — a jeśli chcesz, przechodzimy tę drogę razem z Tobą.</p>
+      </div>
+      <div class="deliverable-grid">
+        <span>✅ PDF z pełnym audytem</span>
+        <span>✅ lista błędów i priorytety</span>
+        <span>✅ konkretne wytyczne, jak je naprawić</span>
+        <span>✅ pomoc we wdrożeniu, jeśli tego potrzebujesz</span>
+        <span>✅ plan działań na kolejne tygodnie</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="statement">
+  <div class="wrap">
+    <p>Ilu klientów wybiera dziś konkurencję, <span>zanim w ogóle zdążysz odebrać telefon?</span></p>
+  </div>
+</section>
+
+<section class="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">Częste błędy</span>
+      <h2>Dlaczego Twoja firma traci klientów każdego dnia?</h2>
+      <p>To pięć najczęstszych powodów, przez które klient wybiera kogoś innego, zanim w ogóle się odezwie.</p>
+    </div>
+    <div class="fail-list">
+      <div class="fail-row"><span class="fail-x">✕</span><p><b>Strona nie zamienia ruchu w klientów</b> — ludzie wchodzą, ale nikt nie dzwoni, nie wypełnia formularza ani nie robi rezerwacji.</p></div>
+      <div class="fail-row"><span class="fail-x">✕</span><p><b>Reklamy przepalają budżet</b> — płacisz za kliknięcia, które nigdy nie zamieniają się w klienta.</p></div>
+      <div class="fail-row"><span class="fail-x">✕</span><p><b>Sztuczna inteligencja nie pokazuje Twojej firmy</b> — ChatGPT, Gemini, Claude i inne wyszukiwarki AI polecają kogoś innego, bo Twojego lokalnego SEO tam po prostu nie ma.</p></div>
+      <div class="fail-row"><span class="fail-x">✕</span><p><b>Wizytówka Google Moja Firma jest źle zoptymalizowana</b> — brakuje zdjęć, godzin i słów kluczowych, więc klient trafia na konkurencję obok.</p></div>
+      <div class="fail-row"><span class="fail-x">✕</span><p><b>Konkurencja ma więcej i lepsze opinie</b> — a Twoje ostatnie pytanie klienta w Google Maps zostaje bez odpowiedzi.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">Jak pomagamy</span>
+      <h2>To naprawiamy — i tak to robimy</h2>
+      <p>Każdy błąd z listy wyżej ma swoje rozwiązanie. Oto jak realnie zwiększamy liczbę telefonów i zapytań.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <span class="tag mono">Strona</span>
+        <h3>Strona, która sprzedaje</h3>
+        <p>Poprawiamy stronę tak, żeby prowadziła do jednego celu: kontaktu z Tobą — jaśniejsze CTA, prostszy formularz, mniej miejsc, w których odwiedzający się gubi.</p>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Reklamy</span>
+        <h3>Reklamy bez przepalania budżetu</h3>
+        <p>Google Ads i Meta Ads kalibrowane pod jakość zapytań, nie same kliknięcia — mniej zmarnowanych złotówek, więcej realnych zapytań.</p>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">SEO + AI</span>
+        <h3>Widoczność w Google i AI</h3>
+        <p>Lokalne SEO plus optymalizacja pod ChatGPT, Gemini, Claude i inne wyszukiwarki AI — żeby sztuczna inteligencja też Cię polecała, nie tylko wyszukiwarka.</p>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Wizytówka i opinie</span>
+        <h3>Wizytówka Google Moja Firma i opinie</h3>
+        <p>Uzupełniamy zdjęcia, godziny i słowa kluczowe, a przy okazji pomagamy zbierać opinie i na nie odpowiadać — żeby budowały zaufanie, a klient trafiał od razu do Ciebie, nie na konkurencję obok.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <canvas class="side-crystal left" id="crystalSide1"></canvas>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">Dlaczego my</span>
+      <h2>Jedna mapa. Wszystkie miejsca, w których szukają Cię klienci.</h2>
+      <p>Większość agencji patrzy na jeden kanał naraz — SEO, reklamy albo social media osobno. My mapujemy wszystko razem, więc wiesz dokładnie, gdzie inwestować najpierw. Dlatego nazywamy się DigitalMap.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">✔ Analizujemy Google i AI jednocześnie, nie tylko jedno albo drugie</div>
+      <div class="why-item">✔ Dostajesz priorytety, nie listę 50 zadań na raz</div>
+      <div class="why-item">✔ Nie sprzedajemy abonamentu na siłę — możesz skończyć na jednorazowym audycie</div>
+      <div class="why-item">✔ Wdrażamy tylko to, co realnie wpływa na liczbę telefonów i zapytań</div>
+      <div class="why-item">✔ Raport w 24 godziny, nie w 3 tygodnie</div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="mono">Opinie</span>
+      <h2>Co mówią klienci</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"[Wpisz tu prawdziwą opinię klienta]"</p>
+        <div class="testimonial-author">
+          <div class="avatar">[Zdjęcie]</div>
+          <div><div class="author-name">[Imię Nazwisko]</div><div class="author-company">[Nazwa firmy]</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"[Wpisz tu prawdziwą opinię klienta]"</p>
+        <div class="testimonial-author">
+          <div class="avatar">[Zdjęcie]</div>
+          <div><div class="author-name">[Imię Nazwisko]</div><div class="author-company">[Nazwa firmy]</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"[Wpisz tu prawdziwą opinię klienta]"</p>
+        <div class="testimonial-author">
+          <div class="avatar">[Zdjęcie]</div>
+          <div><div class="author-name">[Imię Nazwisko]</div><div class="author-company">[Nazwa firmy]</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="offer" id="oferta">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="mono">Oferta</span>
+      <h2>Wybierz, jak szybko chcesz więcej klientów</h2>
+      <p>Zaczynasz od szybkiego, bezpłatnego audytu Twojej obecności online. Płacisz dopiero za konkretny plan i wdrożenia. Zostajesz z nami tylko tak długo, jak przynosi to efekty.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <h3>Darmowy Audyt</h3>
+        <div class="tier-price">Za darmo</div>
+        <ul><li>Szybki audyt — bez czekania tygodniami</li><li>10 najważniejszych błędów i możliwych zmian + rekomendacje</li><li>Odpowiedź w 24h, zero zobowiązań</li></ul>
+        <a class="tier-cta" href="#kontakt">Odbierz darmowy audyt</a>
+      </div>
+      <div class="tier featured">
+        <div class="tier-label mono">Najczęściej wybierane</div>
+        <h3>Audyt + Plan Wdrożenia</h3>
+        <div class="tier-price">299 zł</div>
+        <div class="tier-price-note">3 wdrożenia w cenie, łącznie do 500 zł (ok. 80 zł/h)</div>
+        <div class="market-value">
+          <div class="market-row"><span>Audyt strony</span><span>~300 zł</span></div>
+          <div class="market-row"><span>Audyt Google Maps / wizytówki</span><span>~200 zł</span></div>
+          <div class="market-row"><span>Audyt SEO</span><span>~400 zł</span></div>
+          <div class="market-row"><span>Audyt widoczności w AI</span><span>~250 zł</span></div>
+          <div class="market-row"><span>Priorytetowy plan działań</span><span>~200 zł</span></div>
+          <div class="market-row"><span>3 wdrożenia (ok. 80 zł/h)</span><span>~500 zł</span></div>
+          <div class="market-row total"><span>Osobno na rynku</span><span>~1850 zł</span></div>
+        </div>
+        <ul><li>Pełny audyt: strona internetowa, Google, SEO, wyszukiwarki AI, social media, reklamy</li><li>Lista błędów podzielona według priorytetu — najpierw to, co da największy efekt, nie 50 zadań naraz</li><li>3 wdrożenia w Twoim imieniu w cenie</li></ul>
+        <p class="guarantee">🛡️ Jeśli nie znajdziemy minimum 10 konkretnych błędów, nie płacisz.</p>
+        <a class="tier-cta" href="#kontakt">Zamów audyt i plan</a>
+      </div>
+      <div class="tier">
+        <h3>Stały Wzrost Ruchu i Klientów</h3>
+        <div class="tier-price">Wycena indywidualna</div>
+        <ul><li>Lokalne SEO, strona, reklamy i automatyzacja leadów w jednym abonamencie</li><li>Budżet reklamowy ustalasz samodzielnie, płacisz bezpośrednio do Google/Meta</li><li>Comiesięczny raport wzrostu i jasna lista działań</li></ul>
+        <a class="tier-cta" href="#kontakt">Porozmawiajmy o współpracy</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="mono">FAQ</span>
+      <h2>Najczęstsze pytania</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><h3>Ile trwa audyt?</h3><p>Darmowy audyt dostajesz w 24 godziny. Wdrożenia umawiamy po ustaleniu zakresu.</p></div>
+      <div class="faq-item"><h3>Czy muszę podpisywać umowę?</h3><p>Nie przy darmowym audycie ani przy jednorazowym pakiecie. Przy stałej współpracy ustalamy warunki indywidualnie.</p></div>
+      <div class="faq-item"><h3>Czy audyt naprawdę jest darmowy?</h3><p>Tak. Podstawowy audyt z 10 najważniejszymi błędami nic nie kosztuje i ni do czego nie zobowiązuje.</p></div>
+      <div class="faq-item"><h3>Czy mogę wdrożyć poprawki sama?</h3><p>Jasne. Dostajesz jasną listę z priorytetami — możesz wdrożyć samodzielnie albo zlecić to nam.</p></div>
+      <div class="faq-item"><h3>Czy obsługujecie tylko lokalne firmy?</h3><p>Skupiamy się na lokalnych firmach usługowych, ale napisz do nas — sprawdzimy, czy pasujemy.</p></div>
+      <div class="faq-item"><h3>Czy robicie reklamy Google i Meta?</h3><p>Tak, to jedna z warstw, którymi się zajmujemy — w audycie i w stałej współpracy.</p></div>
+      <div class="faq-item"><h3>Czy robicie też strony internetowe?</h3><p>Tak — poprawki i przebudowa strony to część oferty, jeśli audyt pokaże, że tam tracisz najwięcej klientów.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="jak-to-dziala">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="mono">Proces</span>
+      <h2>Jak to działa</h2>
+      <p>Od zgłoszenia do gotowej mapy w mniej niż 48 godzin.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Wypełniasz formularz</h3><p>Podajesz imię, stronę i kontakt — 3 pola, minuta roboty.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Skanujemy Twoją obecność</h3><p>Google, Mapy, opinie, wyszukiwarki AI (ChatGPT, Gemini, Claude) i kilka innych narzędzi do analizy SEO — sprawdzamy to, czego nie widać z poziomu zwykłej przeglądarki.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Dostajesz raport</h3><p>Czytelny raport z konkretnymi błędami i wytycznymi — co poprawić, w jakiej kolejności i dlaczego akurat to, krok po kroku, nie ogólniki.</p></div>
+      <div class="step"><div class="step-num">04</div><h3>Decydujesz, co dalej</h3><p>Naprawiasz to samodzielnie, albo robimy to razem.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <canvas class="side-crystal right" id="crystalSide2"></canvas>
+  <div class="wrap">
+    <div class="contact-card">
+      <div>
+        <h2>Umówmy rozmowę</h2>
+        <p class="lead">Odpowiadamy w ciągu 24 godzin. Bez zobowiązań, bez presji sprzedażowej. Jako mały zespół przyjmujemy maksymalnie 10 audytów tygodniowo — dzięki temu każda firma dostaje naszą pełną uwagę, a nie audyt "z taśmy".</p>
+        <div class="contact-detail"><span class="mono">Mail</span> kontakt@digitalmap.pl</div>
+        <div class="contact-detail"><span class="mono">Czas odp.</span> do 24h</div>
+      </div>
+      <form>
+        <div class="field"><label for="name">Imię i nazwisko</label><input id="name" type="text" placeholder="Jak się do Ciebie zwracać?"></div>
+        <div class="field"><label for="website">Strona internetowa</label><input id="website" type="text" placeholder="np. twojafirma.pl"></div>
+        <div class="field"><label for="contact">Telefon lub e-mail</label><input id="contact" type="text" placeholder="Gdzie się odezwać?"></div>
+        <button class="submit-btn" type="button" onclick="alert('Dziękujemy! Odezwiemy się w ciągu 24h.')">Wyślij</button>
+        <p class="form-note">Zero spamu. Jedna wiadomość z Twoją mapą.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <a class="logo" href="#">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+        <path d="M20 3 L35 11 L20 19 L5 11 Z" fill="#948A8C" opacity="0.9"/>
+        <path d="M5 11 L20 19 L20 36 L5 28 Z" fill="#948A8C" opacity="0.5"/>
+        <path d="M35 11 L20 19 L20 36 L35 28 Z" fill="#948A8C" opacity="0.7"/>
+      </svg>
+      <span class="logo-word" style="font-size:1rem;">digital<span>map</span></span>
+    </a>
+    <div class="footer-links">
+      <a href="#oferta">Oferta</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+  function initCrystal(canvasId, opts) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const mainSize = opts.mainSize || 2.1;
+    const withShards = opts.withShards !== false;
+    const camZ = opts.camZ || 7.5;
+
+    let W = canvas.clientWidth || 300, H = canvas.clientHeight || 300;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, W/H, 0.1, 100);
+    camera.position.set(0, 0, camZ);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(W, H, false);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+    const keyLight = new THREE.PointLight(0xC4335A, 3.2, 20);
+    keyLight.position.set(4, 3, 5);
+    scene.add(keyLight);
+    const fillLight = new THREE.PointLight(0xE5A85C, 2.4, 20);
+    fillLight.position.set(-4, -2, 4);
+    scene.add(fillLight);
+    if (withShards) {
+      const rimLight = new THREE.PointLight(0xffffff, 1.6, 20);
+      rimLight.position.set(0, 5, -5);
+      scene.add(rimLight);
+    }
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    function makeCrystal(size, colorA) {
+      const geo = new THREE.IcosahedronGeometry(size, 0);
+      const mat = new THREE.MeshPhysicalMaterial({
+        color: 0x1a0f12, transparent:true, opacity:0.42,
+        roughness:0.08, metalness:0.05, clearcoat:1, clearcoatRoughness:0.05,
+        side: THREE.DoubleSide, reflectivity:0.9
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      const edges = new THREE.EdgesGeometry(geo);
+      const lineMat = new THREE.LineBasicMaterial({ color: colorA, transparent:true, opacity:0.8 });
+      const wire = new THREE.LineSegments(edges, lineMat);
+      mesh.add(wire);
+      return mesh;
+    }
+
+    const mainCrystal = makeCrystal(mainSize, 0xE5A85C);
+    group.add(mainCrystal);
+
+    let shard1, shard2;
+    if (withShards) {
+      shard1 = makeCrystal(mainSize * 0.26, 0xC4335A);
+      shard1.position.set(-mainSize * 1.24, mainSize * 0.76, 1.2);
+      group.add(shard1);
+      shard2 = makeCrystal(mainSize * 0.19, 0xE5A85C);
+      shard2.position.set(mainSize * 1.1, -mainSize * 0.67, -0.6);
+      group.add(shard2);
+    }
+
+    group.rotation.x = 0.4;
+    group.rotation.y = 0.6;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      group.rotation.y += 0.0032;
+      group.rotation.x += 0.0008;
+      if (shard1) shard1.rotation.y -= 0.006;
+      if (shard2) shard2.rotation.x += 0.005;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    function resize() {
+      W = canvas.clientWidth; H = canvas.clientHeight;
+      if (!W || !H) return;
+      camera.aspect = W / H; camera.updateProjectionMatrix();
+      renderer.setSize(W, H, false);
+    }
+    window.addEventListener('resize', resize);
+    setTimeout(resize, 50);
+  }
+
+  initCrystal('crystalCanvas', { mainSize: 2.1, withShards: true, camZ: 7.5 });
+  initCrystal('crystalSide1', { mainSize: 1.3, withShards: false, camZ: 6 });
+  initCrystal('crystalSide2', { mainSize: 1.3, withShards: false, camZ: 6 });
+</script>
+
+</body>
+</html>
