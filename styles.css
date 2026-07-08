@@ -34,6 +34,8 @@
   .nav-right { display:flex; align-items:center; gap:20px; justify-self:end; }
   .nav-icon { color: var(--text-dim); display:flex; align-items:center; transition: color 0.2s ease; }
   .nav-icon:hover { color: var(--gold-bright); }
+  .nav-email { font-family:'JetBrains Mono', monospace; font-size:0.78rem; color: var(--text-dim); text-decoration:none; letter-spacing:0.02em; }
+  .nav-email:hover { color: var(--gold-bright); }
 
   /* ---------- HERO with 3D crystal ---------- */
   .hero { position:relative; padding:70px 0 40px; min-height:600px; }
