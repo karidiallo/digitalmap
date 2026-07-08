@@ -32,9 +32,9 @@
   .nav-cta { border:1px solid var(--wine-bright); color: var(--text); text-decoration:none; padding:10px 22px; border-radius:999px; font-size:0.88rem; transition: background 0.2s ease; }
   .nav-cta:hover { background: var(--wine); }
   .nav-right { display:flex; align-items:center; gap:20px; justify-self:end; }
-  .nav-icon { color: var(--text-dim); display:flex; align-items:center; transition: color 0.2s ease; }
+  .nav-icon, .nav-icon:visited, .nav-icon:hover { color: var(--text-dim); display:flex; align-items:center; transition: color 0.2s ease; }
   .nav-icon:hover { color: var(--gold-bright); }
-  .nav-email { font-family:'JetBrains Mono', monospace; font-size:0.78rem; color: var(--text-dim); text-decoration:none; letter-spacing:0.02em; }
+  .nav-email, .nav-email:visited { font-family:'Inter', sans-serif; font-size:0.85rem; color: var(--text-dim); text-decoration:none; }
   .nav-email:hover { color: var(--gold-bright); }
 
   /* ---------- HERO with 3D crystal ---------- */
