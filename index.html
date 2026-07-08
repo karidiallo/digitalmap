@@ -1,315 +1,521 @@
-:root {
-    --bg: #0A0708;
-    --bg-2: #130E10;
-    --surface: #180F12;
-    --border: rgba(242,236,233,0.09);
-    --text: #F2ECE9;
-    --text-dim: #ADA6A8;
-    --wine: #9B2242;
-    --wine-bright: #C4335A;
-    --gold: #C98A3D;
-    --gold-bright: #E5A85C;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { background: var(--bg); color: var(--text); font-family:'Inter', sans-serif; line-height:1.6; overflow-x:hidden; }
-  .display { font-family:'Unbounded', sans-serif; letter-spacing:-0.02em; }
-  .mono { font-family:'JetBrains Mono', monospace; letter-spacing:0.08em; text-transform:uppercase; font-size:0.7rem; }
-  .wrap { max-width:1180px; margin:0 auto; padding:0 32px; position:relative; z-index:2; }
-
-  /* ---------- LOGO ---------- */
-  .logo { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
-  .logo-mark { width:30px; height:30px; flex-shrink:0; }
-  .logo-word { font-family:'Unbounded', sans-serif; font-weight:700; font-size:1.15rem; color: var(--text); letter-spacing:-0.01em; }
-  .logo-word span { color: var(--wine-bright); }
-
-  header { position:sticky; top:0; z-index:100; padding:18px 0; background: rgba(10,7,8,0.88); backdrop-filter: blur(12px); border-bottom:1px solid var(--border); }
-  .nav { display:grid; grid-template-columns:auto 1fr auto; align-items:center; width:100%; padding:0 40px; box-sizing:border-box; column-gap:24px; }
-  .logo { justify-self:start; }
-  .nav-links { display:flex; gap:34px; justify-self:center; margin-left:0; }
-  .nav-links a { color: var(--text-dim); text-decoration:none; font-size:0.92rem; transition: color 0.2s ease; }
-  .nav-links a:hover { color: var(--text); }
-  .nav-cta { border:1px solid var(--wine-bright); color: var(--text); text-decoration:none; padding:10px 22px; border-radius:999px; font-size:0.88rem; transition: background 0.2s ease; }
-  .nav-cta:hover { background: var(--wine); }
-  .nav-right { display:flex; align-items:center; gap:20px; justify-self:end; }
-  .nav-icon { color: var(--text-dim); display:flex; align-items:center; transition: color 0.2s ease; }
-  .nav-icon:hover { color: var(--gold-bright); }
-  .nav-email { font-family:'JetBrains Mono', monospace; font-size:0.78rem; color: var(--text-dim); text-decoration:none; letter-spacing:0.02em; }
-  .nav-email:hover { color: var(--gold-bright); }
-
-  /* ---------- HERO with 3D crystal ---------- */
-  .hero { position:relative; padding:70px 0 40px; min-height:600px; }
-  .hero .wrap { padding-left:8px; }
-  #crystalCanvas { position:absolute; top:-40px; right:-6%; width:60%; height:640px; z-index:0; }
-  .hero-content { position:relative; z-index:2; max-width:640px; }
-  .eyebrow-mono { color: var(--gold-bright); display:block; margin-bottom:20px; }
-  .tier-price-note { font-size:0.8rem; color: var(--text-dim); margin-top:-14px; margin-bottom:20px; }
-  h1.title { font-size:3.6rem; line-height:1.03; font-weight:700; margin-bottom:26px; }
-  h1.title span { color: var(--wine-bright); }
-  .hero-sub { color: var(--text-dim); font-size:1.12rem; max-width:46ch; margin-bottom:36px; }
-  .hero-actions { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
-  .hero-checklist { display:flex; gap:22px; flex-wrap:wrap; margin-top:22px; }
-  .hero-checklist span { font-size:0.85rem; color: var(--text-dim); display:flex; align-items:center; gap:9px; }
-  .hero-checklist span::before { content:""; width:6px; height:6px; background: var(--gold-bright); transform: rotate(45deg); flex-shrink:0; }
-  .hero-microcopy { font-size:0.85rem; color: var(--gold-bright); margin-top:16px; margin-bottom:8px; }
-  .hero-stars { color: var(--gold-bright); font-size:0.95rem; margin-bottom:14px; letter-spacing:0.1em; }
-  .hero-stars span { font-family:'Inter',sans-serif; letter-spacing:normal; font-size:0.82rem; color: var(--text-dim); margin-left:6px; }
-  .fail-list { border-top:1px solid var(--border); }
-  .fail-row { display:flex; gap:18px; align-items:flex-start; padding:22px 0; border-bottom:1px solid var(--border); }
-  .fail-x { flex-shrink:0; margin-top:2px; }
-  .fail-icon { width:20px; height:20px; display:block; }
-  .fail-row p { font-size:1.02rem; color: var(--text); }
-  .fail-row p b { font-weight:600; }
-  .btn-primary { background: linear-gradient(120deg, var(--wine), var(--wine-bright)); color: var(--text); font-weight:600; padding:16px 30px; border-radius:999px; text-decoration:none; font-size:0.98rem; display:inline-block; box-shadow: 0 20px 45px -18px rgba(155,34,66,0.5); }
-  .btn-ghost { color: var(--text-dim); text-decoration:none; font-size:0.98rem; border-bottom:1px solid var(--border); padding-bottom:2px; }
-
-  .marquee-section { border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:24px 0; overflow:hidden; margin-top:56px; position:relative; z-index:2; }
-  .marquee-track { display:flex; gap:56px; white-space:nowrap; animation: scroll-left 24s linear infinite; width:max-content; }
-  .marquee-track span { font-family:'Unbounded', sans-serif; font-weight:600; font-size:1.05rem; color: var(--text-dim); }
-  .marquee-track span.on { color: var(--gold-bright); }
-  @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-  .deliverable { padding:60px 0; }
-  .deliverable-card { background: var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px 40px; display:flex; flex-wrap:wrap; gap:32px; align-items:center; justify-content:space-between; }
-  .deliverable-card .mono { color: var(--gold-bright); display:block; margin-bottom:10px; }
-  .deliverable-card h2 { font-family:'Unbounded', sans-serif; font-size:1.4rem; font-weight:700; max-width:20ch; }
-  .deliverable-sub { color: var(--text-dim); font-size:0.92rem; max-width:36ch; margin-top:10px; }
-  .deliverable-grid { display:flex; flex-direction:column; gap:10px; }
-  .deliverable-item { font-size:0.92rem; color: var(--text-dim); display:flex; align-items:center; gap:12px; }
-  .deliverable-item::before { content:""; width:7px; height:7px; background: var(--gold-bright); transform: rotate(45deg); flex-shrink:0; }
-  .sample-link { display:inline-block; margin-top:6px; color: var(--gold-bright); font-size:0.9rem; font-weight:600; text-decoration:none; border-bottom:1px solid var(--gold-bright); padding-bottom:2px; }
-  .sample-link:hover { color: var(--wine-bright); border-color: var(--wine-bright); }
-  .statement { padding:90px 0; text-align:center; }
-  .statement p { font-family:'Unbounded', sans-serif; font-weight:600; font-size:2.3rem; line-height:1.3; max-width:16ch; margin:0 auto; }
-  .statement p span { color: var(--wine-bright); }
-
-  .problem { padding:0 0 90px; }
-  .services { padding:0 0 120px; }
-  .service-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
-  .service-card { background: var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; }
-  .service-card .tag { color: var(--gold-bright); margin-bottom:14px; display:block; }
-  .service-card h3 { font-family:'Unbounded', sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:10px; }
-  .service-card p { color: var(--text-dim); font-size:0.92rem; }
-  .section-head { max-width:640px; margin-bottom:56px; }
-  .section-head.center { margin:0 auto 56px; text-align:center; }
-  .section-head .mono { color: var(--gold-bright); display:block; margin-bottom:16px; }
-  .section-head h2 { font-family:'Unbounded', sans-serif; font-size:2.1rem; font-weight:700; margin-bottom:14px; }
-  .section-head p { color:var(--text-dim); font-size:1.05rem; }
-  .rows { border-top:1px solid var(--border); }
-  .row { display:grid; grid-template-columns:2fr 3fr; gap:40px; padding:34px 0; border-bottom:1px solid var(--border); align-items:baseline; }
-  .row .mono { color: var(--wine-bright); }
-  .row h3 { font-family:'Inter',sans-serif; font-size:1.15rem; font-weight:600; margin-bottom:8px; }
-  .row p { color: var(--text-dim); font-size:0.95rem; max-width:56ch; }
-
-  .why { padding:0 0 110px; position:relative; overflow:visible; }
-  .contact { padding:0 0 90px; position:relative; overflow:visible; }
-  .side-crystal { position:absolute; width:280px; height:280px; z-index:0; opacity:0.55; pointer-events:none; }
-  .side-crystal.left { left:-90px; top:10%; }
-  .side-crystal.right { right:-90px; top:5%; }
-  @media (max-width:860px) { .side-crystal { display:none; } }
-  .why-grid { display:flex; flex-direction:column; gap:2px; background: var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
-  .why-item { background: var(--surface); padding:18px 24px; font-size:0.98rem; color: var(--text); display:flex; align-items:center; gap:14px; }
-  .why-icon { width:20px; height:20px; flex-shrink:0; }
-
-  .testimonials { padding:0 0 110px; }
-  .testimonial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  .testimonial-card { background: var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px; }
-  .stars { color: var(--gold-bright); letter-spacing:0.15em; margin-bottom:14px; }
-  .quote { font-size:0.95rem; color: var(--text); margin-bottom:20px; line-height:1.5; }
-  .testimonial-author { display:flex; align-items:center; gap:12px; }
-  .avatar { width:38px; height:38px; border-radius:50%; background: var(--bg-2); border:1px dashed var(--border); display:flex; align-items:center; justify-content:center; font-size:0.6rem; color: var(--text-dim); flex-shrink:0; }
-  .author-name { font-size:0.9rem; font-weight:600; }
-  .author-company { font-size:0.8rem; color: var(--text-dim); }
-
-  .offer { padding:0 0 120px; }
-  .tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background: var(--border); border:1px solid var(--border); }
-  .tier { background: var(--bg); padding:38px 30px; display:flex; flex-direction:column; }
-  .tier.featured { background: linear-gradient(180deg, rgba(155,34,66,0.14), transparent); }
-  .tier-label { font-size:0.7rem; color: var(--text-dim); margin-bottom:16px; }
-  .tier.featured .tier-label { color: var(--gold-bright); }
-  .tier h3 { font-family:'Unbounded', sans-serif; font-size:1.25rem; margin-bottom:10px; font-weight:700; }
-  .tier-price { font-family:'Unbounded', sans-serif; font-size:2rem; font-weight:700; color: var(--wine-bright); margin-bottom:22px; }
-  .tier ul { list-style:none; flex-grow:1; margin-bottom:24px; }
-  .tier li { font-size:0.9rem; color: var(--text-dim); padding:9px 0; border-bottom:1px dashed var(--border); }
-  .tier-cta { text-align:center; padding:13px; text-decoration:none; font-size:0.9rem; font-weight:600; border:1px solid var(--border); color: var(--text); border-radius:999px; }
-  .market-value { margin-bottom:20px; border-top:1px dashed var(--border); padding-top:14px; }
-  .market-row { display:flex; justify-content:space-between; font-size:0.82rem; color: var(--text-dim); padding:4px 0; }
-  .market-row.total { color: var(--gold-bright); font-weight:600; border-top:1px solid var(--border); margin-top:6px; padding-top:10px; }
-  .guarantee { font-size:0.85rem; color: var(--gold-bright); margin-bottom:16px; }
-  .value-note { font-size:0.8rem; color: var(--text-dim); margin-bottom:16px; font-style:italic; }
-  .tier.featured .tier-cta { background: var(--wine); border-color: var(--wine); }
-
-  .faq { padding:0 0 110px; }
-  .faq-list { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background: var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
-  .faq-item { background: var(--surface); padding:24px; }
-  .faq-item h3 { font-family:'Unbounded', sans-serif; font-size:1rem; font-weight:600; margin-bottom:8px; }
-  .faq-item p { font-size:0.9rem; color: var(--text-dim); }
-
-  .process { padding:0 0 120px; }
-  .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
-  .step-num { font-family:'Unbounded', sans-serif; font-weight:700; color: var(--gold-bright); font-size:1.4rem; margin-bottom:16px; }
-  .step h3 { font-size:1.05rem; margin-bottom:8px; font-weight:600; }
-  .step p { font-size:0.9rem; color: var(--text-dim); }
-
-  .contact { padding:0 0 90px; }
-  .contact-card { border-top:1px solid var(--border); padding-top:70px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; }
-  .contact-card h2 { font-family:'Unbounded', sans-serif; font-size:2.2rem; font-weight:700; margin-bottom:20px; max-width:12ch; }
-  .contact-card p.lead { color: var(--text-dim); max-width:42ch; margin-bottom:28px; font-size:1.05rem; }
-  .contact-detail { display:flex; gap:12px; margin-bottom:12px; font-size:0.95rem; }
-  .contact-detail .mono { color: var(--wine-bright); min-width:110px; }
-  .field { margin-bottom:18px; }
-  label { display:block; font-size:0.72rem; color: var(--text-dim); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em; }
-  input { width:100%; padding:0 0 12px; border:none; border-bottom:1px solid var(--border); background: transparent; color: var(--text); font-family:'Inter',sans-serif; font-size:1rem; }
-  input:focus { outline:none; border-bottom-color: var(--wine-bright); }
-  .submit-btn { padding:15px 32px; background: var(--wine); color: var(--text); border:none; border-radius:999px; font-weight:600; font-size:0.98rem; cursor:pointer; margin-top:22px; }
-  .submit-btn:hover { background: var(--wine-bright); }
-  .form-note { font-size:0.8rem; color: var(--text-dim); margin-top:14px; }
-
-  footer { padding:40px 0; border-top:1px solid var(--border); }
-  .footer-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
-  footer p, footer a { font-size:0.85rem; color: var(--text-dim); text-decoration:none; }
-  .footer-links { display:flex; gap:22px; }
-
-  .chat-widget { position:fixed; bottom:24px; right:24px; z-index:200; }
-  .chat-toggle {
-    width:56px; height:56px; border-radius:50%; background: linear-gradient(120deg, var(--wine), var(--wine-bright));
-    border:none; color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;
-    box-shadow: 0 16px 36px -12px rgba(155,34,66,0.6); transition: transform 0.15s ease;
-  }
-  .chat-toggle:hover { transform: scale(1.05); }
-  .chat-toggle svg { width:24px; height:24px; }
-  .chat-panel {
-    display:none; position:absolute; bottom:70px; right:0; width:340px; max-width:calc(100vw - 40px);
-    background: var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden;
-    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6); flex-direction:column;
-  }
-  .chat-panel.open { display:flex; }
-  .chat-header { display:flex; align-items:center; gap:10px; padding:16px; border-bottom:1px solid var(--border); background: var(--bg-2); }
-  .chat-avatar { width:34px; height:34px; border-radius:50%; background: var(--wine); color:#fff; font-family:'Unbounded',sans-serif; font-size:0.7rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-  .chat-title { font-size:0.92rem; font-weight:600; }
-  .chat-status { font-size:0.72rem; color: var(--text-dim); }
-  .chat-body { padding:16px; max-height:260px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
-  .chat-bubble { font-size:0.88rem; padding:10px 13px; border-radius:12px; max-width:88%; line-height:1.4; }
-  .chat-bubble.bot { background: var(--bg-2); color: var(--text); align-self:flex-start; border-bottom-left-radius:2px; }
-  .chat-bubble.user { background: var(--wine); color:#fff; align-self:flex-end; border-bottom-right-radius:2px; }
-  .chat-quick { display:flex; flex-direction:column; gap:6px; padding:0 16px 12px; max-height:150px; overflow-y:auto; }
-  .chat-q {
-    text-align:left; background: transparent; border:1px solid var(--border); color: var(--text);
-    padding:9px 12px; border-radius:10px; font-size:0.82rem; cursor:pointer; font-family:'Inter',sans-serif;
-    transition: border-color 0.15s ease, background 0.15s ease;
-  }
-  .chat-q:hover { border-color: var(--wine-bright); background: rgba(155,34,66,0.08); }
-  .chat-fallback {
-    display:block; text-align:center; padding:13px; border-top:1px solid var(--border); color: var(--gold-bright);
-    text-decoration:none; font-size:0.85rem; font-weight:600;
-  }
-  .chat-fallback:hover { color: var(--wine-bright); }
-  @media (max-width:480px) {
-    .chat-panel { width:calc(100vw - 32px); right:-8px; }
-  }
-
-  @media (max-width:1024px) and (min-width:861px) {
-    .service-grid { grid-template-columns:repeat(2, 1fr); }
-  }
-
-  @media (max-width:860px) {
-    .wrap { padding:0 22px; }
-    .hero .wrap { padding-left:22px; }
-    .nav { padding:0 22px; }
-    header { padding:14px 0; }
-    .footer-row .footer-row { flex-direction:column; align-items:flex-start; gap:14px; }
-    .nav-links { display:none; }
-    .service-grid { grid-template-columns:1fr; }
-    .deliverable-card { flex-direction:column; align-items:flex-start; }
-    .faq-list { grid-template-columns:1fr; }
-    .testimonial-grid { grid-template-columns:1fr; }
-    #crystalCanvas { position:relative; width:100%; height:280px; top:0; right:0; margin-bottom:20px; }
-    .hero-content { max-width:100%; }
-    h1.title { font-size:2.1rem; }
-    .hero-actions { flex-direction:column; align-items:stretch; gap:12px; }
-    .hero-actions .btn-primary, .hero-actions .btn-ghost { text-align:center; }
-    .row, .tiers, .steps, .contact-card { grid-template-columns:1fr; }
-    .statement p { font-size:1.5rem; }
-    .market-row { font-size:0.78rem; }
-  }
-
-  @media (max-width:480px) {
-    .wrap { padding:0 16px; }
-    .nav { padding:0 16px; }
-    h1.title { font-size:1.8rem; }
-    .logo-word { font-size:1rem; }
-    .nav-cta { padding:9px 16px; font-size:0.82rem; }
-  }
-
-/* ---------- SERVICE SUBPAGES ---------- */
-.breadcrumb { font-size:0.8rem; color: var(--text-dim); margin-bottom:24px; }
-.breadcrumb a { color: var(--text-dim); text-decoration:none; }
-.breadcrumb a:hover { color: var(--gold-bright); }
-.service-hero { padding:70px 0 50px; border-bottom:1px solid var(--border); }
-.service-hero .eyebrow-mono { color: var(--gold-bright); display:block; margin-bottom:16px; }
-.service-hero h1 { font-family:'Unbounded', sans-serif; font-size:2.6rem; font-weight:700; line-height:1.1; margin-bottom:20px; max-width:18ch; }
-.service-hero p.lead { color: var(--text-dim); font-size:1.08rem; max-width:56ch; }
-.service-block { padding:56px 0; border-bottom:1px solid var(--border); }
-.service-block h2 { font-family:'Unbounded', sans-serif; font-size:1.6rem; font-weight:700; margin-bottom:18px; }
-.service-block p { color: var(--text-dim); font-size:1rem; max-width:66ch; margin-bottom:14px; }
-.check-list { list-style:none; margin-top:18px; }
-.check-list li { padding:10px 0; border-bottom:1px dashed var(--border); font-size:0.96rem; color: var(--text); display:flex; gap:14px; align-items:baseline; }
-.check-list li::before { content:""; width:8px; height:8px; background: var(--gold-bright); transform: rotate(45deg); flex-shrink:0; }
-.check-list li { cursor:pointer; user-select:none; transition: opacity 0.15s ease; }
-.check-list li.checked { opacity:0.55; }
-.check-list li.checked::before { background: var(--wine-bright); }
-.check-list li.checked span { text-decoration:line-through; }
-.check-summary { margin-top:16px; font-size:0.9rem; color: var(--gold-bright); display:none; }
-.check-summary.show { display:block; }
-.faq-item.accordion { cursor:pointer; }
-.faq-item.accordion h3 { display:flex; justify-content:space-between; align-items:center; gap:12px; }
-.faq-item.accordion h3::after { content:"+"; color: var(--gold-bright); font-family:'Unbounded',sans-serif; font-size:1.2rem; flex-shrink:0; transition: transform 0.2s ease; }
-.faq-item.accordion.open h3::after { transform: rotate(45deg); }
-.faq-item.accordion p { max-height:0; overflow:hidden; margin:0; transition: max-height 0.25s ease, margin 0.25s ease; }
-.faq-item.accordion.open p { max-height:200px; margin-top:10px; }
-.service-cta-block { padding:50px 0 80px; text-align:center; }
-.service-cta-block h2 { font-family:'Unbounded', sans-serif; font-size:1.7rem; margin-bottom:18px; }
-.back-link { display:inline-block; margin-top:40px; color: var(--text-dim); text-decoration:none; font-size:0.92rem; border-bottom:1px solid var(--border); padding-bottom:2px; }
-.back-link:hover { color: var(--text); }
-.related-services { padding:0 0 80px; }
-.related-services h3 { font-family:'Unbounded', sans-serif; font-size:1.2rem; margin-bottom:18px; }
-.related-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.related-card { background: var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; text-decoration:none; display:block; transition:border-color 0.2s ease; }
-.related-card:hover { border-color: var(--gold-bright); }
-.related-card span { color: var(--gold-bright); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; display:block; margin-bottom:8px; }
-.related-card h4 { color: var(--text); font-family:'Unbounded', sans-serif; font-size:1rem; font-weight:600; }
-.footer-services { font-size:0.82rem; color: var(--text-dim); margin-top:14px; display:flex; flex-wrap:wrap; gap:6px 16px; }
-.footer-services a { color: var(--text-dim); text-decoration:none; }
-.footer-services a:hover { color: var(--gold-bright); }
-
-@media (max-width:860px) {
-  .service-hero h1 { font-size:2rem; }
-  .related-grid { grid-template-columns:1fr; }
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigitalMap — Audyt Widoczności Online dla Firm Usługowych</title>
+<meta name="description" content="Darmowy audyt marketingowy dla firm usługowych w całej Polsce — strona, SEO, widoczność w AI, Google Moja Firma, social media i reklamy. Plan naprawy w 24h.">
+<meta property="og:title" content="DigitalMap — Odkryj, dlaczego Twoja firma traci klientów każdego dnia.">
+<meta property="og:description" content="Darmowy audyt marketingowy — 6 warstw Twojej obecności online w jednym raporcie. Plan naprawy w 24h.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3 L35 11 L20 19 L5 11 Z' fill='%23E5A85C'/%3E%3Cpath d='M5 11 L20 19 L20 36 L5 28 Z' fill='%239B2242'/%3E%3Cpath d='M35 11 L20 19 L20 36 L35 28 Z' fill='%23C4335A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "DigitalMap",
+  "legalName": "VVG Kari Diallo",
+  "url": "https://digitalmap.pl",
+  "email": "kontakt@digitalmap.pl",
+  "telephone": "+48735133271",
+  "founder": {
+    "@type": "Person",
+    "name": "Kari Diallo"
+  },
+  "sameAs": [
+    "https://instagram.com/digitalmap.pl"
+  ],
+  "areaServed": {
+    "@type": "Country",
+    "name": "Polska"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "kontakt@digitalmap.pl",
+    "telephone": "+48735133271",
+    "contactType": "customer service",
+    "areaServed": "PL",
+    "availableLanguage": "Polish"
+  },
+  "description": "Audyt widoczności online — strona, SEO, Google Moja Firma, social media, reklamy i widoczność w wyszukiwarkach AI dla firm usługowych w całej Polsce."
 }
-
-/* subpage crystal hero */
-.service-hero { position:relative; overflow:hidden; }
-.service-hero-inner { position:relative; z-index:2; }
-#subCrystal { position:absolute; top:-30px; right:-6%; width:44%; height:340px; z-index:0; opacity:0.85; }
-@media (max-width:860px) {
-  #subCrystal { position:relative; width:100%; height:200px; top:0; right:0; margin-bottom:16px; }
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "DigitalMap",
+  "url": "https://digitalmap.pl"
 }
-
-/* map outcome flow */
-.map-outcome { display:flex; flex-direction:column; align-items:center; margin-top:36px; }
-.map-arrow { color: var(--gold-bright); font-size:1.5rem; margin-bottom:16px; }
-.map-outcome-card {
-  background: linear-gradient(180deg, rgba(155,34,66,0.14), transparent), var(--surface);
-  border:1px solid var(--wine-bright); border-radius:16px; padding:26px 32px; text-align:center; max-width:420px;
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Ile trwa audyt?", "acceptedAnswer": {"@type": "Answer", "text": "Darmowy audyt dostajesz w 24 godziny. Wdrożenia umawiamy po ustaleniu zakresu."}},
+    {"@type": "Question", "name": "Czy muszę podpisywać umowę?", "acceptedAnswer": {"@type": "Answer", "text": "Nie przy darmowym audycie ani przy jednorazowym pakiecie. Przy stałej współpracy ustalamy warunki indywidualnie."}},
+    {"@type": "Question", "name": "Czy audyt naprawdę jest darmowy?", "acceptedAnswer": {"@type": "Answer", "text": "Tak. Podstawowy audyt z 10 najważniejszymi błędami nic nie kosztuje i do niczego nie zobowiązuje."}},
+    {"@type": "Question", "name": "Czy mogę wdrożyć poprawki sama?", "acceptedAnswer": {"@type": "Answer", "text": "Jasne. Dostajesz jasną listę z priorytetami — możesz wdrożyć samodzielnie albo zlecić to nam."}},
+    {"@type": "Question", "name": "Czy działacie tylko w jednym mieście?", "acceptedAnswer": {"@type": "Answer", "text": "Nie — działamy w całej Polsce, zdalnie. Lokalizacja Twojej firmy nie ma znaczenia."}},
+    {"@type": "Question", "name": "Czy to działa dla mojej branży?", "acceptedAnswer": {"@type": "Answer", "text": "Pracujemy z firmami usługowymi różnych branż — od gabinetów po warsztaty i kancelarie."}},
+    {"@type": "Question", "name": "Czy robicie reklamy Google i Meta?", "acceptedAnswer": {"@type": "Answer", "text": "Tak, to jedna z warstw, którymi się zajmujemy — w audycie i w stałej współpracy."}},
+    {"@type": "Question", "name": "Czy robicie też strony internetowe?", "acceptedAnswer": {"@type": "Answer", "text": "Tak — poprawki i przebudowa strony to część oferty, jeśli audyt pokaże, że tam tracisz najwięcej klientów."}},
+    {"@type": "Question", "name": "Dlaczego audyt kosztuje tylko 299 zł?", "acceptedAnswer": {"@type": "Answer", "text": "Bo audyt to dla nas otwarcie rozmowy, nie produkt sam w sobie. Zarabiamy, gdy zostajesz z nami na dłużej i widzisz efekty."}},
+    {"@type": "Question", "name": "Co jeśli już współpracuję z inną agencją?", "acceptedAnswer": {"@type": "Answer", "text": "Audyt i tak pokaże Ci realny stan rzeczy — niezależnie od tego, czy wdrożysz to z nami, sam, czy z obecnym wykonawcą."}}
+  ]
 }
-.map-outcome-card .tag { color: var(--gold-bright); margin-bottom:10px; display:block; }
-.map-outcome-card h3 { font-family:'Unbounded', sans-serif; font-size:1.2rem; font-weight:700; margin-bottom:8px; }
-.map-outcome-card p { color: var(--text-dim); font-size:0.9rem; }
+</script>
+</head>
+<body>
 
-/* for-whom section */
-.for-whom { padding:0 0 100px; }
-.industry-tags { display:flex; flex-wrap:wrap; gap:12px; }
-.industry-tags span {
-  background: var(--surface); border:1px solid var(--border); border-radius:999px;
-  padding:9px 20px; font-size:0.88rem; color: var(--text-dim);
-}
+<header>
+  <div class="nav">
+    <a class="logo" href="#">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+        <defs>
+          <linearGradient id="topFace" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#E5A85C"/><stop offset="1" stop-color="#C4335A"/>
+          </linearGradient>
+          <linearGradient id="leftFace" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9B2242"/><stop offset="1" stop-color="#6B1730"/>
+          </linearGradient>
+          <linearGradient id="rightFace" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#C4335A"/><stop offset="1" stop-color="#8A1F3B"/>
+          </linearGradient>
+        </defs>
+        <path d="M20 3 L35 11 L20 19 L5 11 Z" fill="url(#topFace)"/>
+        <path d="M5 11 L20 19 L20 36 L5 28 Z" fill="url(#leftFace)"/>
+        <path d="M35 11 L20 19 L20 36 L35 28 Z" fill="url(#rightFace)"/>
+      </svg>
+      <span class="logo-word">digital<span>map</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#uslugi">Usługi</a>
+      <a href="#oferta">Oferta</a>
+      <a href="#faq">FAQ</a>
+      <a href="#jak-to-dziala">Proces</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="nav-right">
+      <a class="nav-icon" href="https://instagram.com/digitalmap.pl" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
+      </a>
+      <a class="nav-email" href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a>
+      <a class="nav-cta" href="#kontakt">Odbierz darmowy audyt</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <canvas id="crystalCanvas" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero-content">
+      <span class="eyebrow-mono mono">Darmowy audyt w 24h</span>
+      <h1 class="title">Dowiedz się, dlaczego Twoja firma<br><span>nie wykorzystuje pełnego potencjału w internecie.</span></h1>
+      <p class="hero-sub">Analizujemy stronę internetową, SEO, Google Ads, widoczność w AI i działania marketingowe. Otrzymujesz konkretny plan zmian, dzięki któremu łatwiej pozyskasz nowych klientów.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#kontakt">Odbierz darmowy audyt</a>
+        <a class="btn-ghost" href="#oferta">Zobacz ofertę</a>
+      </div>
+      <p class="hero-microcopy">Zajmie Ci to 60 sekund. Zero karty, zero telefonu handlowca. Jako mały zespół przyjmujemy maks. 10 audytów tygodniowo.</p>
+      <div class="hero-checklist">
+        <span>odpowiedź w 24h</span>
+        <span>6 warstw w jednym raporcie</span>
+        <span>plan działań krok po kroku</span>
+      </div>
+    </div>
+  </div>
+  <div class="marquee-section">
+    <div class="wrap" style="padding:0;">
+      <div class="marquee-track">
+        <span class="on">Strona internetowa</span><span>SEO</span><span class="on">ChatGPT</span><span>Claude</span><span class="on">Gemini</span><span>Social media</span><span class="on">Google Moja Firma</span><span>Reklamy</span>
+        <span class="on">Strona internetowa</span><span>SEO</span><span class="on">ChatGPT</span><span>Claude</span><span class="on">Gemini</span><span>Social media</span><span class="on">Google Moja Firma</span><span>Reklamy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="deliverable">
+  <div class="wrap">
+    <div class="deliverable-card">
+      <div>
+        <span class="mono">Co dostajesz</span>
+        <h2>To nie zwykły PDF. To marketingowa mapa Twojego biznesu.</h2>
+        <p class="deliverable-sub">Raport z audytu to tylko punkt na mapie. Prawdziwa wartość jest w trasie — dokładnie wiesz, dokąd iść najpierw, żeby telefon zaczął dzwonić w tym tygodniu, a nie za kwartał.</p>
+      </div>
+      <div class="deliverable-grid">
+        <span class="deliverable-item">Twoja mapa w PDF — pełny audyt 6 warstw</span>
+        <span class="deliverable-item">Lista błędów i priorytety</span>
+        <span class="deliverable-item">Konkretne wytyczne, jak je naprawić</span>
+        <span class="deliverable-item">Pomoc we wdrożeniu, jeśli tego potrzebujesz</span>
+        <span class="deliverable-item">Plan działań na kolejne tygodnie</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="statement">
+  <div class="wrap">
+    <p>Nie zgaduj, gdzie tracisz klientów. <span>Sprawdź to.</span></p>
+  </div>
+</section>
+
+<section class="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">Częste błędy</span>
+      <h2>Dlaczego Twoja firma traci klientów każdego dnia?</h2>
+      <p>To pięć najczęstszych powodów, przez które klient wybiera kogoś innego, zanim w ogóle się odezwie.</p>
+    </div>
+    <div class="fail-list">
+      <div class="fail-row"><span class="fail-x"><svg class="fail-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 L19 10 L10 19 L1 10 Z" stroke="#C4335A" stroke-width="1.3"/><path d="M10 6.5 L13.5 10 L10 13.5 L6.5 10 Z" fill="#C4335A" opacity="0.55"/></svg></span><p><b>Strona nie zamienia ruchu w klientów</b> — ludzie wchodzą, ale nikt nie dzwoni, nie wypełnia formularza ani nie robi rezerwacji.</p></div>
+      <div class="fail-row"><span class="fail-x"><svg class="fail-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 L19 10 L10 19 L1 10 Z" stroke="#C4335A" stroke-width="1.3"/><path d="M10 6.5 L13.5 10 L10 13.5 L6.5 10 Z" fill="#C4335A" opacity="0.55"/></svg></span><p><b>Nie wiesz, czy jesteś widoczny w Google</b> — a konkurencja zajmuje miejsca, które mogłyby być Twoje.</p></div>
+      <div class="fail-row"><span class="fail-x"><svg class="fail-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 L19 10 L10 19 L1 10 Z" stroke="#C4335A" stroke-width="1.3"/><path d="M10 6.5 L13.5 10 L10 13.5 L6.5 10 Z" fill="#C4335A" opacity="0.55"/></svg></span><p><b>Sztuczna inteligencja nie pokazuje Twojej firmy</b> — ChatGPT, Gemini, Claude i inne wyszukiwarki AI polecają kogoś innego, bo Twojego SEO tam po prostu nie ma.</p></div>
+      <div class="fail-row"><span class="fail-x"><svg class="fail-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 L19 10 L10 19 L1 10 Z" stroke="#C4335A" stroke-width="1.3"/><path d="M10 6.5 L13.5 10 L10 13.5 L6.5 10 Z" fill="#C4335A" opacity="0.55"/></svg></span><p><b>Social media istnieje, ale nikt tam nie wchodzi</b> — profile stoją puste albo prowadzone bez planu, więc nie budują zaufania.</p></div>
+      <div class="fail-row"><span class="fail-x"><svg class="fail-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 L19 10 L10 19 L1 10 Z" stroke="#C4335A" stroke-width="1.3"/><path d="M10 6.5 L13.5 10 L10 13.5 L6.5 10 Z" fill="#C4335A" opacity="0.55"/></svg></span><p><b>Wizytówka Google Moja Firma jest źle zoptymalizowana</b> — brakuje zdjęć, godzin i słów kluczowych, a nieodpowiedziane opinie zostają bez reakcji.</p></div>
+      <div class="fail-row"><span class="fail-x"><svg class="fail-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 L19 10 L10 19 L1 10 Z" stroke="#C4335A" stroke-width="1.3"/><path d="M10 6.5 L13.5 10 L10 13.5 L6.5 10 Z" fill="#C4335A" opacity="0.55"/></svg></span><p><b>Reklamy przepalają budżet</b> — płacisz za kliknięcia, które nigdy nie zamieniają się w klienta.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="uslugi">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">Mapa Rozwoju Firmy</span>
+      <h2>6 warstw. Jedna mapa. Jeden plan rozwoju.</h2>
+      <p>Nie sprzedajemy pojedynczych usług. Prowadzimy Cię przez całą mapę — od tego, czy Cię widać, po konkretny plan działania.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <span class="tag mono">Warstwa 1 · Strona</span>
+        <h3>Strona, która sprzedaje</h3>
+        <p>Poprawiamy stronę tak, żeby prowadziła do jednego celu: kontaktu z Tobą — jaśniejsze CTA, prostszy formularz, mniej miejsc, w których odwiedzający się gubi.</p>
+        <a class="sample-link" href="/uslugi/strona-internetowa/">Dowiedz się więcej →</a>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Warstwa 2 · SEO</span>
+        <h3>Pozycjonowanie</h3>
+        <p>Sprawdzamy, czy Google w ogóle Cię widzi i na jakie frazy masz szansę wygrać z konkurencją — bez przepłacania za puste rankingi.</p>
+        <a class="sample-link" href="/uslugi/pozycjonowanie-seo/">Dowiedz się więcej →</a>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Warstwa 3 · AI</span>
+        <h3>Widoczność w AI</h3>
+        <p>Optymalizacja pod ChatGPT, Gemini, Claude i inne wyszukiwarki AI — coraz więcej klientów pyta o to najpierw AI, nie Google.</p>
+        <a class="sample-link" href="/uslugi/widocznosc-w-ai/">Dowiedz się więcej →</a>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Warstwa 4 · Wizytówka</span>
+        <h3>Google Moja Firma i opinie</h3>
+        <p>Uzupełniamy zdjęcia, godziny i słowa kluczowe, pomagamy zbierać opinie i na nie odpowiadać — żeby budowały zaufanie, nie wątpliwości.</p>
+        <a class="sample-link" href="/uslugi/google-moja-firma/">Dowiedz się więcej →</a>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Warstwa 5 · Social media</span>
+        <h3>Profile, które pracują na Ciebie</h3>
+        <p>Sprawdzamy, czy Twoje profile budują zaufanie, czy stoją puste i szkodzą wizerunkowi zamiast pomagać.</p>
+        <a class="sample-link" href="/uslugi/social-media/">Dowiedz się więcej →</a>
+      </div>
+      <div class="service-card">
+        <span class="tag mono">Warstwa 6 · Reklamy</span>
+        <h3>Reklamy bez przepalania budżetu</h3>
+        <p>Google Ads i Meta Ads kalibrowane pod jakość zapytań, nie same kliknięcia — mniej zmarnowanych złotówek, więcej realnych zapytań.</p>
+        <a class="sample-link" href="/uslugi/reklamy/">Dowiedz się więcej →</a>
+      </div>
+    </div>
+    <div class="map-outcome">
+      <span class="map-arrow">↓</span>
+      <div class="map-outcome-card">
+        <span class="tag mono">Efekt</span>
+        <h3>Plan rozwoju</h3>
+        <p>Wszystkie 6 warstw spięte w jeden, priorytetowy plan działania — wiesz dokładnie, co robić najpierw.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="for-whom">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">Dla kogo</span>
+      <h2>Różne branże, ten sam problem</h2>
+      <p>Gabinet, warsztat, kancelaria czy ekipa budowlana — każda branża ma inny język i innych klientów, ale wszystkie tracą ich w tych samych miejscach: w Google, na Mapach i teraz w AI. Dlatego nasz audyt działa niezależnie od tego, czym się zajmujesz.</p>
+    </div>
+    <div class="industry-tags">
+      <span>Gabinety</span>
+      <span>Warsztaty</span>
+      <span>Kancelarie</span>
+      <span>Budowlanka</span>
+      <span>Rzemieślnicy</span>
+      <span>Konsultanci</span>
+      <span>Usługi lokalne</span>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <canvas class="side-crystal left" id="crystalSide1" aria-hidden="true"></canvas></canvas>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="mono">Dlaczego my</span>
+      <h2>Jedna mapa. Wszystkie miejsca, w których szukają Cię klienci.</h2>
+      <p>Większość agencji patrzy na jeden kanał naraz — SEO, reklamy albo social media osobno. My mapujemy wszystko razem, więc wiesz dokładnie, gdzie inwestować najpierw. Dlatego nazywamy się DigitalMap.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><svg class="why-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#E5A85C" stroke-width="1.2"/><path d="M6 10.3l2.6 2.6 5.4-5.8" stroke="#E5A85C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Analizujemy wszystkie 6 warstw Twojej obecności naraz, nie jeden kanał na raz</span></div>
+      <div class="why-item"><svg class="why-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#E5A85C" stroke-width="1.2"/><path d="M6 10.3l2.6 2.6 5.4-5.8" stroke="#E5A85C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dostajesz priorytety, nie listę 50 zadań na raz</span></div>
+      <div class="why-item"><svg class="why-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#E5A85C" stroke-width="1.2"/><path d="M6 10.3l2.6 2.6 5.4-5.8" stroke="#E5A85C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Nie sprzedajemy abonamentu na siłę — możesz skończyć na jednorazowym audycie</span></div>
+      <div class="why-item"><svg class="why-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#E5A85C" stroke-width="1.2"/><path d="M6 10.3l2.6 2.6 5.4-5.8" stroke="#E5A85C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Wdrażamy tylko to, co realnie wpływa na liczbę telefonów i zapytań</span></div>
+      <div class="why-item"><svg class="why-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#E5A85C" stroke-width="1.2"/><path d="M6 10.3l2.6 2.6 5.4-5.8" stroke="#E5A85C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Raport w 24 godziny, nie w 3 tygodnie</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" style="display:none;"><!-- Odkomentuj/ustaw display, gdy będą gotowe prawdziwe opinie -->
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="mono">Opinie</span>
+      <h2>Co mówią klienci</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"[Wpisz tu prawdziwą opinię klienta]"</p>
+        <div class="testimonial-author">
+          <div><div class="author-name">[Imię Nazwisko]</div><div class="author-company">[Nazwa firmy]</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"[Wpisz tu prawdziwą opinię klienta]"</p>
+        <div class="testimonial-author">
+          <div><div class="author-name">[Imię Nazwisko]</div><div class="author-company">[Nazwa firmy]</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"[Wpisz tu prawdziwą opinię klienta]"</p>
+        <div class="testimonial-author">
+          <div><div class="author-name">[Imię Nazwisko]</div><div class="author-company">[Nazwa firmy]</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="offer" id="oferta">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="mono">Oferta</span>
+      <h2>Wybierz, jak szybko chcesz więcej klientów</h2>
+      <p>Zaczynasz od szybkiego, bezpłatnego audytu Twojej obecności online. Płacisz dopiero za konkretny plan i wdrożenia. Zostajesz z nami tylko tak długo, jak przynosi to efekty.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <h3>Darmowy Audyt</h3>
+        <div class="tier-price">Za darmo</div>
+        <ul><li>Szybki audyt — bez czekania tygodniami</li><li>10 najważniejszych błędów i możliwych zmian + rekomendacje</li><li>Odpowiedź w 24h, zero zobowiązań</li></ul>
+        <a class="tier-cta" href="#kontakt">Odbierz darmowy audyt</a>
+      </div>
+      <div class="tier featured">
+        <div class="tier-label mono">Najczęściej wybierane</div>
+        <h3>Audyt + Plan Wdrożenia</h3>
+        <div class="tier-price">299 zł</div>
+        <div class="tier-price-note">3 wdrożenia w cenie, łącznie do 500 zł (ok. 80 zł/h)</div>
+        <div class="market-value">
+          <div class="market-row"><span>Audyt strony</span><span>~300 zł</span></div>
+          <div class="market-row"><span>Audyt SEO</span><span>~400 zł</span></div>
+          <div class="market-row"><span>Audyt widoczności w AI</span><span>~250 zł</span></div>
+          <div class="market-row"><span>Audyt Google Moja Firma i opinii</span><span>~200 zł</span></div>
+          <div class="market-row"><span>Audyt social media</span><span>~200 zł</span></div>
+          <div class="market-row"><span>Audyt reklam</span><span>~200 zł</span></div>
+          <div class="market-row"><span>Priorytetowy plan działań</span><span>~200 zł</span></div>
+          <div class="market-row"><span>3 wdrożenia (ok. 80 zł/h)</span><span>~500 zł</span></div>
+          <div class="market-row total"><span>Osobno na rynku</span><span>~2250 zł</span></div>
+        </div>
+        <ul><li>Pełny audyt: strona internetowa, Google, SEO, wyszukiwarki AI, social media, reklamy</li><li>Lista błędów podzielona według priorytetu — najpierw to, co da największy efekt, nie 50 zadań naraz</li><li>3 wdrożenia w Twoim imieniu w cenie</li></ul>
+        <p class="guarantee">🛡️ Jeśli nie znajdziemy minimum 10 konkretnych błędów, nie płacisz.</p>
+        <p class="value-note">Wolimy zbudować z Tobą długoterminową relację niż zarobić jednorazowo na audycie — dlatego cena jest tak niska.</p>
+        <a class="tier-cta" href="#kontakt">Zamów audyt i plan</a>
+      </div>
+      <div class="tier">
+        <h3>Nawigacja na Żywo i Skalowanie</h3>
+        <div class="tier-price">Wycena indywidualna</div>
+        <p class="value-note">Dedykowany partner wzrostu dla Twojego biznesu.</p>
+        <ul>
+          <li><b>Ty decydujesz o kierunku</b> — wspólnie ustalamy plan, a Ty co miesiąc wskazujesz, którą z 6 warstw wdrażamy w pierwszej kolejności</li>
+          <li><b>6 warstw w ciągłym ruchu</b> — elastycznie pracujemy nad SEO, konwersją strony, social media, reklamami i AI, zależnie od tego, czego Twój biznes aktualnie potrzebuje</li>
+          <li><b>Budżet reklamowy bez pośredników</b> — środki na kampanie Google/Meta kontrolujesz sam i płacisz bezpośrednio do platform</li>
+          <li><b>Szybki, bezpośredni kontakt z zespołem</b> — bez czekania tygodniami na odpowiedź</li>
+          <li><b>Comiesięczna Mapa Wyników</b> — jasny raport zrealizowanych działań i plan na kolejny miesiąc</li>
+        </ul>
+        <a class="tier-cta" href="https://calendly.com/digitalmap/rozmowa" target="_blank" rel="noopener">Zgłoś chęć dołączenia</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="mono">FAQ</span>
+      <h2>Najczęstsze pytania</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><h3>Ile trwa audyt?</h3><p>Darmowy audyt dostajesz w 24 godziny. Wdrożenia umawiamy po ustaleniu zakresu.</p></div>
+      <div class="faq-item"><h3>Czy muszę podpisywać umowę?</h3><p>Nie przy darmowym audycie ani przy jednorazowym pakiecie. Przy stałej współpracy ustalamy warunki indywidualnie.</p></div>
+      <div class="faq-item"><h3>Czy audyt naprawdę jest darmowy?</h3><p>Tak. Podstawowy audyt z 10 najważniejszymi błędami nic nie kosztuje i ni do czego nie zobowiązuje.</p></div>
+      <div class="faq-item"><h3>Czy mogę wdrożyć poprawki sama?</h3><p>Jasne. Dostajesz jasną listę z priorytetami — możesz wdrożyć samodzielnie albo zlecić to nam.</p></div>
+      <div class="faq-item"><h3>Czy działacie tylko w jednym mieście?</h3><p>Nie — działamy w całej Polsce, zdalnie. Lokalizacja Twojej firmy nie ma znaczenia.</p></div>
+      <div class="faq-item"><h3>Czy to działa dla mojej branży?</h3><p>Pracujemy z firmami usługowymi różnych branż — od gabinetów po warsztaty i kancelarie. Napisz do nas, sprawdzimy, czy pasujemy.</p></div>
+      <div class="faq-item"><h3>Czy robicie reklamy Google i Meta?</h3><p>Tak, to jedna z warstw, którymi się zajmujemy — w audycie i w stałej współpracy.</p></div>
+      <div class="faq-item"><h3>Czy robicie też strony internetowe?</h3><p>Tak — poprawki i przebudowa strony to część oferty, jeśli audyt pokaże, że tam tracisz najwięcej klientów.</p></div>
+      <div class="faq-item"><h3>Dlaczego audyt kosztuje tylko 299 zł?</h3><p>Bo audyt to dla nas otwarcie rozmowy, nie produkt sam w sobie. Zarabiamy, gdy zostajesz z nami na dłużej i widzisz efekty — nie na samym audycie.</p></div>
+      <div class="faq-item"><h3>Co jeśli już współpracuję z inną agencją?</h3><p>Audyt i tak pokaże Ci realny stan rzeczy — niezależnie od tego, czy wdrożysz to z nami, sam, czy z obecnym wykonawcą.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="jak-to-dziala">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="mono">Proces</span>
+      <h2>Jak to działa</h2>
+      <p>Od zgłoszenia do gotowej mapy w mniej niż 48 godzin.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Wypełniasz formularz</h3><p>Podajesz imię, stronę i kontakt — 3 pola, minuta roboty.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Skanujemy Twoją obecność</h3><p>Google, Mapy, opinie, wyszukiwarki AI (ChatGPT, Gemini, Claude) i kilka innych narzędzi do analizy SEO — sprawdzamy to, czego nie widać z poziomu zwykłej przeglądarki.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Dostajesz raport</h3><p>Czytelny raport z konkretnymi błędami i wytycznymi — co poprawić, w jakiej kolejności i dlaczego akurat to, krok po kroku, nie ogólniki.</p></div>
+      <div class="step"><div class="step-num">04</div><h3>Decydujesz, co dalej</h3><p>Naprawiasz to samodzielnie, albo robimy to razem.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <canvas class="side-crystal right" id="crystalSide2" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="contact-card">
+      <div>
+        <h2>Umówmy rozmowę</h2>
+        <p class="lead">Odpowiadamy w ciągu 24 godzin. Bez zobowiązań, bez presji sprzedażowej. Jako mały zespół przyjmujemy maksymalnie 10 audytów tygodniowo — dzięki temu każda firma dostaje naszą pełną uwagę, a nie audyt "z taśmy".</p>
+        <div class="contact-detail"><span class="mono">Mail</span> kontakt@digitalmap.pl</div>
+        <div class="contact-detail"><span class="mono">Telefon</span> <a href="tel:+48735133271" style="color:var(--text); text-decoration:none;">+48 735 133 271</a></div>
+        <div class="contact-detail"><span class="mono">Czas odp.</span> do 24h</div>
+        <div class="contact-detail"><span class="mono">Instagram</span> <a href="https://instagram.com/digitalmap.pl" target="_blank" rel="noopener" style="color:var(--text); text-decoration:none;">@digitalmap.pl</a></div>
+      </div>
+      <form action="https://formspree.io/f/mnjkyvnn" method="POST">
+        <div class="field"><label for="name">Imię i nazwisko</label><input id="name" name="imie" type="text" placeholder="Jak się do Ciebie zwracać?" required></div>
+        <div class="field"><label for="website">Strona internetowa</label><input id="website" name="strona" type="text" placeholder="np. twojafirma.pl" required></div>
+        <div class="field"><label for="contact">Telefon lub e-mail</label><input id="contact" name="kontakt" type="text" placeholder="np. 600 000 000 lub jan@firma.pl" required></div>
+        <input type="hidden" name="_subject" value="Nowe zgłoszenie z digitalmap.pl">
+        <button class="submit-btn" type="submit">Wyślij</button>
+        <p class="form-note">Zero spamu. Jedna wiadomość z Twoją mapą.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row" style="flex-direction:column; align-items:flex-start; gap:18px;">
+    <div class="footer-row" style="width:100%;">
+      <a class="logo" href="#">
+        <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+          <path d="M20 3 L35 11 L20 19 L5 11 Z" fill="#948A8C" opacity="0.9"/>
+          <path d="M5 11 L20 19 L20 36 L5 28 Z" fill="#948A8C" opacity="0.5"/>
+          <path d="M35 11 L20 19 L20 36 L35 28 Z" fill="#948A8C" opacity="0.7"/>
+        </svg>
+        <span class="logo-word" style="font-size:1rem;">digital<span>map</span></span>
+      </a>
+      <div class="footer-links">
+        <a href="#oferta">Oferta</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a>
+        <a href="https://instagram.com/digitalmap.pl" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-services">
+      <a href="/uslugi/strona-internetowa/">Strona internetowa</a>
+      <a href="/uslugi/pozycjonowanie-seo/">Pozycjonowanie SEO</a>
+      <a href="/uslugi/widocznosc-w-ai/">Widoczność w AI</a>
+      <a href="/uslugi/google-moja-firma/">Google Moja Firma</a>
+      <a href="/uslugi/social-media/">Social media</a>
+      <a href="/uslugi/reklamy/">Reklamy</a>
+    </div>
+  </div>
+</footer>
+
+<div class="chat-widget">
+  <button class="chat-toggle" id="chatToggle" aria-label="Otwórz czat">
+    <svg id="chatIconOpen" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H7l-3 3V4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    <svg id="chatIconClose" viewBox="0 0 24 24" fill="none" style="display:none;"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </button>
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <span class="chat-avatar">DM</span>
+      <div><div class="chat-title">DigitalMap</div><div class="chat-status">Zwykle odpowiadamy w 24h</div></div>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-bubble bot">Cześć! Wybierz pytanie poniżej albo napisz do nas bezpośrednio, jeśli Twoja sprawa jest bardziej złożona.</div>
+    </div>
+    <div class="chat-quick" id="chatQuick">
+      <button class="chat-q" data-q="Ile trwa audyt?" data-a="Darmowy audyt dostajesz w 24 godziny. Wdrożenia umawiamy po ustaleniu zakresu.">Ile trwa audyt?</button>
+      <button class="chat-q" data-q="Czy muszę podpisywać umowę?" data-a="Nie przy darmowym audycie ani przy jednorazowym pakiecie. Przy stałej współpracy ustalamy warunki indywidualnie.">Czy muszę podpisywać umowę?</button>
+      <button class="chat-q" data-q="Czy audyt naprawdę jest darmowy?" data-a="Tak. Podstawowy audyt z najważniejszymi błędami nic nie kosztuje i do niczego nie zobowiązuje.">Czy audyt jest darmowy?</button>
+      <button class="chat-q" data-q="Czy mogę wdrożyć poprawki sama?" data-a="Jasne. Dostajesz jasną listę z priorytetami — możesz wdrożyć samodzielnie albo zlecić to nam.">Czy mogę wdrożyć sama?</button>
+      <button class="chat-q" data-q="Czy robicie reklamy i strony?" data-a="Tak — to część naszej oferty, jeśli audyt pokaże, że tam tracisz najwięcej klientów.">Czy robicie reklamy i strony?</button>
+    </div>
+    <a class="chat-fallback" href="#kontakt" id="chatFallback">Nie znalazłaś odpowiedzi? Napisz do nas →</a>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="/crystal.js"></script>
+<script>
+  initCrystal('crystalCanvas', { mainSize: 2.0, withShards: false, camZ: 6.5 });
+  initCrystal('crystalSide1', { mainSize: 1.3, withShards: false, camZ: 6 });
+  initCrystal('crystalSide2', { mainSize: 1.3, withShards: false, camZ: 6 });
+
+  // ---- chat widget ----
+  const chatToggle = document.getElementById('chatToggle');
+  const chatPanel = document.getElementById('chatPanel');
+  const chatBody = document.getElementById('chatBody');
+  const iconOpen = document.getElementById('chatIconOpen');
+  const iconClose = document.getElementById('chatIconClose');
+
+  chatToggle.addEventListener('click', () => {
+    const isOpen = chatPanel.classList.toggle('open');
+    iconOpen.style.display = isOpen ? 'none' : 'block';
+    iconClose.style.display = isOpen ? 'block' : 'none';
+  });
+
+  document.querySelectorAll('.chat-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const q = btn.getAttribute('data-q');
+      const a = btn.getAttribute('data-a');
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble user';
+      userBubble.textContent = q;
+      chatBody.appendChild(userBubble);
+      const botBubble = document.createElement('div');
+      botBubble.className = 'chat-bubble bot';
+      botBubble.textContent = a;
+      chatBody.appendChild(botBubble);
+      chatBody.scrollTop = chatBody.scrollHeight;
+      btn.disabled = true;
+      btn.style.opacity = '0.4';
+    });
+  });
+</script>
+
+</body>
+</html>
