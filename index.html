@@ -107,8 +107,25 @@
       <a class="nav-email" href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a>
       <a class="nav-cta" href="#kontakt">Odbierz darmowy audyt</a>
     </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu">
+      <svg id="menuIconOpen" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <svg id="menuIconClose" viewBox="0 0 24 24" fill="none" style="display:none;"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
   </div>
 </header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#uslugi">Usługi</a>
+  <a href="#oferta">Oferta</a>
+  <a href="#faq">FAQ</a>
+  <a href="#jak-to-dziala">Proces</a>
+  <a href="#kontakt">Kontakt</a>
+  <a class="nav-email" href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a>
+  <a class="nav-icon" href="https://instagram.com/digitalmap.pl" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
+  </a>
+  <a class="nav-cta" href="#kontakt">Odbierz darmowy audyt</a>
+</div>
 
 <main>
 <section class="hero">
@@ -409,14 +426,19 @@
         <div class="contact-detail"><span class="mono">Czas odp.</span> do 24h</div>
         <div class="contact-detail"><span class="mono">Instagram</span> <a href="https://instagram.com/digitalmap.pl" target="_blank" rel="noopener" style="color:var(--text); text-decoration:none;">@digitalmap.pl</a></div>
       </div>
-      <form action="https://formspree.io/f/mnjkyvnn" method="POST">
+      <form id="contactForm" action="https://formspree.io/f/mnjkyvnn" method="POST">
         <div class="field"><label for="name">Imię i nazwisko</label><input id="name" name="imie" type="text" placeholder="Jak się do Ciebie zwracać?" required></div>
         <div class="field"><label for="website">Strona internetowa</label><input id="website" name="strona" type="text" placeholder="np. twojafirma.pl" required></div>
         <div class="field"><label for="contact">Telefon lub e-mail</label><input id="contact" name="kontakt" type="text" placeholder="np. 600 000 000 lub jan@firma.pl" required></div>
         <input type="hidden" name="_subject" value="Nowe zgłoszenie z digitalmap.pl">
-        <button class="submit-btn" type="submit">Wyślij</button>
+        <button class="submit-btn" type="submit" id="submitBtn">Wyślij</button>
         <p class="form-note">Zero spamu. Jedna wiadomość z Twoją mapą.</p>
       </form>
+      <div class="form-success" id="formSuccess">
+        <div class="map-arrow" style="margin-bottom:14px;">✓</div>
+        <h3>Dziękujemy!</h3>
+        <p>Twoje zgłoszenie dotarło. Odezwiemy się w ciągu 24 godzin.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -484,6 +506,55 @@
   initCrystal('crystalCanvas', { mainSize: 2.0, withShards: false, camZ: 6.5 });
   initCrystal('crystalSide1', { mainSize: 1.3, withShards: false, camZ: 6 });
   initCrystal('crystalSide2', { mainSize: 1.3, withShards: false, camZ: 6 });
+
+  // ---- mobile hamburger menu ----
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuIconOpen = document.getElementById('menuIconOpen');
+  const menuIconClose = document.getElementById('menuIconClose');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuIconOpen.style.display = isOpen ? 'none' : 'block';
+    menuIconClose.style.display = isOpen ? 'block' : 'none';
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuIconOpen.style.display = 'block';
+      menuIconClose.style.display = 'none';
+    });
+  });
+
+  // ---- formularz kontaktowy bez przekierowania ----
+  const contactForm = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formSuccess = document.getElementById('formSuccess');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Wysyłanie...';
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          contactForm.style.display = 'none';
+          formSuccess.classList.add('show');
+        } else {
+          alert('Coś poszło nie tak. Napisz proszę bezpośrednio na kontakt@digitalmap.pl');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Wyślij';
+        }
+      } catch (err) {
+        alert('Coś poszło nie tak. Napisz proszę bezpośrednio na kontakt@digitalmap.pl');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Wyślij';
+      }
+    });
+  }
 
   // ---- chat widget ----
   const chatToggle = document.getElementById('chatToggle');
