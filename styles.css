@@ -32,12 +32,13 @@
   .nav-cta { border:1px solid var(--wine-bright); color: var(--text); text-decoration:none; padding:10px 22px; border-radius:999px; font-size:0.88rem; transition: background 0.2s ease; }
   .nav-cta:hover { background: var(--wine); }
   .nav-right { display:flex; align-items:center; gap:20px; justify-self:end; }
-  .nav-email { font-family:'JetBrains Mono', monospace; font-size:0.78rem; color: var(--text-dim); text-decoration:none; letter-spacing:0.02em; }
-  .nav-email:hover { color: var(--gold-bright); }
+  .nav-icon { color: var(--text-dim); display:flex; align-items:center; transition: color 0.2s ease; }
+  .nav-icon:hover { color: var(--gold-bright); }
 
   /* ---------- HERO with 3D crystal ---------- */
   .hero { position:relative; padding:70px 0 40px; min-height:600px; }
-  #crystalCanvas { position:absolute; top:-40px; right:-4%; width:56%; height:640px; z-index:0; }
+  .hero .wrap { padding-left:8px; }
+  #crystalCanvas { position:absolute; top:-40px; right:-6%; width:60%; height:640px; z-index:0; }
   .hero-content { position:relative; z-index:2; max-width:640px; }
   .eyebrow-mono { color: var(--gold-bright); display:block; margin-bottom:20px; }
   .tier-price-note { font-size:0.8rem; color: var(--text-dim); margin-top:-14px; margin-bottom:20px; }
@@ -211,8 +212,8 @@
 
   @media (max-width:860px) {
     .wrap { padding:0 22px; }
+    .hero .wrap { padding-left:22px; }
     .nav { padding:0 22px; }
-    .nav-email { display:none; }
     header { padding:14px 0; }
     .footer-row .footer-row { flex-direction:column; align-items:flex-start; gap:14px; }
     .nav-links { display:none; }
@@ -302,3 +303,11 @@
 .map-outcome-card .tag { color: var(--gold-bright); margin-bottom:10px; display:block; }
 .map-outcome-card h3 { font-family:'Unbounded', sans-serif; font-size:1.2rem; font-weight:700; margin-bottom:8px; }
 .map-outcome-card p { color: var(--text-dim); font-size:0.9rem; }
+
+/* for-whom section */
+.for-whom { padding:0 0 100px; }
+.industry-tags { display:flex; flex-wrap:wrap; gap:12px; }
+.industry-tags span {
+  background: var(--surface); border:1px solid var(--border); border-radius:999px;
+  padding:9px 20px; font-size:0.88rem; color: var(--text-dim);
+}
