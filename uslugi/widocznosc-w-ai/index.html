@@ -14,6 +14,35 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Widoczność w wyszukiwarkach AI — ChatGPT, Gemini, Claude",
+  "description": "Sprawdzamy, czy ChatGPT, Gemini i Claude wiedzą o istnieniu Twojej firmy i jak Cię opisują.",
+  "provider": {
+    "@type": "Organization",
+    "name": "DigitalMap",
+    "url": "https://digitalmap.pl"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Polska"
+  },
+  "url": "https://digitalmap.pl/uslugi/widocznosc-w-ai/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://digitalmap.pl/"},
+    {"@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://digitalmap.pl/#uslugi"},
+    {"@type": "ListItem", "position": 3, "name": "Widoczność w wyszukiwarkach AI — ChatGPT, Gemini, Claude", "item": "https://digitalmap.pl/uslugi/widocznosc-w-ai/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {"@type": "Question", "name": "Czym różni się to od zwykłego SEO?", "acceptedAnswer": {"@type": "Answer", "text": "SEO optymalizuje pod ranking w wynikach wyszukiwania, a widoczność w AI dotyczy tego, czy model językowy w ogóle „wie” o Twojej firmie i potrafi ją opisać."}},
@@ -25,7 +54,7 @@
 <body>
 
 <header>
-  <div class="wrap nav">
+  <div class="nav">
     <a class="logo" href="/">
       <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
         <defs>
@@ -52,9 +81,32 @@
       <a href="/#jak-to-dziala">Proces</a>
       <a href="/#kontakt">Kontakt</a>
     </nav>
-    <a class="nav-cta" href="/#kontakt">Odbierz darmowy audyt</a>
+    <div class="nav-right">
+      <a class="nav-icon" href="https://instagram.com/digitalmap.pl" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
+      </a>
+      <a class="nav-email" href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a>
+      <a class="nav-cta" href="/#kontakt">Odbierz darmowy audyt</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu">
+      <svg id="menuIconOpen" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <svg id="menuIconClose" viewBox="0 0 24 24" fill="none" style="display:none;"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
   </div>
 </header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/#uslugi">Usługi</a>
+  <a href="/#oferta">Oferta</a>
+  <a href="/#faq">FAQ</a>
+  <a href="/#jak-to-dziala">Proces</a>
+  <a href="/#kontakt">Kontakt</a>
+  <a class="nav-email" href="mailto:kontakt@digitalmap.pl">kontakt@digitalmap.pl</a>
+  <a class="nav-icon" href="https://instagram.com/digitalmap.pl" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
+  </a>
+  <a class="nav-cta" href="/#kontakt">Odbierz darmowy audyt</a>
+</div>
 
 
 <main>
@@ -152,6 +204,24 @@
 <script src="/crystal.js"></script>
 <script>
   initCrystal('subCrystal', { mainSize: 1.15, withShards: false, camZ: 5.5 });
+
+  // mobile hamburger menu
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuIconOpen = document.getElementById('menuIconOpen');
+  const menuIconClose = document.getElementById('menuIconClose');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuIconOpen.style.display = isOpen ? 'none' : 'block';
+    menuIconClose.style.display = isOpen ? 'block' : 'none';
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuIconOpen.style.display = 'block';
+      menuIconClose.style.display = 'none';
+    });
+  });
 
   // interaktywna checklista
   const items = document.querySelectorAll('#checkList li');
