@@ -340,3 +340,68 @@
 .form-success h3 { font-family:'Unbounded', sans-serif; font-size:1.4rem; color: var(--text); margin-bottom:10px; }
 .form-success p { color: var(--text-dim); font-size:0.95rem; }
 .form-success .map-arrow { color: var(--wine); font-size:2rem; }
+
+.audit-check {
+  padding: 120px 0;
+  background: #0b0b0d;
+}
+
+.audit-grid {
+  margin-top:50px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.audit-item {
+  border:1px solid rgba(255,255,255,.08);
+  padding:30px;
+  background:rgba(255,255,255,.02);
+}
+
+.audit-item span {
+  color:#E5A85C;
+  font-family:'JetBrains Mono';
+  font-size:.8rem;
+}
+
+.audit-item h3 {
+  margin:18px 0 12px;
+}
+
+.audit-item p {
+  color:#aaa;
+  line-height:1.6;
+}
+
+
+@media(max-width:900px){
+  .audit-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+.availability {
+display:block;
+margin-top:18px;
+color:#E5A85C;
+font-weight:600;
+}
+
+.lead-magnet{
+padding:80px 0;
+text-align:center;
+background:#111;
+}
+
+.lead-magnet h2{
+font-size:clamp(2rem,4vw,3rem);
+}
+
+.lead-magnet p{
+color:#aaa;
+margin:20px auto 35px;
+max-width:600px;
+}
+
+
