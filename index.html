@@ -473,8 +473,8 @@
   <div class="wrap">
     <div class="contact-card">
       <div>
-        <h2>Umówmy rozmowę</h2>
-        <p class="lead">Odpowiadamy w ciągu 24 godzin. Bez zobowiązań, bez presji sprzedażowej.</p>
+        <h2>Odbierz swoją darmową diagnozę widoczności</h2>
+        <p class="lead">Wypełnij formularz — analizę i pierwsze rekomendacje dostajesz na e-mail w ciągu 24 godzin. Bez zobowiązań, bez presji sprzedażowej.</p>
         <div class="contact-detail"><span class="mono">Mail</span> kontakt@digitalmap.pl</div>
         <div class="contact-detail"><span class="mono">Telefon</span> <a href="tel:+48735133271" style="color:var(--text); text-decoration:none;">+48 735 133 271</a></div>
         <div class="contact-detail"><span class="mono">Czas odp.</span> do 24h</div>
@@ -482,11 +482,15 @@
       </div>
       <form id="contactForm" action="https://formspree.io/f/mnjkyvnn" method="POST">
         <div class="field"><label for="name">Imię i nazwisko</label><input id="name" name="imie" type="text" placeholder="Jak się do Ciebie zwracać?" required></div>
-        <div class="field"><label for="website">Strona internetowa</label><input id="website" name="strona" type="text" placeholder="np. twojafirma.pl" required></div>
-        <div class="field"><label for="contact">Telefon lub e-mail</label><input id="contact" name="kontakt" type="text" placeholder="np. 600 000 000 lub jan@firma.pl" required></div>
+        <div class="field"><label for="website">Adres strony internetowej</label><input id="website" name="strona" type="text" placeholder="np. twojafirma.pl" required></div>
+        <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" placeholder="np. jan@firma.pl" required></div>
+        <div class="field"><label for="phone">Telefon <span class="optional-tag">(opcjonalnie)</span></label><input id="phone" name="telefon" type="tel" placeholder="np. 600 000 000"></div>
+        <div class="field"><label for="social">Link do social media lub Google Maps <span class="optional-tag">(opcjonalnie)</span></label><input id="social" name="social" type="text" placeholder="np. instagram.com/twojafirma"></div>
+        <div class="field"><label for="message">Co chciałbyś/chciałabyś sprawdzić? <span class="optional-tag">(opcjonalnie)</span></label><textarea id="message" name="wiadomosc" rows="3" placeholder="np. Czy moja strona w ogóle pojawia się w Google?"></textarea></div>
         <input type="hidden" name="_subject" value="Nowe zgłoszenie z digitalmap.pl">
-        <button class="submit-btn" type="submit" id="submitBtn">Wyślij</button>
-        <p class="form-note">Zero spamu. Jedna wiadomość z Twoją mapą.</p>
+        <button class="submit-btn" type="submit" id="submitBtn">Odbierz darmową diagnozę</button>
+        <p class="form-note">Zero spamu. Jedna wiadomość z Twoją mapą na e-mail w 24h.</p>
+        <p class="form-followup">Jeśli po analizie zechcesz omówić wyniki — umówimy krótką, niezobowiązującą rozmowę.</p>
       </form>
       <div class="form-success" id="formSuccess">
         <div class="map-arrow" style="margin-bottom:14px;">✓</div>
