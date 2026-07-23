@@ -133,6 +133,12 @@
   .urgency-line { font-weight:600; color: var(--wine-bright); margin-top:14px; font-size:1rem; }
 
   /* ============================================================
+     GOLD NOTE — mocne zdanie jako mały, złoty dopisek (sekcja
+     "Częste błędy"), nie osobny duży nagłówek
+     ============================================================ */
+  .gold-note { color: var(--gold-bright); font-weight:600; font-size:0.92rem; margin-top:16px; max-width:52ch; }
+
+  /* ============================================================
      11. DLACZEGO MY
      ============================================================ */
   .why { padding:0 0 110px; position:relative; overflow:visible; }
@@ -216,21 +222,6 @@
   input, textarea { width:100%; padding:0 0 12px; border:none; border-bottom:1px solid var(--border); background: transparent; color: var(--text); font-family:'Inter',sans-serif; font-size:1rem; resize:vertical; }
   textarea { min-height:44px; }
   input:focus, textarea:focus { outline:none; border-bottom-color: var(--wine-bright); }
-
-  /* select stylizowany jako "chip", nie natywny combobox */
-  select {
-    appearance:none; -webkit-appearance:none; -moz-appearance:none;
-    width:100%; margin-top:2px; padding:13px 40px 13px 16px;
-    background: var(--surface);
-    border:1px solid var(--border); border-radius:12px;
-    color: var(--text); font-family:'Inter',sans-serif; font-size:0.92rem;
-    cursor:pointer; transition: border-color 0.15s ease, background 0.15s ease;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 8l5 5 5-5' stroke='%23E5A85C' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat:no-repeat; background-position: right 14px center; background-size:14px;
-  }
-  select:hover { border-color: var(--gold-bright); }
-  select:focus { outline:none; border-color: var(--wine-bright); background-color: var(--bg-2); }
-  select option { background: var(--bg-2); color: var(--text); }
 
   /* pigułki wyboru — jak chip-buttony, nie płaskie obrysy */
   .pill-group { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
@@ -451,46 +442,35 @@
 .form-success .map-arrow { color: var(--wine); font-size:2rem; }
 
 /* ============================================================
-   NIEUŻYWANE / DEPRECATED (bezpieczne do usunięcia)
+   ZAKRES MAPY WIDOCZNOŚCI — karta scope-card z chipami 6 warstw,
+   zamiast płaskiego nagłówka + przycisku na pustym tle
    ============================================================ */
-.audit-check {
-  padding: 120px 0;
-  background: #0b0b0d;
+.audit-check { padding:100px 0; }
+.scope-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 52px 48px;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
 }
-
-.audit-grid {
-  margin-top:50px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
+.scope-card .mono { color: var(--gold-bright); display:block; margin-bottom:16px; }
+.scope-card h2 { font-family:'Unbounded', sans-serif; font-size:2rem; font-weight:700; margin-bottom:16px; }
+.scope-card > p { color: var(--text-dim); font-size:1.02rem; max-width:52ch; margin:0 auto 32px; }
+.scope-chips { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:28px; }
+.scope-chips span {
+  display:inline-flex; align-items:center; gap:7px;
+  background: var(--bg-2); border:1px solid var(--border); border-radius:999px;
+  padding:9px 18px; font-size:0.86rem; color: var(--text);
 }
+.scope-chips span::before { content:"✓"; color: var(--gold-bright); font-weight:700; }
+.scope-card .urgency-line { margin-bottom:26px; }
+.scope-card .btn-primary { margin-top:2px; }
 
-.audit-item {
-  border:1px solid rgba(255,255,255,.08);
-  padding:30px;
-  background:rgba(255,255,255,.02);
-}
-
-.audit-item span {
-  color:#E5A85C;
-  font-family:'JetBrains Mono';
-  font-size:.8rem;
-}
-
-.audit-item h3 {
-  margin:18px 0 12px;
-}
-
-.audit-item p {
-  color:#aaa;
-  line-height:1.6;
-}
-
-
-@media(max-width:900px){
-  .audit-grid{
-    grid-template-columns:1fr;
-  }
+@media (max-width:600px) {
+  .scope-card { padding:40px 26px; }
+  .scope-card h2 { font-size:1.6rem; }
 }
 
 /* ---------- STRONA 404 ---------- */
