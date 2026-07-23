@@ -28,9 +28,9 @@
   .nav { display:grid; grid-template-columns:auto 1fr auto; align-items:center; width:100%; padding:0 40px; box-sizing:border-box; column-gap:24px; }
   .logo { justify-self:start; }
   .nav-links { display:flex; gap:34px; justify-self:center; margin-left:0; }
-  .nav-links a { color: var(--text-dim); text-decoration:none; font-size:0.92rem; transition: color 0.2s ease; }
+  .nav-links a, .nav-links a:visited { color: var(--text-dim); text-decoration:none; font-size:0.92rem; transition: color 0.2s ease; }
   .nav-links a:hover { color: var(--text); }
-  .nav-cta { border:1px solid var(--wine-bright); color: var(--text); text-decoration:none; padding:10px 22px; border-radius:999px; font-size:0.88rem; transition: background 0.2s ease; }
+  .nav-cta, .nav-cta:visited { border:1px solid var(--wine-bright); color: var(--text); text-decoration:none; padding:10px 22px; border-radius:999px; font-size:0.88rem; transition: background 0.2s ease; }
   .nav-cta:hover { background: var(--wine); }
   .nav-right { display:flex; align-items:center; gap:20px; justify-self:end; }
   .nav-icon, .nav-icon:visited, .nav-icon:hover { color: var(--text-dim); display:flex; align-items:center; transition: color 0.2s ease; }
@@ -73,8 +73,8 @@
   .fail-row p b { font-weight:600; }
   .inline-cta { margin-top:32px; text-align:center; }
 
-  .btn-primary { background: linear-gradient(120deg, var(--wine), var(--wine-bright)); color: var(--text); font-weight:600; padding:16px 30px; border-radius:999px; text-decoration:none; font-size:0.98rem; display:inline-block; box-shadow: 0 20px 45px -18px rgba(155,34,66,0.5); }
-  .btn-ghost { color: var(--text-dim); text-decoration:none; font-size:0.98rem; border-bottom:1px solid var(--border); padding-bottom:2px; }
+  .btn-primary, .btn-primary:visited { background: linear-gradient(120deg, var(--wine), var(--wine-bright)); color: var(--text); font-weight:600; padding:16px 30px; border-radius:999px; text-decoration:none; font-size:0.98rem; display:inline-block; box-shadow: 0 20px 45px -18px rgba(155,34,66,0.5); }
+  .btn-ghost, .btn-ghost:visited { color: var(--text-dim); text-decoration:none; font-size:0.98rem; border-bottom:1px solid var(--border); padding-bottom:2px; }
 
   .marquee-section { border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:24px 0; overflow:hidden; margin-top:56px; position:relative; z-index:2; }
   .marquee-track { display:flex; gap:56px; white-space:nowrap; animation: scroll-left 24s linear infinite; width:max-content; }
@@ -93,14 +93,14 @@
   .deliverable-grid { display:flex; flex-direction:column; gap:10px; }
   .deliverable-item { font-size:0.92rem; color: var(--text-dim); display:flex; align-items:center; gap:12px; }
   .deliverable-item::before { content:""; width:7px; height:7px; background: var(--gold-bright); transform: rotate(45deg); flex-shrink:0; }
-  .sample-link { display:inline-block; margin-top:6px; color: var(--gold-bright); font-size:0.9rem; font-weight:600; text-decoration:none; border-bottom:1px solid var(--gold-bright); padding-bottom:2px; }
+  .sample-link, .sample-link:visited { display:inline-block; margin-top:6px; color: var(--gold-bright); font-size:0.9rem; font-weight:600; text-decoration:none; border-bottom:1px solid var(--gold-bright); padding-bottom:2px; }
   .sample-link:hover { color: var(--wine-bright); border-color: var(--wine-bright); }
 
   /* ============================================================
      2. STATEMENT
      ============================================================ */
   .statement { padding:90px 0; text-align:center; }
-  .statement p { font-family:'Unbounded', sans-serif; font-weight:600; font-size:2.3rem; line-height:1.3; max-width:16ch; margin:0 auto; }
+  .statement p { font-family:'Unbounded', sans-serif; font-weight:600; font-size:2.3rem; line-height:1.3; max-width:22ch; margin:0 auto; }
   .statement p span { color: var(--wine-bright); }
 
   /* ============================================================
@@ -126,6 +126,11 @@
   .row .mono { color: var(--wine-bright); }
   .row h3 { font-family:'Inter',sans-serif; font-size:1.15rem; font-weight:600; margin-bottom:8px; }
   .row p { color: var(--text-dim); font-size:0.95rem; max-width:56ch; }
+
+  /* ============================================================
+     URGENCY LINE (sekcja "Zakres Mapy Widoczności")
+     ============================================================ */
+  .urgency-line { font-weight:600; color: var(--wine-bright); margin-top:14px; font-size:1rem; }
 
   /* ============================================================
      11. DLACZEGO MY
@@ -166,7 +171,7 @@
   .tier-price { font-family:'Unbounded', sans-serif; font-size:2rem; font-weight:700; color: var(--wine-bright); margin-bottom:22px; }
   .tier ul { list-style:none; flex-grow:1; margin-bottom:24px; }
   .tier li { font-size:0.9rem; color: var(--text-dim); padding:9px 0; border-bottom:1px dashed var(--border); }
-  .tier-cta { text-align:center; padding:13px; text-decoration:none; font-size:0.9rem; font-weight:600; border:1px solid var(--border); color: var(--text); border-radius:999px; }
+  .tier-cta, .tier-cta:visited { text-align:center; padding:13px; text-decoration:none; font-size:0.9rem; font-weight:600; border:1px solid var(--border); color: var(--text); border-radius:999px; }
   .market-value { margin-bottom:20px; border-top:1px dashed var(--border); padding-top:14px; }
   .market-row { display:flex; justify-content:space-between; font-size:0.82rem; color: var(--text-dim); padding:4px 0; }
   .market-row.total { color: var(--gold-bright); font-weight:600; border-top:1px solid var(--border); margin-top:6px; padding-top:10px; }
@@ -194,11 +199,9 @@
 
   /* ============================================================
      15. KONTAKT / FORMULARZ
-     ZMIANA: usunięto sztuczny scarcity trigger ("Aktualnie
-     przyjmujemy 7 z 10 audytów...") — .availability nie jest już
-     używane w HTML, ale zostawiam regułę wyłączoną poniżej na
-     wypadek ponownego użycia w przyszłości z prawdziwą, aktualizowaną
-     wartością.
+     ZMIANA: formularz podzielony na dwie kolumny (.field-row) +
+     wybór "największego problemu" jako klikalne pigułki (.pill),
+     zamiast pojedynczej listy pól jedno pod drugim.
      ============================================================ */
   .contact { padding:0 0 90px; }
   .contact-card { border-top:1px solid var(--border); padding-top:70px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; }
@@ -207,11 +210,24 @@
   .contact-detail { display:flex; gap:12px; margin-bottom:12px; font-size:0.95rem; }
   .contact-detail .mono { color: var(--wine-bright); min-width:110px; }
   .field { margin-bottom:18px; }
+  .field-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   label { display:block; font-size:0.72rem; color: var(--text-dim); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em; }
   .optional-tag { text-transform:none; letter-spacing:normal; font-size:0.72rem; color: var(--text-dim); opacity:0.7; }
-  input, textarea { width:100%; padding:0 0 12px; border:none; border-bottom:1px solid var(--border); background: transparent; color: var(--text); font-family:'Inter',sans-serif; font-size:1rem; resize:vertical; }
+  input, textarea, select { width:100%; padding:0 0 12px; border:none; border-bottom:1px solid var(--border); background: transparent; color: var(--text); font-family:'Inter',sans-serif; font-size:1rem; resize:vertical; }
+  select { appearance:none; -webkit-appearance:none; padding-bottom:11px; cursor:pointer; }
+  select option { background: var(--bg-2); color: var(--text); }
   textarea { min-height:44px; }
-  input:focus, textarea:focus { outline:none; border-bottom-color: var(--wine-bright); }
+  input:focus, textarea:focus, select:focus { outline:none; border-bottom-color: var(--wine-bright); }
+
+  .pill-group { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .pill {
+    padding:9px 15px; border-radius:999px; border:1px solid var(--border);
+    background: transparent; color: var(--text-dim); font:inherit; font-size:0.83rem;
+    cursor:pointer; transition: all 0.15s ease; font-family:'Inter',sans-serif;
+  }
+  .pill:hover { border-color: var(--wine-bright); color: var(--text); }
+  .pill.active { background: var(--wine); border-color: var(--wine); color: var(--text); }
+
   .submit-btn { padding:15px 32px; background: var(--wine); color: var(--text); border:none; border-radius:999px; font-weight:600; font-size:0.98rem; cursor:pointer; margin-top:22px; }
   .submit-btn:hover { background: var(--wine-bright); }
   .form-note { font-size:0.8rem; color: var(--text-dim); margin-top:14px; }
@@ -220,7 +236,7 @@
   /* ---------- STOPKA ---------- */
   footer { padding:40px 0; border-top:1px solid var(--border); }
   .footer-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
-  footer p, footer a { font-size:0.85rem; color: var(--text-dim); text-decoration:none; }
+  footer p, footer a, footer a:visited { font-size:0.85rem; color: var(--text-dim); text-decoration:none; }
   .footer-links { display:flex; gap:22px; }
 
   /* ---------- CZAT ---------- */
@@ -253,7 +269,7 @@
     transition: border-color 0.15s ease, background 0.15s ease;
   }
   .chat-q:hover { border-color: var(--wine-bright); background: rgba(155,34,66,0.08); }
-  .chat-fallback {
+  .chat-fallback, .chat-fallback:visited {
     display:block; text-align:center; padding:13px; border-top:1px solid var(--border); color: var(--gold-bright);
     text-decoration:none; font-size:0.85rem; font-weight:600;
   }
@@ -290,6 +306,7 @@
     .row, .tiers, .steps, .contact-card { grid-template-columns:1fr; }
     .statement p { font-size:1.5rem; }
     .market-row { font-size:0.78rem; }
+    .field-row { grid-template-columns:1fr; gap:0; }
 
     .mobile-sticky-cta {
       display:flex; position:fixed; bottom:0; left:0; width:100%; z-index:190;
@@ -297,7 +314,7 @@
       padding:14px 20px; justify-content:center;
       box-shadow: 0 -8px 24px -8px rgba(0,0,0,0.4);
     }
-    .mobile-sticky-cta a { color:#fff; text-decoration:none; font-weight:600; font-size:0.95rem; }
+    .mobile-sticky-cta a, .mobile-sticky-cta a:visited { color:#fff; text-decoration:none; font-weight:600; font-size:0.95rem; }
     body { padding-bottom:64px; }
     .chat-widget { bottom:76px; }
   }
@@ -312,7 +329,7 @@
 
 /* ---------- SERVICE SUBPAGES ---------- */
 .breadcrumb { font-size:0.8rem; color: var(--text-dim); margin-bottom:24px; }
-.breadcrumb a { color: var(--text-dim); text-decoration:none; }
+.breadcrumb a, .breadcrumb a:visited { color: var(--text-dim); text-decoration:none; }
 .breadcrumb a:hover { color: var(--gold-bright); }
 .service-hero { padding:70px 0 50px; border-bottom:1px solid var(--border); }
 .service-hero .eyebrow-mono { color: var(--gold-bright); display:block; margin-bottom:16px; }
@@ -338,17 +355,17 @@
 .faq-item.accordion.open p { max-height:200px; margin-top:10px; }
 .service-cta-block { padding:50px 0 80px; text-align:center; }
 .service-cta-block h2 { font-family:'Unbounded', sans-serif; font-size:1.7rem; margin-bottom:18px; }
-.back-link { display:inline-block; margin-top:40px; color: var(--text-dim); text-decoration:none; font-size:0.92rem; border-bottom:1px solid var(--border); padding-bottom:2px; }
+.back-link, .back-link:visited { display:inline-block; margin-top:40px; color: var(--text-dim); text-decoration:none; font-size:0.92rem; border-bottom:1px solid var(--border); padding-bottom:2px; }
 .back-link:hover { color: var(--text); }
 .related-services { padding:0 0 80px; }
 .related-services h3 { font-family:'Unbounded', sans-serif; font-size:1.2rem; margin-bottom:18px; }
 .related-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.related-card { background: var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; text-decoration:none; display:block; transition:border-color 0.2s ease; }
+.related-card, .related-card:visited { background: var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; text-decoration:none; display:block; transition:border-color 0.2s ease; }
 .related-card:hover { border-color: var(--gold-bright); }
 .related-card span { color: var(--gold-bright); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; display:block; margin-bottom:8px; }
 .related-card h4 { color: var(--text); font-family:'Unbounded', sans-serif; font-size:1rem; font-weight:600; }
 .footer-services { font-size:0.82rem; color: var(--text-dim); margin-top:14px; display:flex; flex-wrap:wrap; gap:6px 16px; }
-.footer-services a { color: var(--text-dim); text-decoration:none; }
+.footer-services a, .footer-services a:visited { color: var(--text-dim); text-decoration:none; }
 .footer-services a:hover { color: var(--gold-bright); }
 
 @media (max-width:860px) {
@@ -396,8 +413,8 @@
   overflow-y:auto;
 }
 .mobile-menu.open { display:flex; }
-.mobile-menu a { color: var(--text); text-decoration:none; font-size:1.15rem; font-family:'Unbounded', sans-serif; font-weight:600; }
-.mobile-menu .nav-email { font-family:'Inter', sans-serif; font-weight:400; font-size:1rem; color: var(--text-dim); }
+.mobile-menu a, .mobile-menu a:visited { color: var(--text); text-decoration:none; font-size:1.15rem; font-family:'Unbounded', sans-serif; font-weight:600; }
+.mobile-menu .nav-email, .mobile-menu .nav-email:visited { font-family:'Inter', sans-serif; font-weight:400; font-size:1rem; color: var(--text-dim); }
 .mobile-menu .nav-icon { color: var(--text-dim); }
 .mobile-menu .nav-cta { align-self:flex-start; margin-top:10px; }
 
@@ -481,7 +498,7 @@
   border-top: 1px solid var(--border);
   width: 100%;
 }
-.footer-legal a { color: var(--text-dim); text-decoration:none; }
+.footer-legal a, .footer-legal a:visited { color: var(--text-dim); text-decoration:none; }
 .footer-legal a:hover { color: var(--gold-bright); }
 
 /* ---------- PASEK COOKIES ---------- */
@@ -506,7 +523,7 @@
 .cookie-banner.show { display: flex; }
 .cookie-banner-text p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.5; }
 .cookie-banner-text b { color: var(--text); }
-.cookie-banner-text a { color: var(--gold-bright); text-decoration: none; border-bottom: 1px solid var(--gold-bright); }
+.cookie-banner-text a, .cookie-banner-text a:visited { color: var(--gold-bright); text-decoration: none; border-bottom: 1px solid var(--gold-bright); }
 .cookie-banner-actions { display: flex; gap: 12px; flex-shrink: 0; }
 .cookie-btn-primary, .cookie-btn-secondary {
   padding: 11px 20px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
