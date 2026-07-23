@@ -23,6 +23,7 @@
   .logo-word { font-family:'Unbounded', sans-serif; font-weight:700; font-size:1.15rem; color: var(--text); letter-spacing:-0.01em; }
   .logo-word span { color: var(--wine-bright); }
 
+  /* ---------- NAWIGACJA (sticky header) ---------- */
   header { position:sticky; top:0; z-index:100; padding:18px 0; background: rgba(10,7,8,0.88); backdrop-filter: blur(12px); border-bottom:1px solid var(--border); }
   .nav { display:grid; grid-template-columns:auto 1fr auto; align-items:center; width:100%; padding:0 40px; box-sizing:border-box; column-gap:24px; }
   .logo { justify-self:start; }
@@ -37,7 +38,11 @@
   .nav-email, .nav-email:visited { font-family:'Inter', sans-serif; font-size:0.85rem; color: var(--text-dim); text-decoration:none; }
   .nav-email:hover { color: var(--gold-bright); }
 
-  /* ---------- HERO with 3D crystal ---------- */
+  /* ============================================================
+     1. HERO — patrz komentarz w HTML. Style .trust-bar są
+     przygotowane na przyszłość (gdy będą realne liczby/klienci) —
+     obecnie nieużywane w HTML, bezpieczne do zostawienia.
+     ============================================================ */
   .hero { position:relative; padding:70px 0 40px; min-height:600px; }
   .hero .wrap { padding-left:8px; }
   #crystalCanvas { position:absolute; top:-40px; right:-6%; width:60%; height:640px; z-index:0; }
@@ -54,12 +59,22 @@
   .hero-microcopy { font-size:0.85rem; color: var(--gold-bright); margin-top:16px; margin-bottom:8px; }
   .hero-stars { color: var(--gold-bright); font-size:0.95rem; margin-bottom:14px; letter-spacing:0.1em; }
   .hero-stars span { font-family:'Inter',sans-serif; letter-spacing:normal; font-size:0.82rem; color: var(--text-dim); margin-left:6px; }
+
+  /* TODO/PRZYGOTOWANE: pasek zaufania w hero (logo klientów / liczby).
+     Wstaw w HTML <div class="trust-bar">...</div> pod .hero-checklist,
+     gdy będziesz mieć realne dane do pokazania. */
+  .trust-bar { display:flex; gap:28px; flex-wrap:wrap; margin-top:28px; padding-top:22px; border-top:1px solid var(--border); }
+  .trust-bar span { font-size:0.82rem; color: var(--text-dim); }
+
   .fail-list { border-top:1px solid var(--border); }
   .fail-row { display:flex; gap:18px; align-items:flex-start; padding:22px 0; border-bottom:1px solid var(--border); }
   .fail-x { flex-shrink:0; margin-top:2px; }
   .fail-icon { width:20px; height:20px; display:block; }
   .fail-row p { font-size:1.02rem; color: var(--text); }
   .fail-row p b { font-weight:600; }
+  /* mikro-CTA dodane po liście "częste błędy" */
+  .inline-cta { margin-top:32px; text-align:center; }
+
   .btn-primary { background: linear-gradient(120deg, var(--wine), var(--wine-bright)); color: var(--text); font-weight:600; padding:16px 30px; border-radius:999px; text-decoration:none; font-size:0.98rem; display:inline-block; box-shadow: 0 20px 45px -18px rgba(155,34,66,0.5); }
   .btn-ghost { color: var(--text-dim); text-decoration:none; font-size:0.98rem; border-bottom:1px solid var(--border); padding-bottom:2px; }
 
@@ -69,6 +84,9 @@
   .marquee-track span.on { color: var(--gold-bright); }
   @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+  /* ============================================================
+     9. DELIVERABLE ("co dostajesz")
+     ============================================================ */
   .deliverable { padding:60px 0; }
   .deliverable-card { background: var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px 40px; display:flex; flex-wrap:wrap; gap:32px; align-items:center; justify-content:space-between; }
   .deliverable-card .mono { color: var(--gold-bright); display:block; margin-bottom:10px; }
@@ -79,10 +97,17 @@
   .deliverable-item::before { content:""; width:7px; height:7px; background: var(--gold-bright); transform: rotate(45deg); flex-shrink:0; }
   .sample-link { display:inline-block; margin-top:6px; color: var(--gold-bright); font-size:0.9rem; font-weight:600; text-decoration:none; border-bottom:1px solid var(--gold-bright); padding-bottom:2px; }
   .sample-link:hover { color: var(--wine-bright); border-color: var(--wine-bright); }
+
+  /* ============================================================
+     2. STATEMENT (zdanie-pauza, niski priorytet — patrz HTML)
+     ============================================================ */
   .statement { padding:90px 0; text-align:center; }
   .statement p { font-family:'Unbounded', sans-serif; font-weight:600; font-size:2.3rem; line-height:1.3; max-width:16ch; margin:0 auto; }
   .statement p span { color: var(--wine-bright); }
 
+  /* ============================================================
+     3. PROBLEM ("częste błędy") + 5. SERVICES ("6 warstw")
+     ============================================================ */
   .problem { padding:0 0 90px; }
   .services { padding:0 0 120px; }
   .service-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
@@ -101,6 +126,9 @@
   .row h3 { font-family:'Inter',sans-serif; font-size:1.15rem; font-weight:600; margin-bottom:8px; }
   .row p { color: var(--text-dim); font-size:0.95rem; max-width:56ch; }
 
+  /* ============================================================
+     11. DLACZEGO MY
+     ============================================================ */
   .why { padding:0 0 110px; position:relative; overflow:visible; }
   .contact { padding:0 0 90px; position:relative; overflow:visible; }
   .side-crystal { position:absolute; width:280px; height:280px; z-index:0; opacity:0.55; pointer-events:none; }
@@ -111,6 +139,24 @@
   .why-item { background: var(--surface); padding:18px 24px; font-size:0.98rem; color: var(--text); display:flex; align-items:center; gap:14px; }
   .why-icon { width:20px; height:20px; flex-shrink:0; }
 
+  /* ============================================================
+     12. O NAS / AUTORYTET — NOWA SEKCJA (patrz HTML: uzupełnij
+     placeholdery [ ] przed publikacją, albo wyłącz display:none)
+     ============================================================ */
+  .about-trust { padding:0 0 110px; }
+  .about-trust-card { background: var(--surface); border:1px solid var(--border); border-radius:20px; padding:40px; display:flex; flex-wrap:wrap; gap:40px; justify-content:space-between; align-items:center; }
+  .about-trust-text { flex:1 1 380px; }
+  .about-trust-text .mono { color: var(--gold-bright); display:block; margin-bottom:14px; }
+  .about-trust-text h2 { font-family:'Unbounded', sans-serif; font-size:1.5rem; font-weight:700; margin-bottom:14px; max-width:24ch; }
+  .about-trust-text p { color: var(--text-dim); font-size:0.95rem; margin-bottom:10px; max-width:60ch; }
+  .about-trust-stats { display:flex; gap:32px; flex-wrap:wrap; }
+  .stat { display:flex; flex-direction:column; align-items:flex-start; min-width:100px; }
+  .stat-num { font-family:'Unbounded', sans-serif; font-size:1.8rem; font-weight:700; color: var(--wine-bright); }
+  .stat-label { font-size:0.78rem; color: var(--text-dim); margin-top:4px; max-width:16ch; }
+
+  /* ============================================================
+     13. TESTIMONIALE (patrz duży komentarz-ostrzeżenie w HTML)
+     ============================================================ */
   .testimonials { padding:0 0 110px; }
   .testimonial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
   .testimonial-card { background: var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px; }
@@ -121,6 +167,9 @@
   .author-name { font-size:0.9rem; font-weight:600; }
   .author-company { font-size:0.8rem; color: var(--text-dim); }
 
+  /* ============================================================
+     10. OFERTA / CENNIK
+     ============================================================ */
   .offer { padding:0 0 120px; }
   .tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background: var(--border); border:1px solid var(--border); }
   .tier { background: var(--bg); padding:38px 30px; display:flex; flex-direction:column; }
@@ -139,18 +188,27 @@
   .value-note { font-size:0.8rem; color: var(--text-dim); margin-bottom:16px; font-style:italic; }
   .tier.featured .tier-cta { background: var(--wine); border-color: var(--wine); }
 
+  /* ============================================================
+     14. FAQ
+     ============================================================ */
   .faq { padding:0 0 110px; }
   .faq-list { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background: var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
   .faq-item { background: var(--surface); padding:24px; }
   .faq-item h3 { font-family:'Unbounded', sans-serif; font-size:1rem; font-weight:600; margin-bottom:8px; }
   .faq-item p { font-size:0.9rem; color: var(--text-dim); }
 
+  /* ============================================================
+     8. PROCES
+     ============================================================ */
   .process { padding:0 0 120px; }
   .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
   .step-num { font-family:'Unbounded', sans-serif; font-weight:700; color: var(--gold-bright); font-size:1.4rem; margin-bottom:16px; }
   .step h3 { font-size:1.05rem; margin-bottom:8px; font-weight:600; }
   .step p { font-size:0.9rem; color: var(--text-dim); }
 
+  /* ============================================================
+     15. KONTAKT / FORMULARZ
+     ============================================================ */
   .contact { padding:0 0 90px; }
   .contact-card { border-top:1px solid var(--border); padding-top:70px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; }
   .contact-card h2 { font-family:'Unbounded', sans-serif; font-size:2.2rem; font-weight:700; margin-bottom:20px; max-width:12ch; }
@@ -165,11 +223,13 @@
   .submit-btn:hover { background: var(--wine-bright); }
   .form-note { font-size:0.8rem; color: var(--text-dim); margin-top:14px; }
 
+  /* ---------- STOPKA ---------- */
   footer { padding:40px 0; border-top:1px solid var(--border); }
   .footer-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
   footer p, footer a { font-size:0.85rem; color: var(--text-dim); text-decoration:none; }
   .footer-links { display:flex; gap:22px; }
 
+  /* ---------- CZAT ---------- */
   .chat-widget { position:fixed; bottom:24px; right:24px; z-index:200; }
   .chat-toggle {
     width:56px; height:56px; border-radius:50%; background: linear-gradient(120deg, var(--wine), var(--wine-bright));
@@ -208,6 +268,13 @@
     .chat-panel { width:calc(100vw - 32px); right:-8px; }
   }
 
+  /* ============================================================
+     STICKY CTA MOBILE — NOWY ELEMENT, patrz komentarz w HTML.
+     Widoczny tylko <=860px. Podnosi też czat-widget, żeby się
+     nie nakładały na siebie na małych ekranach.
+     ============================================================ */
+  .mobile-sticky-cta { display:none; }
+
   @media (max-width:1024px) and (min-width:861px) {
     .service-grid { grid-template-columns:repeat(2, 1fr); }
   }
@@ -221,6 +288,7 @@
     .nav-links { display:none; }
     .service-grid { grid-template-columns:1fr; }
     .deliverable-card { flex-direction:column; align-items:flex-start; }
+    .about-trust-card { flex-direction:column; align-items:flex-start; }
     .faq-list { grid-template-columns:1fr; }
     .testimonial-grid { grid-template-columns:1fr; }
     #crystalCanvas { position:relative; width:100%; height:280px; top:0; right:0; margin-bottom:20px; }
@@ -231,6 +299,17 @@
     .row, .tiers, .steps, .contact-card { grid-template-columns:1fr; }
     .statement p { font-size:1.5rem; }
     .market-row { font-size:0.78rem; }
+
+    /* sticky CTA na dole ekranu */
+    .mobile-sticky-cta {
+      display:flex; position:fixed; bottom:0; left:0; width:100%; z-index:190;
+      background: linear-gradient(120deg, var(--wine), var(--wine-bright));
+      padding:14px 20px; justify-content:center;
+      box-shadow: 0 -8px 24px -8px rgba(0,0,0,0.4);
+    }
+    .mobile-sticky-cta a { color:#fff; text-decoration:none; font-weight:600; font-size:0.95rem; }
+    body { padding-bottom:64px; }
+    .chat-widget { bottom:76px; }
   }
 
   @media (max-width:480px) {
@@ -341,6 +420,14 @@
 .form-success p { color: var(--text-dim); font-size:0.95rem; }
 .form-success .map-arrow { color: var(--wine); font-size:2rem; }
 
+/* ============================================================
+   NIEUŻYWANE / DEPRECATED
+   .audit-grid i .audit-item były stylami dla pełnego gridu 01-06
+   w sekcji .audit-check, który usunięto z HTML jako duplikat
+   sekcji .services (patrz komentarz w HTML przy sekcji "Zakres
+   audytu"). Zostawione tutaj na wypadek, gdybyś chciał przywrócić
+   pełny grid — bezpieczne do usunięcia, jeśli nie jest używane.
+   ============================================================ */
 .audit-check {
   padding: 120px 0;
   background: #0b0b0d;
