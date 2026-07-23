@@ -11,9 +11,6 @@
 <meta name="twitter:description" content="Sprawdź, gdzie Twoja firma traci klientów online.">
 <link rel="canonical" href="https://digitalmap.pl/">
 <link rel="icon" href="/favicon.ico">
-<!-- UWAGA: og:title celowo różni się od <title> — <title> jest pod SEO (frazy kluczowe),
-     og:title jest pod social sharing (bardziej "hakowe", emocjonalne). To jest zamierzone,
-     nie "literówka do poprawienia". -->
 <meta property="og:title" content="DigitalMap — Odkryj, dlaczego Twoja firma traci klientów każdego dnia.">
 <meta property="og:url" content="https://digitalmap.pl/">
 <meta property="og:image" content="https://digitalmap.pl/og-image.png">
@@ -25,18 +22,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
 
-<!-- ============================================================
-     SCHEMA.ORG — dane strukturalne pod Google i AI (LLMO/GEO)
-     TODO / DO SPRAWDZENIA:
-     - LocalBusiness bez adresu (streetAddress/postalCode) jest
-       ryzykowny — Google czasem traktuje to jako niepełny/spamowy
-       wpis. Jeśli działacie w 100% zdalnie bez siedziby do pokazania,
-       rozważ zamianę "@type":"LocalBusiness" na samo "Organization"
-       (masz je już zresztą osobno niżej) i usunięcie priceRange.
-     - Warto dodać osobne "Service" schema per usługa (6 warstw) —
-       pomaga to AI Search (ChatGPT/Gemini/Perplexity) trafniej
-       cytować konkretne usługi, nie tylko markę.
-     ============================================================ -->
 <script type="application/ld+json">
 {
  "@context":"https://schema.org",
@@ -110,12 +95,6 @@
 </head>
 <body>
 
-<!-- ============================================================
-     NAWIGACJA
-     CEL: szybki dostęp do sekcji + jedno mikro-CTA ("Sprawdź widoczność")
-     stale widoczne w headerze (sticky). Nie zmieniaj kolejności linków
-     bez zmiany kolejności sekcji niżej — muszą się zgadzać z ID.
-     ============================================================ -->
 <header>
   <div class="nav">
     <a class="logo" href="#">
@@ -173,21 +152,11 @@
 
 <main>
 
-<!-- ============================================================
-     1. HERO — GŁÓWNY PUNKT KONWERSJI
-     CEL: Ból + obietnica + CTA w 3 sekundy scrollowania.
-     STATUS: mocne (dobry nagłówek, spójne CTA, niskie friction).
-     BRAK: zero trust indicators (logo klientów / liczby / cokolwiek
-     potwierdzającego, że to nie jest strona bez klientów). Jak tylko
-     będziesz mieć pierwsze case'y — wstaw pasek zaufania tutaj,
-     pod .hero-checklist, PRZED redesignem czegokolwiek innego.
-     ============================================================ -->
 <section class="hero">
   <canvas id="crystalCanvas" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="hero-content">
-      <span class="mono">Darmowa analiza widoczności online w Google i AI</span>
-      <br>
+      <span class="mono hero-eyebrow">Darmowa analiza widoczności online w Google i AI</span>
       <h1 class="title">Twoja firma traci klientów online.<br><span>Pokażemy Ci dokładnie gdzie.</span></h1>
       <p class="hero-sub">Sprawdzamy stronę, Google, social media, reklamy oraz nowe wyszukiwarki AI (ChatGPT, Gemini), aby znaleźć miejsca, w których uciekają Ci potencjalni klienci.<br>Dostajesz konkretny plan zmian — bez marketingowego chaosu.</p>
       <div class="hero-actions">
@@ -200,12 +169,6 @@
         <span>analizujemy Google + AI + stronę</span>
         <span>dostajesz priorytetowy plan zmian</span>
       </div>
-      <!-- TODO: TRUST BAR — wstaw tu, gdy będziesz mieć pierwszych klientów, np.:
-      <div class="trust-bar">
-        <span>[X]+ przeanalizowanych stron</span>
-        <span>Średnio +[X]% zapytań w 60 dni</span>
-      </div>
-      Style .trust-bar są już przygotowane w CSS (sekcja HERO). -->
     </div>
   </div>
   <div class="marquee-section">
@@ -218,26 +181,12 @@
   </div>
 </section>
 
-<!-- ============================================================
-     2. STATEMENT — zdanie-pauza
-     STATUS: opcjonalne / niski priorytet. Powtarza przekaz z hero
-     innymi słowami. Nie szkodzi, ale jeśli kiedyś strona będzie
-     zbyt długa i trzeba będzie coś skrócić — to jest pierwszy
-     kandydat do wycięcia (nie niesie nowej informacji ani CTA).
-     ============================================================ -->
 <section class="statement">
   <div class="wrap">
     <p>Nie zgaduj, gdzie tracisz klientów. <span>Sprawdź to.</span></p>
   </div>
 </section>
 
-<!-- ============================================================
-     3. PROBLEM / "Częste błędy" — agitacja bólu
-     STATUS: bardzo mocne, konkretne, bez ogólników. Zostaw jak jest.
-     ZMIANA: dodano mikro-CTA na końcu listy — łapie usera w
-     momencie największego napięcia ("to dokładnie mój problem"),
-     zamiast każdorazowo czekać, aż sam przescrolluje do #kontakt.
-     ============================================================ -->
 <section class="problem">
   <div class="wrap">
     <div class="section-head">
@@ -259,44 +208,19 @@
   </div>
 </section>
 
-<!-- ============================================================
-     4. LEAD MAGNET — mini-CTA przed główną ofertą
-     POPRAWKA (WAŻNE): oryginał obiecywał "5 pytań", a formularz
-     w #kontakt ma 3 pola (imię, strona, kontakt). To była realna
-     niespójność — user klika oczekując 5 pytań, widzi 3, traci
-     mikro-zaufanie dokładnie w momencie zostawiania danych.
-     Treść niżej jest teraz zgodna 1:1 z formularzem.
-     ============================================================ -->
 <section class="lead-magnet">
 <div class="wrap">
-
-<h2>Sprawdź swoją widoczność online w 60 sekund</h2>
-
-<p class="lead-small">
-Otrzymasz krótką diagnozę: Google, SEO, AI, strona i pierwsze rekomendacje.
-</p>
-
-<p>
-Zostaw 3 informacje — imię, stronę i kontakt — a resztę zrobimy za Ciebie.
-</p>
-
-<a href="#kontakt" class="btn-primary">
-Rozpocznij darmowy skan
-</a>
-
+  <div class="lead-magnet-card">
+    <div>
+      <span class="mono">Darmowy skan</span>
+      <h2>Sprawdź swoją widoczność online w 60 sekund</h2>
+      <p class="lead-magnet-sub">Otrzymasz krótką diagnozę: Google, SEO, AI, strona i pierwsze rekomendacje. Zostaw 3 informacje — imię, stronę i kontakt — a resztę zrobimy za Ciebie.</p>
+    </div>
+    <a href="#kontakt" class="btn-primary">Rozpocznij darmowy skan</a>
+  </div>
 </div>
 </section>
 
-<!-- ============================================================
-     5. SERVICES ("6 warstw") — GŁÓWNY VALUE PROPOSITION
-     CEL: przedstawienie 6 usług jako spójnej "mapy", nie
-     przypadkowej listy — to jest Wasze najmocniejsze
-     zróżnicowanie względem "zwykłych agencji SEO". Zostaw jak jest.
-     UWAGA: linki "Dowiedz się więcej" prowadzą na podstrony usług —
-     to dobre pod SEO/głębokość treści, ale upewnij się, że każda
-     podstrona ma równie mocne CTA z powrotem do #kontakt, żeby nie
-     tracić ludzi w głębi serwisu.
-     ============================================================ -->
 <section class="services" id="jakpomagamy">
   <div class="wrap">
     <div class="section-head">
@@ -353,16 +277,6 @@ Rozpocznij darmowy skan
   </div>
 </section>
 
-<!-- ============================================================
-     6. "ZAKRES AUDYTU" — WCZEŚNIEJ DUPLIKAT SEKCJI POWYŻEJ
-     CO SIĘ ZMIENIŁO: oryginalna sekcja .audit-check powtarzała
-     identyczną listę 6 punktów (01-06) niemal 1:1 z sekcją
-     .services tuż nad nią — user czytał to samo dwa ekrany z rzędu.
-     Skróciłem do krótkiego przypomnienia + CTA (mid-page
-     reinforcement). Stare style .audit-grid / .audit-item zostały
-     w CSS oznaczone jako NIEUŻYWANE — możesz je bezpiecznie usunąć
-     albo zostawić, jeśli kiedyś zechcesz przywrócić pełny grid.
-     ============================================================ -->
 <section class="audit-check" id="zakres">
   <div class="wrap">
     <div class="section-head center">
@@ -376,10 +290,6 @@ Rozpocznij darmowy skan
   </div>
 </section>
 
-<!-- ============================================================
-     7. DLA KOGO — segmentacja branżowa
-     STATUS: ok, zostaw. Krótkie, konkretne, nie przeciąga.
-     ============================================================ -->
 <section class="for-whom" id="dlakogo">
   <div class="wrap">
     <div class="section-head">
@@ -400,10 +310,6 @@ Rozpocznij darmowy skan
   </div>
 </section>
 
-<!-- ============================================================
-     8. PROCES — redukcja niepewności ("co się dzieje po kliknięciu")
-     STATUS: ok, zostaw.
-     ============================================================ -->
 <section class="process" id="proces">
   <div class="wrap">
     <div class="section-head center">
@@ -420,10 +326,6 @@ Rozpocznij darmowy skan
   </div>
 </section>
 
-<!-- ============================================================
-     9. DELIVERABLE — "co dokładnie dostajesz"
-     STATUS: ok, dobry reframe ("to nie PDF, to mapa"). Zostaw.
-     ============================================================ -->
 <section class="deliverable">
   <div class="wrap">
     <div class="deliverable-card">
@@ -443,19 +345,6 @@ Rozpocznij darmowy skan
   </div>
 </section>
 
-<!-- ============================================================
-     10. OFERTA / CENNIK
-     STATUS: dobry anchoring (tabela "~2250 zł osobno" vs "299 zł").
-     UWAGA STRATEGICZNA: to jest język "oszczędzasz X zł" — czyli
-     dyskontowy. Wasze pozycjonowanie mówi "nie konkurujemy ceną".
-     To nie znaczy "usuń tabelkę" — jako lead magnet działa dobrze.
-     Ale w rozmowach sprzedażowych/outreachu prowadź od razu do
-     tier 3 ("Nawigacja na Żywo"), nie do przekonywania "warte 2250,
-     a kosztuje 299" — to obniża postrzeganą wartość marki przy
-     klientach premium (medycyna estetyczna, nieruchomości).
-     POPRAWKA: doprecyzowano zdanie o 3 wdrożeniach (było niejasne
-     matematycznie).
-     ============================================================ -->
 <section class="offer" id="oferta">
   <div class="wrap">
     <div class="section-head center">
@@ -508,10 +397,6 @@ Rozpocznij darmowy skan
   </div>
 </section>
 
-<!-- ============================================================
-     11. DLACZEGO MY — różnicowanie względem "zwykłych agencji"
-     STATUS: ok, zostaw.
-     ============================================================ -->
 <section class="why">
   <canvas class="side-crystal left" id="crystalSide1" aria-hidden="true"></canvas>
   <div class="wrap">
@@ -530,52 +415,7 @@ Rozpocznij darmowy skan
   </div>
 </section>
 
-<!-- ============================================================
-     12. O NAS / AUTORYTET — SEKCJA NOWA, DO UZUPEŁNIENIA
-     DLACZEGO JEST TU DODANA: pozycjonujecie się jako "partner
-     wzrostu wykorzystujący AI", nie "zwykła agencja SEO" — ale na
-     całej stronie nie ma ani jednego dowodu na doświadczenie
-     (zdjęcia, imienia poza schema.org, liczby, certyfikatu).
-     Dla EEAT (Google) i dla ludzi to jest realna dziura.
-     TODO PRZED OUTREACHEM: podmień WSZYSTKO w nawiasach [ ] na
-     prawdziwe dane. Nie wpisuj liczb/certyfikatów, których nie masz
-     — jeśli nie masz jeszcze case'ów, zostaw tę sekcję wyłączoną
-     (dodaj `style="display:none;"` do <section>, tak jak przy
-     testimonials niżej) zamiast publikować niewypełnione nawiasy.
-     ============================================================ -->
-<section class="about-trust">
-  <div class="wrap">
-    <div class="about-trust-card">
-      <div class="about-trust-text">
-        <span class="mono">Kto to robi</span>
-        <h2>[Imię i nazwisko] — [X] lat w marketingu usług premium</h2>
-        <p>[Krótki, konkretny opis doświadczenia — np. "Przeanalizowałem/-am ponad [X] stron firm usługowych z branż medycyny estetycznej, beauty i nieruchomości, wdrażając zmiany, które zwiększyły liczbę zapytań średnio o [X]%".]</p>
-        <p>[Opcjonalnie: certyfikaty typu Google Partner / Meta Blueprint — wpisz TYLKO jeśli faktycznie je posiadasz.]</p>
-      </div>
-      <div class="about-trust-stats">
-        <div class="stat"><span class="stat-num">[X]+</span><span class="stat-label">[np. przeprowadzonych audytów]</span></div>
-        <div class="stat"><span class="stat-num">[X]</span><span class="stat-label">[np. obsłużonych branż]</span></div>
-        <div class="stat"><span class="stat-num">[X]h</span><span class="stat-label">[np. średni czas odpowiedzi]</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     13. TESTIMONIALE — NAJWIĘKSZA DZIURA NA CAŁEJ STRONIE
-     Sekcja jest wyłączona (display:none) i zawiera same
-     placeholdery. Dla Waszej grupy docelowej (medycyna estetyczna,
-     beauty, nieruchomości) brak dowodu społecznego to najdroższy
-     błąd na tej stronie — te branże kupują na zaufaniu bardziej
-     niż na logice.
-     PRZED OUTREACHEM ZRÓB JEDNO Z DWÓCH:
-     1) Wstaw min. 3 prawdziwe opinie (nawet z pierwszych klientów
-        pilotażowych) i usuń `style="display:none;"` poniżej, ALBO
-     2) Jeśli nie masz jeszcze żadnych opinii, zostaw wyłączone —
-        ale NIE wysyłaj outreachu bez realnego zamiennika (patrz
-        sekcja "O nas" wyżej — konkretne liczby też budują zaufanie).
-     ============================================================ -->
-<section class="testimonials" style="display:none;"><!-- Odkomentuj/ustaw display, gdy będą gotowe prawdziwe opinie -->
+<section class="testimonials" style="display:none;">
   <div class="wrap">
     <div class="section-head center">
       <span class="mono">Opinie</span>
@@ -607,12 +447,6 @@ Rozpocznij darmowy skan
   </div>
 </section>
 
-<!-- ============================================================
-     14. FAQ — NAJMOCNIEJSZA SEKCJA NA STRONIE
-     STATUS: świetne. Odpowiada wprost na obiekcje cenowe i
-     konkurencyjne (np. "dlaczego tylko 299 zł", "mam już agencję").
-     To jest myślenie sprzedażowe, nie tylko informacyjne. Nie ruszaj.
-     ============================================================ -->
 <section class="faq" id="faq">
   <div class="wrap">
     <div class="section-head center">
@@ -634,27 +468,13 @@ Rozpocznij darmowy skan
   </div>
 </section>
 
-<!-- ============================================================
-     15. KONTAKT — FORMULARZ (finalny punkt konwersji)
-     STATUS: formularz ma 3 pola (imię, strona, kontakt) — niskie
-     friction, dobrze.
-     UWAGA / DO SPRAWDZENIA: linijka "Aktualnie przyjmujemy 7 z 10
-     dostępnych audytów w tym tygodniu" to scarcity trigger, który
-     działa świetnie — ALE tylko jeśli jest prawdziwy i aktualizowany
-     ręcznie co jakiś czas. Jeśli zawsze będzie wisieć "7 z 10",
-     to jest fałszywa presja, którą powtarzający się odwiedzający
-     (albo ktoś, kto sprawdzi stronę po tygodniu) łatwo zdemaskuje —
-     i to niszczy zaufanie mocniej, niż gdyby tego zdania w ogóle
-     nie było. Aktualizuj albo usuń.
-     ============================================================ -->
 <section class="contact" id="kontakt">
   <canvas class="side-crystal right" id="crystalSide2" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="contact-card">
       <div>
         <h2>Umówmy rozmowę</h2>
-        <p class="lead">Odpowiadamy w ciągu 24 godzin. Bez zobowiązań, bez presji sprzedażowej.
-        <span class="availability">Aktualnie przyjmujemy 7 z 10 dostępnych audytów w tym tygodniu.</span></p>
+        <p class="lead">Odpowiadamy w ciągu 24 godzin. Bez zobowiązań, bez presji sprzedażowej.</p>
         <div class="contact-detail"><span class="mono">Mail</span> kontakt@digitalmap.pl</div>
         <div class="contact-detail"><span class="mono">Telefon</span> <a href="tel:+48735133271" style="color:var(--text); text-decoration:none;">+48 735 133 271</a></div>
         <div class="contact-detail"><span class="mono">Czas odp.</span> do 24h</div>
@@ -679,11 +499,6 @@ Rozpocznij darmowy skan
 
 </main>
 
-<!-- ============================================================
-     STOPKA
-     STATUS: ok, minimalna. Linki do podstron usług dobrze wspierają
-     wewnętrzne linkowanie pod SEO.
-     ============================================================ -->
 <footer>
   <div class="wrap footer-row" style="flex-direction:column; align-items:flex-start; gap:18px;">
     <div class="footer-row" style="width:100%;">
@@ -715,24 +530,10 @@ Rozpocznij darmowy skan
   </div>
 </footer>
 
-<!-- ============================================================
-     STICKY CTA NA MOBILE — NOWY ELEMENT
-     CEL: na telefonie główne CTA z hero znika po jednym scrollu.
-     Grupa docelowa (właściciele gabinetów/biur) często przegląda
-     telefon między klientami — stały pasek na dole ekranu z jednym
-     CTA łapie ich w dowolnym momencie, nie tylko na górze strony.
-     Widoczny tylko <=860px (patrz CSS .mobile-sticky-cta).
-     ============================================================ -->
 <div class="mobile-sticky-cta" id="mobileStickyCta">
   <a href="#kontakt">Sprawdź swoją widoczność →</a>
 </div>
 
-<!-- ============================================================
-     CZAT — szybkie odpowiedzi na najczęstsze obiekcje
-     STATUS: ok, dobre uzupełnienie FAQ dla ludzi, którzy nie chcą
-     scrollować. Odpowiedzi są statyczne (data-a), edytuj bezpośrednio
-     w atrybutach niżej, jeśli zmieniasz treść FAQ.
-     ============================================================ -->
 <div class="chat-widget">
   <button class="chat-toggle" id="chatToggle" aria-label="Otwórz czat">
     <svg id="chatIconOpen" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H7l-3 3V4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
@@ -764,7 +565,6 @@ Rozpocznij darmowy skan
   initCrystal('crystalSide1', { mainSize: 1.3, withShards: false, camZ: 6 });
   initCrystal('crystalSide2', { mainSize: 1.3, withShards: false, camZ: 6 });
 
-  // ---- mobile hamburger menu ----
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobileMenu');
   const menuIconOpen = document.getElementById('menuIconOpen');
@@ -782,7 +582,6 @@ Rozpocznij darmowy skan
     });
   });
 
-  // ---- formularz kontaktowy bez przekierowania ----
   const contactForm = document.getElementById('contactForm');
   const submitBtn = document.getElementById('submitBtn');
   const formSuccess = document.getElementById('formSuccess');
@@ -813,7 +612,6 @@ Rozpocznij darmowy skan
     });
   }
 
-  // ---- chat widget ----
   const chatToggle = document.getElementById('chatToggle');
   const chatPanel = document.getElementById('chatPanel');
   const chatBody = document.getElementById('chatBody');
