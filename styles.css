@@ -213,20 +213,39 @@
   .field-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   label { display:block; font-size:0.72rem; color: var(--text-dim); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em; }
   .optional-tag { text-transform:none; letter-spacing:normal; font-size:0.72rem; color: var(--text-dim); opacity:0.7; }
-  input, textarea, select { width:100%; padding:0 0 12px; border:none; border-bottom:1px solid var(--border); background: transparent; color: var(--text); font-family:'Inter',sans-serif; font-size:1rem; resize:vertical; }
-  select { appearance:none; -webkit-appearance:none; padding-bottom:11px; cursor:pointer; }
-  select option { background: var(--bg-2); color: var(--text); }
+  input, textarea { width:100%; padding:0 0 12px; border:none; border-bottom:1px solid var(--border); background: transparent; color: var(--text); font-family:'Inter',sans-serif; font-size:1rem; resize:vertical; }
   textarea { min-height:44px; }
-  input:focus, textarea:focus, select:focus { outline:none; border-bottom-color: var(--wine-bright); }
+  input:focus, textarea:focus { outline:none; border-bottom-color: var(--wine-bright); }
 
-  .pill-group { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-  .pill {
-    padding:9px 15px; border-radius:999px; border:1px solid var(--border);
-    background: transparent; color: var(--text-dim); font:inherit; font-size:0.83rem;
-    cursor:pointer; transition: all 0.15s ease; font-family:'Inter',sans-serif;
+  /* select stylizowany jako "chip", nie natywny combobox */
+  select {
+    appearance:none; -webkit-appearance:none; -moz-appearance:none;
+    width:100%; margin-top:2px; padding:13px 40px 13px 16px;
+    background: var(--surface);
+    border:1px solid var(--border); border-radius:12px;
+    color: var(--text); font-family:'Inter',sans-serif; font-size:0.92rem;
+    cursor:pointer; transition: border-color 0.15s ease, background 0.15s ease;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 8l5 5 5-5' stroke='%23E5A85C' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position: right 14px center; background-size:14px;
   }
-  .pill:hover { border-color: var(--wine-bright); color: var(--text); }
-  .pill.active { background: var(--wine); border-color: var(--wine); color: var(--text); }
+  select:hover { border-color: var(--gold-bright); }
+  select:focus { outline:none; border-color: var(--wine-bright); background-color: var(--bg-2); }
+  select option { background: var(--bg-2); color: var(--text); }
+
+  /* pigułki wyboru — jak chip-buttony, nie płaskie obrysy */
+  .pill-group { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .pill {
+    padding:11px 18px; border-radius:999px; border:1px solid var(--border);
+    background: var(--surface); color: var(--text-dim); font:inherit; font-size:0.85rem; font-weight:500;
+    cursor:pointer; transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    font-family:'Inter',sans-serif;
+  }
+  .pill:hover { border-color: var(--gold-bright); color: var(--text); transform: translateY(-1px); }
+  .pill.active {
+    background: linear-gradient(120deg, var(--wine), var(--wine-bright));
+    border-color: var(--wine-bright); color: #fff; font-weight:600;
+    box-shadow: 0 10px 24px -10px rgba(155,34,66,0.55); transform: translateY(-1px);
+  }
 
   .submit-btn { padding:15px 32px; background: var(--wine); color: var(--text); border:none; border-radius:999px; font-weight:600; font-size:0.98rem; cursor:pointer; margin-top:22px; }
   .submit-btn:hover { background: var(--wine-bright); }
