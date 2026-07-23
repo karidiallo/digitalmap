@@ -296,7 +296,7 @@
 }
 
 /* map outcome flow */
-.map-outcome { display:flex; flex-direction:column; align-items:center; margin-top:36px; }
+.map-outcome { display:flex; flex-direction:column; align-items:center; margin-top:70px; }
 .map-arrow { color: var(--gold-bright); font-size:1.5rem; margin-bottom:16px; }
 .map-outcome-card {
   background: linear-gradient(180deg, rgba(155,34,66,0.14), transparent), var(--surface);
