@@ -454,6 +454,72 @@
   }
 }
 
+/* ---------- STRONA 404 ---------- */
+.notfound { padding: 130px 0 160px; text-align: center; }
+.notfound-wrap { max-width: 640px; margin: 0 auto; }
+.notfound-code { color: var(--gold-bright); display: block; margin-bottom: 22px; }
+.notfound-title { font-family: 'Unbounded', sans-serif; font-size: 2.4rem; font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+.notfound-title span { color: var(--wine-bright); }
+.notfound-sub { color: var(--text-dim); font-size: 1.05rem; margin-bottom: 30px; }
+@media (max-width: 860px) {
+  .notfound { padding: 90px 0 110px; }
+  .notfound-title { font-size: 1.7rem; }
+}
+
+/* ---------- STOPKA: COPYRIGHT + LINKI PRAWNE ---------- */
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  width: 100%;
+}
+.footer-legal a { color: var(--text-dim); text-decoration:none; }
+.footer-legal a:hover { color: var(--gold-bright); }
+
+/* ---------- PASEK COOKIES ---------- */
+.cookie-banner {
+  display: none;
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 300;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 26px;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.cookie-banner.show { display: flex; }
+.cookie-banner-text p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.5; }
+.cookie-banner-text b { color: var(--text); }
+.cookie-banner-text a { color: var(--gold-bright); text-decoration: none; border-bottom: 1px solid var(--gold-bright); }
+.cookie-banner-actions { display: flex; gap: 12px; flex-shrink: 0; }
+.cookie-btn-primary, .cookie-btn-secondary {
+  padding: 11px 20px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; white-space: nowrap; font-family: 'Inter', sans-serif;
+}
+.cookie-btn-primary { background: var(--wine); border: 1px solid var(--wine); color: var(--text); }
+.cookie-btn-primary:hover { background: var(--wine-bright); }
+.cookie-btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-dim); }
+.cookie-btn-secondary:hover { color: var(--text); border-color: var(--text-dim); }
+
+@media (max-width: 700px) {
+  .cookie-banner { flex-direction: column; align-items: stretch; left: 12px; right: 12px; bottom: 12px; padding: 20px; }
+  .cookie-banner-actions { flex-direction: column; }
+  .cookie-btn-primary, .cookie-btn-secondary { text-align: center; width: 100%; }
+}
+
 /* ============================================================
    4. LEAD MAGNET
    ZMIANA: layout przebudowany na kartę w stylu .deliverable-card
