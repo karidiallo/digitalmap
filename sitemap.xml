@@ -35,7 +35,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-</urlset>
   <url>
     <loc>https://digitalmap.pl/polityka-prywatnosci/</loc>
     <changefreq>yearly</changefreq>
@@ -46,3 +45,4 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+</urlset>
