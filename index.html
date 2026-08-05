@@ -600,63 +600,6 @@
   </div>
 </div>
 
-<!-- ============================================================
-     PASEK COOKIES
-     STATUS: obecnie na stronie nie ma jeszcze Google Analytics ani
-     Meta Pixel (potwierdzone), więc banner na razie tylko informuje
-     i zapisuje wybór. Gdy dodacie GA/Meta Pixel, wstaw ich kod
-     wewnątrz funkcji loadAnalytics() / loadMetaPixel() w skrypcie
-     niżej — uruchomią się automatycznie TYLKO po kliknięciu
-     "Akceptuję", zgodnie z RODO (zgoda przed załadowaniem trackerów,
-     nie po fakcie).
-     ============================================================ -->
-<div class="cookie-banner" id="cookieBanner">
-  <div class="cookie-banner-text">
-    <p><b>Używamy plików cookies.</b> Niezbędne — do działania strony i formularza kontaktowego. Analityczne i marketingowe — tylko za Twoją zgodą, pomagają nam rozumieć ruch na stronie. Szczegóły w <a href="/polityka-prywatnosci/">polityce prywatności</a>.</p>
-  </div>
-  <div class="cookie-banner-actions">
-    <button class="cookie-btn-secondary" id="cookieReject">Tylko niezbędne</button>
-    <button class="cookie-btn-primary" id="cookieAccept">Akceptuję wszystkie</button>
-  </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="/crystal.js"></script>
-<script>
-  // ---- cookie consent ----
-  function loadAnalytics() {
-    // TODO: wklej tu kod Google Analytics (gtag.js), gdy będzie gotowy.
-    // Uruchamia się tylko, jeśli użytkownik kliknął "Akceptuję wszystkie".
-  }
-  function loadMetaPixel() {
-    // TODO: wklej tu kod Meta Pixel, gdy będzie gotowy.
-    // Uruchamia się tylko, jeśli użytkownik kliknął "Akceptuję wszystkie".
-  }
-
-  const cookieBanner = document.getElementById('cookieBanner');
-  const cookieAccept = document.getElementById('cookieAccept');
-  const cookieReject = document.getElementById('cookieReject');
-  const consent = localStorage.getItem('dm_cookie_consent');
-
-  if (!consent) {
-    cookieBanner.classList.add('show');
-  } else if (consent === 'all') {
-    loadAnalytics();
-    loadMetaPixel();
-  }
-
-  cookieAccept.addEventListener('click', () => {
-    localStorage.setItem('dm_cookie_consent', 'all');
-    cookieBanner.classList.remove('show');
-    loadAnalytics();
-    loadMetaPixel();
-  });
-
-  cookieReject.addEventListener('click', () => {
-    localStorage.setItem('dm_cookie_consent', 'essential');
-    cookieBanner.classList.remove('show');
-  });
-
   initCrystal('crystalCanvas', { mainSize: 2.0, withShards: false, camZ: 6.5 });
   initCrystal('crystalSide1', { mainSize: 1.3, withShards: false, camZ: 6 });
   initCrystal('crystalSide2', { mainSize: 1.3, withShards: false, camZ: 6 });
@@ -748,6 +691,8 @@
     });
   });
 </script>
-
+ 
+<script src="/cookie-consent.js" defer></script>
+ 
 </body>
 </html>
